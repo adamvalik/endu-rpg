@@ -6,11 +6,9 @@ import {
   StravaActivity,
   GameProfile,
   CharacterTier,
-  DailyQuest,
-  DailyQuestType,
   XPCalculationResult,
 } from '../types';
-import { GAME_CONFIG, DAILY_QUESTS } from './game.config';
+import { GAME_CONFIG } from './game.config';
 
 // ============================================================================
 // LEVEL CALCULATION
@@ -109,57 +107,6 @@ export function updateStreak(
 }
 
 // ============================================================================
-// DAILY QUESTS
-// ============================================================================
-
-/**
- * Gets active daily quests for a given day
- */
-export function getActiveDailyQuests(date: Date): DailyQuest[] {
-  const dayOfWeek = date.getDay(); // 0=Sun, 1=Mon, ..., 6=Sat
-  return DAILY_QUESTS.filter((quest) => quest.activeDays.includes(dayOfWeek));
-}
-
-/**
- * Checks which daily quests are completed by an activity
- */
-export function checkDailyQuests(
-  activity: StravaActivity,
-  activityDate: Date,
-  completedQuestsToday: string[],
-): { completedQuests: DailyQuestType[]; bonusXP: number } {
-  const activeQuests = getActiveDailyQuests(activityDate);
-  const newlyCompleted: DailyQuestType[] = [];
-  let bonusXP = 0;
-
-  for (const quest of activeQuests) {
-    // Skip if already completed today
-    if (completedQuestsToday.includes(quest.id)) {
-      continue;
-    }
-
-    // Check if activity meets requirements
-    let completed = true;
-
-    if (quest.requirement.distance) {
-      completed = completed && activity.distance >= quest.requirement.distance;
-    }
-
-    if (quest.requirement.elevation) {
-      completed = completed && activity.total_elevation_gain >= quest.requirement.elevation;
-    }
-
-    if (completed) {
-      newlyCompleted.push(quest.id);
-      bonusXP += quest.reward;
-      logger.info(`Quest completed: ${quest.name} (+${quest.reward} XP)`);
-    }
-  }
-
-  return { completedQuests: newlyCompleted, bonusXP };
-}
-
-// ============================================================================
 // XP CALCULATION
 // ============================================================================
 
@@ -222,9 +169,7 @@ export async function calculateXP(
     return {
       baseXP: 0,
       streakBonus: 0,
-      questBonus: 0,
       totalXP: 0,
-      completedQuests: [],
       capped: false,
     };
   }
@@ -265,16 +210,8 @@ export async function calculateXP(
     logger.info(`Streak bonus applied: +${streakBonus} XP`);
   }
 
-  // Check daily quests
-  const completedQuestsToday = gameProfile?.completedQuestsToday || [];
-  const { completedQuests, bonusXP: questBonus } = checkDailyQuests(
-    activity,
-    activityDate,
-    completedQuestsToday,
-  );
-
   // Calculate total XP
-  let totalXP = baseXP + streakBonus + questBonus;
+  let totalXP = baseXP + streakBonus;
 
   // Apply daily cap
   let capped = false;
@@ -288,9 +225,7 @@ export async function calculateXP(
   return {
     baseXP,
     streakBonus,
-    questBonus,
     totalXP,
-    completedQuests,
     capped,
   };
 }
@@ -332,20 +267,8 @@ export async function updateGameProfile(
     activityDate,
   );
 
-  // Update completed quests
-  const today = new Date();
-  const questResetDate = currentGame?.questResetDate?.toDate();
-  const isNewDay =
-    !questResetDate ||
-    questResetDate.getDate() !== today.getDate() ||
-    questResetDate.getMonth() !== today.getMonth() ||
-    questResetDate.getFullYear() !== today.getFullYear();
-
-  const completedQuestsToday = isNewDay
-    ? xpResult.completedQuests
-    : [...(currentGame?.completedQuestsToday || []), ...xpResult.completedQuests];
-
   // Calculate daily XP
+  const today = new Date();
   const dailyXPResetDate = currentGame?.dailyXPResetDate?.toDate();
   const isDailyReset =
     !dailyXPResetDate ||
@@ -375,8 +298,6 @@ export async function updateGameProfile(
     dailyXPEarned,
     dailyXPResetDate: Timestamp.now(),
     tier: getCharacterTier(level),
-    completedQuestsToday,
-    questResetDate: isNewDay ? Timestamp.now() : currentGame?.questResetDate || Timestamp.now(),
   };
 
   await userRef.update({
@@ -406,7 +327,6 @@ export async function initializeGameProfile(userId: string): Promise<void> {
     streakActive: false,
     dailyXPEarned: 0,
     tier: 'Novice',
-    completedQuestsToday: [],
   };
 
   await userRef.update({
@@ -424,7 +344,7 @@ export async function initializeGameProfile(userId: string): Promise<void> {
 import { onCall, HttpsError } from 'firebase-functions/v2/https';
 
 /**
- * Gets user's game profile and active daily quests
+ * Gets user's game profile
  */
 export const getGameProfile = onCall(
   async (
@@ -432,7 +352,6 @@ export const getGameProfile = onCall(
   ): Promise<{
     status: string;
     game: GameProfile;
-    activeQuests: DailyQuest[];
   }> => {
     if (!request.auth) {
       throw new HttpsError('unauthenticated', 'User must be authenticated.');
@@ -458,14 +377,12 @@ export const getGameProfile = onCall(
         return {
           status: 'success',
           game: initializedGame,
-          activeQuests: getActiveDailyQuests(new Date()),
         };
       }
 
       return {
         status: 'success',
         game,
-        activeQuests: getActiveDailyQuests(new Date()),
       };
     } catch (error) {
       logger.error('Error getting game profile:', error);

@@ -59,7 +59,7 @@ export const getUserProfile = async (useCache = true): Promise<ProfileResponse> 
   if (useCache) {
     const cached = await getCachedUserProfile();
     if (cached) {
-      return { profile: cached };
+      return { status: 'success', profile: cached };
     }
   }
 
@@ -184,7 +184,7 @@ export const getUserStats = async (): Promise<UserStats | null> => {
 };
 
 /**
- * Gets user's game profile including level, XP, and active daily quests with caching
+ * Gets user's game profile including level, XP, and tier with caching
  * Requires user to be authenticated
  * @param useCache - Whether to use cached data if available (default: true)
  */
@@ -198,7 +198,7 @@ export const getGameProfile = async (useCache = true): Promise<GameProfileRespon
   if (useCache) {
     const cached = await getCachedGameProfile();
     if (cached) {
-      return { game: cached, activeQuests: [] }; // Note: activeQuests not cached separately
+      return { status: "success", game: cached };
     }
   }
 

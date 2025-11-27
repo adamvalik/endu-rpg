@@ -5,7 +5,7 @@ import { useAuth } from '../contexts/AuthContext';
 import { signOut } from '../services/auth';
 import { getUserProfile, getGameProfile } from '../services/firebase';
 import { JournalScreen } from './JournalScreen';
-import { UserProfile, GameProfile, DailyQuest } from '../types';
+import { UserProfile, GameProfile } from '../types';
 
 type TabType = 'hero' | 'journal';
 
@@ -13,7 +13,6 @@ export const HomeScreen: React.FC = () => {
   const { user } = useAuth();
   const [userProfile, setUserProfile] = useState<UserProfile | null>(null);
   const [gameProfile, setGameProfile] = useState<GameProfile | null>(null);
-  const [activeQuests, setActiveQuests] = useState<DailyQuest[]>([]);
   const [activeTab, setActiveTab] = useState<TabType>('hero');
   const [loading, setLoading] = useState(true);
 
@@ -30,7 +29,6 @@ export const HomeScreen: React.FC = () => {
       if (profile.stravaConnected) {
         const game = await getGameProfile(useCache);
         setGameProfile(game.game);
-        setActiveQuests(game.activeQuests);
       }
     } catch (err) {
       console.error('Error loading data:', err);
@@ -100,24 +98,6 @@ export const HomeScreen: React.FC = () => {
               </Text>
         </View>
       )}
-
-      {/* Daily Quests */}
-      {/* {activeQuests.length > 0 && gameProfile && (
-        <View style={styles.card}>
-          <Text style={styles.cardTitle}>Daily Quests</Text>
-          {activeQuests.map((quest) => {
-            const completed = gameProfile.completedQuestsToday.includes(quest.id);
-            return (
-              <View key={quest.id} style={styles.questItem}>
-                <Text style={styles.questText}>
-                  {completed ? '✅' : '⬜'} {quest.name}
-                </Text>
-                <Text style={styles.questReward}>+{quest.reward} XP</Text>
-              </View>
-            );
-          })}
-        </View>
-      )} */}
 
       {/* Stats Summary */}
       {userProfile?.stats && userProfile.stats.activitiesCount > 0 && (
@@ -282,24 +262,6 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: '#999',
     fontStyle: 'italic',
-  },
-  questItem: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    paddingVertical: 8,
-    borderBottomWidth: 1,
-    borderBottomColor: '#f0f0f0',
-  },
-  questText: {
-    fontSize: 14,
-    color: '#000',
-    flex: 1,
-  },
-  questReward: {
-    fontSize: 12,
-    color: '#666',
-    fontWeight: '600',
   },
   statsGrid: {
     flexDirection: 'row',
