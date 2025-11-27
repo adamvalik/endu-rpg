@@ -1,9 +1,9 @@
 {
   "expo": {
-    "name": "EnduranceRPG",
-    "slug": "EnduranceRPG",
+    "name": "Endu",
+    "slug": "Endu",
     "version": "1.0.0",
-    "scheme": "endurancerpg",
+    "scheme": "endurpg",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
@@ -15,7 +15,7 @@
     },
     "ios": {
       "supportsTablet": false,
-      "bundleIdentifier": "com.adamvalik.EnduranceRPG"
+      "bundleIdentifier": "com.adamvalik.Endu"
     },
     "android": {
       "adaptiveIcon": {

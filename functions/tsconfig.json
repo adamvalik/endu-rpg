@@ -14,9 +14,9 @@
   },
   "compileOnSave": true,
   "include": [
-    "src" // Only compile files in the 'src' folder
+    "src"
   ],
   "exclude": [
-    "node_modules" // Ignore node_modules
+    "node_modules"
   ]
 }

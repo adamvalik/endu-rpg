@@ -1,5 +1,5 @@
 {
-  "name": "endurancerpg",
+  "name": "endu",
   "license": "0BSD",
   "version": "1.0.0",
   "main": "index.ts",
@@ -7,7 +7,8 @@
     "start": "expo start",
     "prebuild": "npx expo prebuild --platform ios --clean",
     "ios": "expo run:ios",
-    "android": "expo run:android"
+    "android": "expo run:android",
+    "dev": "expo start --dev-client"
   },
   "dependencies": {
     "@mapbox/polyline": "^1.2.1",
