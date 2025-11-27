@@ -25,12 +25,11 @@ export const RootNavigator: React.FC = () => {
   // Re-check Strava connection when app comes to foreground (after OAuth)
   useEffect(() => {
     const subscription = AppState.addEventListener('change', (nextAppState: AppStateStatus) => {
-      // When app comes to foreground and user exists but Strava not connected
+      // When app comes to foreground, re-check if needed
       if (
         appState.current.match(/inactive|background/) &&
         nextAppState === 'active' &&
-        user &&
-        !stravaConnected
+        user
       ) {
         console.log('App came to foreground, re-checking Strava connection...');
         checkStravaConnection();
@@ -41,7 +40,7 @@ export const RootNavigator: React.FC = () => {
     return () => {
       subscription.remove();
     };
-  }, [user, stravaConnected]);
+  }, [user]);
 
   const checkStravaConnection = async () => {
     if (!user) {

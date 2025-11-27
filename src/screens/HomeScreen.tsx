@@ -21,14 +21,14 @@ export const HomeScreen: React.FC = () => {
     loadData();
   }, []);
 
-  const loadData = async () => {
+  const loadData = async (useCache = true) => {
     setLoading(true);
     try {
-      const profile = (await getUserProfile()).profile;
+      const profile = (await getUserProfile(useCache)).profile;
       setUserProfile(profile);
 
       if (profile.stravaConnected) {
-        const game = await getGameProfile();
+        const game = await getGameProfile(useCache);
         setGameProfile(game.game);
         setActiveQuests(game.activeQuests);
       }
@@ -154,7 +154,7 @@ export const HomeScreen: React.FC = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      {activeTab === 'hero' ? renderHeroTab() : <JournalScreen onSyncComplete={loadData} />}
+      {activeTab === 'hero' ? renderHeroTab() : <JournalScreen onSyncComplete={() => loadData(false)} />}
 
       {/* Bottom Navigation */}
       <View style={styles.bottomNav}>

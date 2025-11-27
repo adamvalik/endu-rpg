@@ -93,7 +93,7 @@ return (
           <View style={styles.mapSection}>
             <RoutePreview
               encodedPolyline={polyline}
-              width={140}
+              width={135}
               height={175}
               strokeColor="#000"
               strokeWidth={2}

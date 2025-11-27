@@ -1,6 +1,16 @@
 import { functions, auth } from '../../firebaseConfig';
 import { httpsCallable } from 'firebase/functions';
 import { StravaAuthData, ProfileResponse, UserStats, GameProfileResponse, GetActivitiesResponse } from '../types';
+import {
+  getCachedActivities,
+  cacheActivities,
+  getCachedGameProfile,
+  cacheGameProfile,
+  getCachedUserProfile,
+  cacheUserProfile,
+  invalidateActivitiesCache,
+  invalidateGameProfileCache
+} from './cache';
 
 /**
  * Exchanges Strava authorization code for access token via Firebase Function
@@ -36,19 +46,31 @@ export const exchangeStravaCode = async (code: string): Promise<StravaAuthData> 
 };
 
 /**
- * Gets user profile from Firestore
+ * Gets user profile from Firestore with caching
  * Requires user to be authenticated
  */
-export const getUserProfile = async (): Promise<ProfileResponse> => {
+export const getUserProfile = async (useCache = true): Promise<ProfileResponse> => {
   const currentUser = auth.currentUser;
   if (!currentUser) {
     throw new Error('User must be authenticated');
+  }
+
+  // Try cache first if enabled
+  if (useCache) {
+    const cached = await getCachedUserProfile();
+    if (cached) {
+      return { profile: cached };
+    }
   }
 
   const getUserProfileFunction = httpsCallable<void, ProfileResponse>(functions, 'getUserProfile');
 
   try {
     const result = await getUserProfileFunction();
+    // Cache the result
+    if (result.data.profile) {
+      await cacheUserProfile(result.data.profile);
+    }
     return result.data;
   } catch (error: any) {
     console.error("Error getting user profile:", error);
@@ -78,13 +100,24 @@ export const updateUserProfile = async (displayName: string) => {
 };
 
 /**
- * Gets user's stored activities from Firestore
+ * Gets user's stored activities from Firestore with caching
  * Requires user to be authenticated
+ * @param page - Page number for pagination
+ * @param perPage - Number of activities per page
+ * @param useCache - Whether to use cached data if available (default: true)
  */
-export const getUserActivities = async (page = 1, perPage = 30): Promise<GetActivitiesResponse> => {
+export const getUserActivities = async (page = 1, perPage = 30, useCache = true): Promise<GetActivitiesResponse> => {
   const currentUser = auth.currentUser;
   if (!currentUser) {
     throw new Error('User must be authenticated');
+  }
+
+  // Only use cache for first page
+  if (useCache && page === 1) {
+    const cached = await getCachedActivities();
+    if (cached) {
+      return { status: 'success', activities: cached };
+    }
   }
 
   const getUserActivitiesFunction = httpsCallable<{ page: number; perPage: number }, GetActivitiesResponse>(
@@ -96,6 +129,12 @@ export const getUserActivities = async (page = 1, perPage = 30): Promise<GetActi
     console.log("📞 Fetching user activities from Firestore...");
     const result = await getUserActivitiesFunction({ page, perPage });
     console.log("✅ Got activities");
+
+    // Cache first page of activities
+    if (page === 1 && result.data.activities) {
+      await cacheActivities(result.data.activities);
+    }
+
     return result.data;
   } catch (error: any) {
     console.error("❌ Error fetching activities:", error);
@@ -105,6 +144,7 @@ export const getUserActivities = async (page = 1, perPage = 30): Promise<GetActi
 
 /**
  * Syncs activities from Strava and stores them in Firestore
+ * Invalidates activities cache to force refresh
  * Requires user to be authenticated and connected to Strava
  */
 export const syncStravaActivities = async (page = 1, perPage = 30): Promise<GetActivitiesResponse> => {
@@ -122,6 +162,11 @@ export const syncStravaActivities = async (page = 1, perPage = 30): Promise<GetA
     console.log("📞 Syncing Strava activities...");
     const result = await getActivitiesFunction({ page, perPage });
     console.log("✅ Synced activities");
+
+    // Invalidate caches since we have new data
+    await invalidateActivitiesCache();
+    await invalidateGameProfileCache();
+
     return result.data;
   } catch (error: any) {
     console.error("❌ Error syncing activities:", error);
@@ -139,13 +184,22 @@ export const getUserStats = async (): Promise<UserStats | null> => {
 };
 
 /**
- * Gets user's game profile including level, XP, and active daily quests
+ * Gets user's game profile including level, XP, and active daily quests with caching
  * Requires user to be authenticated
+ * @param useCache - Whether to use cached data if available (default: true)
  */
-export const getGameProfile = async (): Promise<GameProfileResponse> => {
+export const getGameProfile = async (useCache = true): Promise<GameProfileResponse> => {
   const currentUser = auth.currentUser;
   if (!currentUser) {
     throw new Error('User must be authenticated');
+  }
+
+  // Try cache first if enabled
+  if (useCache) {
+    const cached = await getCachedGameProfile();
+    if (cached) {
+      return { game: cached, activeQuests: [] }; // Note: activeQuests not cached separately
+    }
   }
 
   const getGameProfileFunction = httpsCallable<void, GameProfileResponse>(functions, 'getGameProfile');
@@ -154,6 +208,12 @@ export const getGameProfile = async (): Promise<GameProfileResponse> => {
     console.log("📞 Fetching game profile...");
     const result = await getGameProfileFunction();
     console.log("✅ Got game profile:", result.data);
+
+    // Cache the game profile
+    if (result.data.game) {
+      await cacheGameProfile(result.data.game);
+    }
+
     return result.data as GameProfileResponse;
   } catch (error: any) {
     console.error("❌ Error fetching game profile:", error);

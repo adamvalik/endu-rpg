@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { Text, View, StyleSheet, ScrollView, TouchableOpacity, ActivityIndicator, Alert, RefreshControl } from 'react-native';
+import React, { useState, useEffect, useRef } from 'react';
+import { Text, View, StyleSheet, ScrollView, TouchableOpacity, ActivityIndicator, Alert, RefreshControl, Animated } from 'react-native';
 import { ActivityTile } from '../components';
 import { getUserActivities, syncStravaActivities } from '../services/firebase';
 import { StravaActivity } from '../types';
@@ -21,10 +21,10 @@ export const JournalScreen: React.FC<JournalScreenProps> = ({ onSyncComplete }) 
     loadActivities();
   }, []);
 
-  const loadActivities = async (resetPagination = true) => {
+  const loadActivities = async (resetPagination = true, useCache = true) => {
     try {
       setLoading(true);
-      const response = await getUserActivities(1, 10);
+      const response = await getUserActivities(1, 10, useCache);
       if (response && response.activities) {
         setActivities(response.activities);
         setHasMore(response.activities.length === 10);
@@ -42,10 +42,10 @@ export const JournalScreen: React.FC<JournalScreenProps> = ({ onSyncComplete }) 
   const handleManualSync = async () => {
     try {
       setSyncing(true);
-      // sync from Strava
+      // sync from Strava (this invalidates cache)
       await syncStravaActivities(1, 3);
-      // reload activities from Firestore
-      await loadActivities();
+      // reload activities from Firestore (skip cache to get fresh data)
+      await loadActivities(true, false);
       // notify HomeScreen to refresh stats
       onSyncComplete?.();
     } catch (err) {
@@ -58,10 +58,10 @@ export const JournalScreen: React.FC<JournalScreenProps> = ({ onSyncComplete }) 
   const handleInitialManualSync = async () => {
     try {
       setSyncing(true);
-      // sync from Strava
+      // sync from Strava (this invalidates cache)
       await syncStravaActivities(1, 30);
-      // reload activities from Firestore
-      await loadActivities();
+      // reload activities from Firestore (skip cache to get fresh data)
+      await loadActivities(true, false);
       // notify HomeScreen to refresh stats
       onSyncComplete?.();
     } catch (err) {
@@ -74,8 +74,8 @@ export const JournalScreen: React.FC<JournalScreenProps> = ({ onSyncComplete }) 
   const onRefresh = async () => {
     try {
       setRefreshing(true);
-      // reload activities from Firestore
-      await loadActivities();
+      // reload activities from Firestore (skip cache for pull-to-refresh)
+      await loadActivities(true, false);
       // notify HomeScreen to refresh stats
       onSyncComplete?.();
     } catch (err) {
@@ -109,16 +109,79 @@ export const JournalScreen: React.FC<JournalScreenProps> = ({ onSyncComplete }) 
     }
   };
 
+  const SkeletonActivityTile = () => {
+    const shimmerAnim = useRef(new Animated.Value(0)).current;
+
+    useEffect(() => {
+      Animated.loop(
+        Animated.sequence([
+          Animated.timing(shimmerAnim, {
+            toValue: 1,
+            duration: 1200,
+            useNativeDriver: true,
+          }),
+          Animated.timing(shimmerAnim, {
+            toValue: 0,
+            duration: 1200,
+            useNativeDriver: true,
+          }),
+        ])
+      ).start();
+    }, []);
+
+    const opacity = shimmerAnim.interpolate({
+      inputRange: [0, 1],
+      outputRange: [0.3, 0.7],
+    });
+
+    return (
+      <View style={styles.skeletonCard}>
+        <View style={styles.skeletonContentRow}>
+          {/* Left side: Info */}
+          <View style={styles.skeletonInfoSection}>
+            {/* Header - activity name and date */}
+            <View style={styles.skeletonHeader}>
+              <Animated.View style={[styles.skeletonTitle, { opacity }]} />
+              <Animated.View style={[styles.skeletonDate, { opacity }]} />
+            </View>
+
+            {/* Stats row */}
+            <View style={styles.skeletonStatsRow}>
+              <View style={styles.skeletonStatBox}>
+                <Animated.View style={[styles.skeletonStatLabel, { opacity }]} />
+                <Animated.View style={[styles.skeletonStatValue, { opacity }]} />
+              </View>
+              <View style={styles.skeletonStatBox}>
+                <Animated.View style={[styles.skeletonStatLabel, { opacity }]} />
+                <Animated.View style={[styles.skeletonStatValue, { opacity }]} />
+              </View>
+            </View>
+
+            {/* XP Badge */}
+            <Animated.View style={[styles.skeletonXpBadge, { opacity }]} />
+          </View>
+
+          {/* Right side: Map placeholder */}
+          <View style={styles.skeletonMapSection}>
+            <Animated.View style={[styles.skeletonMap, { opacity }]} />
+          </View>
+        </View>
+      </View>
+    );
+  };
+
   if (loading) {
     return (
       <View style={styles.container}>
         <View style={styles.header}>
           <Text style={styles.title}>Journal</Text>
         </View>
-        <View style={styles.centerContent}>
-          <ActivityIndicator size="large" color="#000" />
-          <Text style={styles.loadingText}>Loading activities...</Text>
-        </View>
+        <ScrollView style={styles.scrollView} contentContainerStyle={styles.scrollContent}>
+          <SkeletonActivityTile />
+          <SkeletonActivityTile />
+          <SkeletonActivityTile />
+          <SkeletonActivityTile />
+        </ScrollView>
       </View>
     );
   }
@@ -292,5 +355,71 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: '#999',
     fontStyle: 'italic',
+  },
+  skeletonCard: {
+    backgroundColor: '#fff',
+    borderWidth: 2,
+    borderColor: '#000',
+    marginBottom: 12,
+    overflow: 'hidden',
+  },
+  skeletonContentRow: {
+    flexDirection: 'row',
+  },
+  skeletonInfoSection: {
+    flex: 1,
+    padding: 16,
+  },
+  skeletonHeader: {
+    marginBottom: 12,
+  },
+  skeletonTitle: {
+    height: 18,
+    backgroundColor: '#ddd',
+    marginBottom: 4,
+    width: '70%',
+  },
+  skeletonDate: {
+    height: 12,
+    backgroundColor: '#ddd',
+    width: '40%',
+  },
+  skeletonStatsRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: 12,
+    paddingBottom: 12,
+    borderBottomWidth: 1,
+    borderBottomColor: '#e0e0e0',
+    width: '60%',
+  },
+  skeletonStatBox: {
+    flex: 1,
+  },
+  skeletonStatLabel: {
+    height: 11,
+    backgroundColor: '#ddd',
+    marginBottom: 4,
+    width: '60%',
+  },
+  skeletonStatValue: {
+    height: 14,
+    backgroundColor: '#ddd',
+    width: '80%',
+  },
+  skeletonXpBadge: {
+    height: 26,
+    backgroundColor: '#ddd',
+    width: 70,
+  },
+  skeletonMapSection: {
+    width: '40%',
+    borderLeftWidth: 2,
+    borderLeftColor: '#000',
+  },
+  skeletonMap: {
+    width: '100%',
+    height: 175,
+    backgroundColor: '#f0f0f0',
   },
 });

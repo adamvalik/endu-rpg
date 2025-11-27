@@ -24,7 +24,7 @@ export const functions = getFunctions(app);
 
 // Connect to emulators in development
 if (__DEV__) {
-  const host = process.env.DEV_HOST || 'localhost';
+  const host = "192.168.0.207";
 
   console.log(`🔥 Connecting to Firebase Emulators at ${host}`);
 
