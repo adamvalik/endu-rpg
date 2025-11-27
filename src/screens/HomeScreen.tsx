@@ -60,7 +60,7 @@ export const HomeScreen: React.FC = () => {
       {/* Header */}
       <View style={styles.header}>
         <View>
-          <Text style={styles.title}>EnduRPG</Text>
+          <Text style={styles.title}>ENDU</Text>
           <Text style={styles.email}>{user?.email}</Text>
         </View>
         <TouchableOpacity style={styles.signOutButton} onPress={handleSignOut}>
@@ -163,7 +163,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#f5f5f5',
-    marginTop: 32,
+    paddingTop: 32,
   },
   content: {
     flex: 1,
@@ -183,11 +183,10 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'flex-start',
     marginBottom: 32,
-
   },
   title: {
-    fontSize: 24,
-    fontWeight: 'bold',
+    fontSize: 32,
+    fontFamily: 'Tiny5',
     color: '#000',
     marginBottom: 4,
   },
