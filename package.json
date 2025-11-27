@@ -1,0 +1,35 @@
+{
+  "name": "endurancerpg",
+  "license": "0BSD",
+  "version": "1.0.0",
+  "main": "index.ts",
+  "scripts": {
+    "start": "expo start",
+    "prebuild": "npx expo prebuild --platform ios --clean",
+    "ios": "expo run:ios",
+    "android": "expo run:android"
+  },
+  "dependencies": {
+    "@mapbox/polyline": "^1.2.1",
+    "@react-native-async-storage/async-storage": "^1.24.0",
+    "axios": "^1.13.2",
+    "expo": "~54.0.22",
+    "expo-auth-session": "~7.0.8",
+    "expo-dev-client": "~6.0.18",
+    "expo-linking": "~8.0.8",
+    "expo-status-bar": "~3.0.8",
+    "expo-web-browser": "~15.0.9",
+    "firebase": "^12.5.0",
+    "firebase-functions": "^7.0.0",
+    "react": "19.1.0",
+    "react-native": "0.81.5",
+    "react-native-safe-area-context": "^5.6.2",
+    "react-native-svg": "15.12.1"
+  },
+  "devDependencies": {
+    "@types/react": "~19.1.0",
+    "@types/react-native": "^0.72.8",
+    "typescript": "~5.9.2"
+  },
+  "private": true
+}

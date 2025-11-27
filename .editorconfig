@@ -1,0 +1,44 @@
+root = true
+
+# Default settings
+[*]
+charset = utf-8
+end_of_line = lf
+indent_style = space
+indent_size = 2
+trim_trailing_whitespace = true
+insert_final_newline = true
+max_line_length = 120
+
+# Markdown: preserve trailing spaces for hard line breaks, allow long lines
+[*.md]
+trim_trailing_whitespace = false
+max_line_length = off
+
+# YAML
+[*.{yml,yaml}]
+indent_size = 2
+
+# JSON
+[*.{json,jsonc}]
+indent_size = 2
+
+# Python
+[*.py]
+indent_style = space
+indent_size = 4
+
+# Shell scripts
+[*.{sh,bash}]
+indent_style = space
+indent_size = 2
+trim_trailing_whitespace = false
+
+# Web / JS / TS / CSS / HTML
+[*.{js,jsx,ts,tsx,css,scss,html}]
+indent_size = 2
+
+# This EditorConfig file
+[.editorconfig]
+indent_style = space
+indent_size = 2
