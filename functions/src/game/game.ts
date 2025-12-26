@@ -7,6 +7,9 @@ import {
   GameProfile,
   CharacterTier,
   XPCalculationResult,
+  CalculatedLevel,
+  StreakCalculationResult,
+  GameProfileResponse,
 } from '../types';
 import { GAME_CONFIG } from './game.config';
 
@@ -16,21 +19,18 @@ import { GAME_CONFIG } from './game.config';
 
 /**
  * Calculates XP required for a given level
- * Formula: Base × (Level)^1.5
+ * Formula: A × L^2 + B × L (where L = level, A = steepness, B = linearity)
  */
 export function getXPRequiredForLevel(level: number): number {
   if (level <= 1) return 0;
-  return Math.floor(GAME_CONFIG.LEVEL_BASE_XP * Math.pow(level, GAME_CONFIG.LEVEL_EXPONENT));
+  const {A, B} = GAME_CONFIG.LEVELING;
+  return Math.floor(A * Math.pow(level, 2) + B * level);
 }
 
 /**
  * Calculates current level and XP progress based on total XP
  */
-export function calculateLevel(totalXP: number): {
-  level: number;
-  currentLevelXP: number;
-  nextLevelXP: number;
-} {
+export function calculateLevel(totalXP: number): CalculatedLevel {
   let level = 1;
   let xpForCurrentLevel = 0;
 
@@ -58,9 +58,9 @@ export function calculateLevel(totalXP: number): {
  * Determines character tier based on level
  */
 export function getCharacterTier(level: number): CharacterTier {
-  if (level >= 20) return 'Master';
-  if (level >= 10) return 'Expert';
-  if (level >= 5) return 'Apprentice';
+  if (level >= 50) return 'Master';
+  if (level >= 25) return 'Expert';
+  if (level >= 10) return 'Apprentice';
   return 'Novice';
 }
 
@@ -76,13 +76,15 @@ export function updateStreak(
   lastActivityDate: Timestamp | undefined,
   currentStreakCount: number,
   currentActivityDate: Date,
-): { streakCount: number; streakActive: boolean } {
+): StreakCalculationResult {
   if (!lastActivityDate) {
     // First activity
     return { streakCount: 1, streakActive: false };
   }
 
   const lastDate = lastActivityDate.toDate();
+
+  // getTime() returns milliseconds since epoch
   const daysDiff = Math.floor(
     (currentActivityDate.getTime() - lastDate.getTime()) / (1000 * 60 * 60 * 24),
   );
@@ -133,27 +135,50 @@ function isSuspiciousSpeed(activity: StravaActivity): boolean {
  * Calculates base XP from activity based on type and distance
  */
 function calculateBaseXP(activity: StravaActivity): number {
-  const distanceKm = activity.distance / 1000;
+  let activityXP = 0;
 
-  // Determine XP multiplier based on activity type
-  let xpPerKm: number;
+  // Distance-based activities
+  if (activity.distance > 0) {
+    const distanceKm = activity.distance / 1000;
+    let xpPerKm: number;
 
-  if (GAME_CONFIG.RUNNING_TYPES.includes(activity.type)) {
-    xpPerKm = GAME_CONFIG.XP_PER_KM_RUN;
-  } else if (GAME_CONFIG.CYCLING_TYPES.includes(activity.type)) {
-    xpPerKm = GAME_CONFIG.XP_PER_KM_RIDE;
-  } else {
-    // Default to walking pace for other activities
-    xpPerKm = GAME_CONFIG.XP_PER_KM_RUN;
+    if (GAME_CONFIG.RUNNING_TYPES.includes(activity.type)) {
+      xpPerKm = GAME_CONFIG.XP_PER_KM_RUN;
+    } else if (GAME_CONFIG.WALKING_TYPES.includes(activity.type)) {
+      xpPerKm = GAME_CONFIG.XP_PER_KM_WALK;
+    } else if (GAME_CONFIG.XC_SKI_TYPES.includes(activity.type)) {
+      xpPerKm = GAME_CONFIG.XP_PER_KM_XC_SKI;
+    } else if (GAME_CONFIG.SKI_TYPES.includes(activity.type)) {
+      xpPerKm = GAME_CONFIG.XP_PER_KM_SKI;
+    } else if (GAME_CONFIG.CYCLING_TYPES.includes(activity.type)) {
+      xpPerKm = GAME_CONFIG.XP_PER_KM_RIDE;
+    } else if (GAME_CONFIG.SWIM_TYPES.includes(activity.type)) {
+      xpPerKm = GAME_CONFIG.XP_PER_KM_SWIM;
+    } else {
+      // Default to yoga/other time-based
+      xpPerKm = 0;
+    }
+
+    if (xpPerKm > 0) {
+      activityXP = distanceKm * xpPerKm;
+    }
   }
 
-  // Calculate distance XP
-  const distanceXP = distanceKm * xpPerKm;
+  // Time-based activities (if no distance or specific types)
+  if (activityXP === 0 && activity.moving_time > 0) {
+    const movingTimeMin = activity.moving_time / 60;
 
-  // Add elevation bonus
-  const elevationXP = (activity.total_elevation_gain / 10) * GAME_CONFIG.XP_PER_10M_ELEVATION;
+    if (GAME_CONFIG.WORKOUT_TYPES.includes(activity.type)) {
+      activityXP = movingTimeMin * GAME_CONFIG.XP_PER_MIN_WORKOUT;
+    } else if (GAME_CONFIG.YOGA_TYPES.includes(activity.type)) {
+      activityXP = movingTimeMin * GAME_CONFIG.XP_PER_MIN_YOGA;
+    }
+  }
 
-  return Math.floor(distanceXP + elevationXP);
+  // Add elevation bonus (applies to all activities)
+  const elevationXP = activity.total_elevation_gain * GAME_CONFIG.XP_PER_M_ELEVATION;
+
+  return Math.floor(activityXP + elevationXP);
 }
 
 /**
@@ -170,7 +195,6 @@ export async function calculateXP(
       baseXP: 0,
       streakBonus: 0,
       totalXP: 0,
-      capped: false,
     };
   }
 
@@ -182,27 +206,6 @@ export async function calculateXP(
   // Calculate base XP
   let baseXP = calculateBaseXP(activity);
 
-  // Check daily XP cap
-  const activityDate = new Date(activity.start_date);
-  const today = new Date();
-  const isToday =
-    activityDate.getDate() === today.getDate() &&
-    activityDate.getMonth() === today.getMonth() &&
-    activityDate.getFullYear() === today.getFullYear();
-
-  let dailyXPEarned = gameProfile?.dailyXPEarned || 0;
-
-  // Reset daily XP if it's a new day
-  const lastResetDate = gameProfile?.dailyXPResetDate?.toDate();
-  if (
-    !lastResetDate ||
-    lastResetDate.getDate() !== today.getDate() ||
-    lastResetDate.getMonth() !== today.getMonth() ||
-    lastResetDate.getFullYear() !== today.getFullYear()
-  ) {
-    dailyXPEarned = 0;
-  }
-
   // Apply streak bonus
   let streakBonus = 0;
   if (gameProfile?.streakActive) {
@@ -213,20 +216,10 @@ export async function calculateXP(
   // Calculate total XP
   let totalXP = baseXP + streakBonus;
 
-  // Apply daily cap
-  let capped = false;
-  if (isToday && dailyXPEarned + totalXP > GAME_CONFIG.DAILY_XP_CAP) {
-    const xpBeforeCap = totalXP;
-    totalXP = Math.max(0, GAME_CONFIG.DAILY_XP_CAP - dailyXPEarned);
-    capped = true;
-    logger.warn(`Daily XP cap applied: ${xpBeforeCap} XP reduced to ${totalXP} XP`);
-  }
-
   return {
     baseXP,
     streakBonus,
-    totalXP,
-    capped,
+    totalXP
   };
 }
 
@@ -267,25 +260,6 @@ export async function updateGameProfile(
     activityDate,
   );
 
-  // Calculate daily XP
-  const today = new Date();
-  const dailyXPResetDate = currentGame?.dailyXPResetDate?.toDate();
-  const isDailyReset =
-    !dailyXPResetDate ||
-    dailyXPResetDate.getDate() !== today.getDate() ||
-    dailyXPResetDate.getMonth() !== today.getMonth() ||
-    dailyXPResetDate.getFullYear() !== today.getFullYear();
-
-  const dailyXPEarned = isDailyReset
-    ? xpResult.totalXP
-    : (currentGame?.dailyXPEarned || 0) + xpResult.totalXP;
-
-  // Check for level up
-  const oldLevel = currentGame?.level || 1;
-  if (level > oldLevel) {
-    logger.info(`🎉 User ${userId} leveled up! ${oldLevel} → ${level}`);
-  }
-
   // Update game profile
   const updatedGame: GameProfile = {
     totalXP: newTotalXP,
@@ -295,8 +269,6 @@ export async function updateGameProfile(
     streakCount,
     streakActive,
     lastActivityDate: Timestamp.fromDate(activityDate),
-    dailyXPEarned,
-    dailyXPResetDate: Timestamp.now(),
     tier: getCharacterTier(level),
   };
 
@@ -325,7 +297,6 @@ export async function initializeGameProfile(userId: string): Promise<void> {
     nextLevelXP: getXPRequiredForLevel(2),
     streakCount: 0,
     streakActive: false,
-    dailyXPEarned: 0,
     tier: 'Novice',
   };
 
@@ -349,10 +320,7 @@ import { onCall, HttpsError } from 'firebase-functions/v2/https';
 export const getGameProfile = onCall(
   async (
     request,
-  ): Promise<{
-    status: string;
-    game: GameProfile;
-  }> => {
+  ): Promise<GameProfileResponse> => {
     if (!request.auth) {
       throw new HttpsError('unauthenticated', 'User must be authenticated.');
     }
