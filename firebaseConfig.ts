@@ -3,6 +3,7 @@ import { connectAuthEmulator, initializeAuth, getReactNativePersistence } from '
 import { getFirestore, connectFirestoreEmulator } from "firebase/firestore";
 import { getFunctions, connectFunctionsEmulator } from "firebase/functions";
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import Constants from 'expo-constants';
 
 const firebaseConfig = {
   apiKey: process.env.EXPO_PUBLIC_FIREBASE_API_KEY,
@@ -22,18 +23,25 @@ export const auth = initializeAuth(app, {
 export const db = getFirestore(app);
 export const functions = getFunctions(app);
 
-// Connect to emulators in development
-if (__DEV__) {
-  const host = "192.168.0.207";
+// Determine if we should use emulators
+// Check environment variable first, then fall back to app.json extra config
+const useEmulatorsEnv = process.env.EXPO_PUBLIC_USE_EMULATORS === 'true';
+const useEmulatorsConfig = Constants.expoConfig?.extra?.useEmulators === true;
+const useEmulators = useEmulatorsEnv || (__DEV__ && useEmulatorsConfig);
+
+if (useEmulators) {
+  const host = process.env.EXPO_PUBLIC_EMULATOR_HOST || "localhost";
 
   console.log(`🔥 Connecting to Firebase Emulators at ${host}`);
 
   // Connect to Auth Emulator
   connectAuthEmulator(auth, `http://${host}:9099`);
 
-  // Connect to Functions Emulator
+  // Connect to Firestore Emulator
   connectFirestoreEmulator(db, host, 8080);
 
-  // Connect to Firestore Emulator
+  // Connect to Functions Emulator
   connectFunctionsEmulator(functions, host, 5001);
+} else {
+  console.log('🌐 Using production Firebase services');
 }

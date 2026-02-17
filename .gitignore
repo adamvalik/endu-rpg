@@ -46,3 +46,8 @@ yarn-error.*
 
 # pre-commit hooks
 .husky/
+
+.vscode/
+
+google-services.json
+GoogleService-Info.plist

@@ -1,7 +1,9 @@
 {
   "projects": {
     "dev": "strava-rpg",
-    "prod": "endu-production"
+    "prod": "endu-production",
+    "development": "strava-rpg",
+    "production": "endu-production"
   },
   "targets": {},
   "etags": {}
