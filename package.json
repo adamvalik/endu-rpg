@@ -8,7 +8,13 @@
     "prebuild": "npx expo prebuild --platform ios --clean",
     "ios": "expo run:ios",
     "android": "expo run:android",
-    "dev": "expo start --dev-client"
+    "dev": "expo start --dev-client",
+    "web:dev": "cd web && npm run dev",
+    "web:build": "cd web && npm run build",
+    "web:preview": "cd web && npm run preview",
+    "deploy:web": "npm run web:build && firebase deploy --only hosting",
+    "deploy:functions": "firebase deploy --only functions",
+    "deploy:all": "npm run web:build && firebase deploy"
   },
   "dependencies": {
     "@mapbox/polyline": "^1.2.1",
