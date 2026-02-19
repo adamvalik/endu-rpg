@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 import { exchangeStravaCode } from '@/services/firebase'
 import { Spinner } from '@/components/Spinner'
@@ -7,8 +7,12 @@ export function StravaCallbackPage() {
   const [searchParams] = useSearchParams()
   const navigate = useNavigate()
   const [error, setError] = useState<string | null>(null)
+  const hasExchanged = useRef(false)
 
   useEffect(() => {
+    // Prevent duplicate exchanges
+    if (hasExchanged.current) return
+
     const code = searchParams.get('code')
     const errorParam = searchParams.get('error')
 
@@ -24,6 +28,7 @@ export function StravaCallbackPage() {
       return
     }
 
+    hasExchanged.current = true
     handleCodeExchange(code)
   }, [searchParams, navigate])
 

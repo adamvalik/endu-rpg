@@ -10,6 +10,7 @@ import {
   invalidateGameProfileCache,
   cacheUserProfile,
   getCachedUserProfile,
+  invalidateUserProfileCache,
 } from './cache'
 
 // Define callable functions
@@ -81,4 +82,7 @@ export async function syncStravaActivities(page = 1, perPage = 3): Promise<Strav
 // Exchange Strava Code
 export async function exchangeStravaCode(code: string): Promise<void> {
   await exchangeCodeForTokenFunction({ code })
+
+  // Invalidate cache after connecting Strava
+  invalidateUserProfileCache()
 }

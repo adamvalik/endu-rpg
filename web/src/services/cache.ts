@@ -56,3 +56,4 @@ export const invalidateGameProfileCache = () => invalidateCache(CACHE_KEYS.GAME_
 
 export const cacheUserProfile = (data: any) => cacheData(CACHE_KEYS.USER_PROFILE, data)
 export const getCachedUserProfile = () => getCachedData<any>(CACHE_KEYS.USER_PROFILE, CACHE_DURATION.USER_PROFILE)
+export const invalidateUserProfileCache = () => invalidateCache(CACHE_KEYS.USER_PROFILE)
