@@ -1,48 +1,59 @@
 const CACHE_KEYS = {
-  ACTIVITIES: 'cached_activities',
-  GAME_PROFILE: 'cached_game_profile',
-  USER_PROFILE: 'cached_user_profile',
+    ACTIVITIES: 'cached_activities',
+    GAME_PROFILE: 'cached_game_profile',
+    USER_PROFILE: 'cached_user_profile',
 }
 
 const CACHE_DURATION = {
-  ACTIVITIES: 5 * 60 * 1000, // 5 minutes
-  GAME_PROFILE: 2 * 60 * 1000, // 2 minutes
-  USER_PROFILE: 5 * 60 * 1000, // 5 minutes
+    ACTIVITIES: 5 * 60 * 1000, // 5 minutes
+    GAME_PROFILE: 2 * 60 * 1000, // 2 minutes
+    USER_PROFILE: 5 * 60 * 1000, // 5 minutes
 }
 
 interface CachedData<T> {
-  data: T
-  timestamp: number
+    data: T
+    timestamp: number
 }
 
 function isCacheValid(timestamp: number, duration: number): boolean {
-  return Date.now() - timestamp < duration
+    return Date.now() - timestamp < duration
 }
 
 export function cacheData<T>(key: string, data: T): void {
-  const cacheData: CachedData<T> = { data, timestamp: Date.now() }
-  localStorage.setItem(key, JSON.stringify(cacheData))
+    try {
+        const cacheData: CachedData<T> = { data, timestamp: Date.now() }
+        localStorage.setItem(key, JSON.stringify(cacheData))
+    } catch (error: any) {
+        console.warn('Failed to stringify and cache data for', key, error)
+    }
 }
 
 export function getCachedData<T>(key: string, duration: number): T | null {
-  const cached = localStorage.getItem(key)
-  if (!cached) return null
+    const cached = localStorage.getItem(key)
+    if (!cached) return null
 
-  const cacheData: CachedData<T> = JSON.parse(cached)
-  if (!isCacheValid(cacheData.timestamp, duration)) {
-    localStorage.removeItem(key)
-    return null
-  }
+    let cacheData: CachedData<T>
+    try {
+        cacheData = JSON.parse(cached)
+    } catch (error: any) {
+        console.warn('Failed to parse cached data for', key, error)
+        return null
+    }
 
-  return cacheData.data
+    if (!isCacheValid(cacheData.timestamp, duration)) {
+        localStorage.removeItem(key)
+        return null
+    }
+
+    return cacheData.data
 }
 
 export function invalidateCache(key: string): void {
-  localStorage.removeItem(key)
+    localStorage.removeItem(key)
 }
 
 export function clearAllCaches(): void {
-  Object.values(CACHE_KEYS).forEach(key => localStorage.removeItem(key))
+    Object.values(CACHE_KEYS).forEach(key => localStorage.removeItem(key))
 }
 
 // Convenience functions
