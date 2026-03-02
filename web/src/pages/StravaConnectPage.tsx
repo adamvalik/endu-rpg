@@ -21,7 +21,7 @@ export function StravaConnectPage() {
                     <h1 className="text-6xl font-black font-tiny5 mb-2 tracking-wider drop-shadow-[4px_4px_0_rgba(0,0,0,1)]">
                         ENDU
                     </h1>
-                    <p className="text-xl font-bold bg-[#fc4c02] text-white neo-border inline-block px-4 py-1 rotate-2 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] mt-2">
+                    <p className="text-xl font-bold bg-[#fc4c02] text-white neo-border inline-block px-4 py-1 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] mt-2">
                         Connect Your Activities
                     </p>
                 </div>
@@ -39,7 +39,7 @@ export function StravaConnectPage() {
                         Connect your Strava account to start your adventure!
                     </p>
 
-                    <div className="mb-8 space-y-3 bg-white neo-border p-4 neo-shadow-sm rotate-[-1deg]">
+                    <div className="mb-8 space-y-3 bg-white neo-border p-4 neo-shadow-sm">
                         <div className="flex items-center font-bold">
                             <span className="text-xl mr-3">⚡</span>
                             <span>Automatic activity sync</span>

@@ -46,9 +46,9 @@ export function StravaCallbackPage() {
     return (
         <div className="min-h-screen flex items-center justify-center p-5 font-sans bg-[var(--color-app-bg)]">
             <div className="max-w-md w-full text-center">
-                <div className="card bg-[var(--color-pastel-yellow)] rotate-1">
+                <div className="card bg-[var(--color-pastel-yellow)]">
                     {error ? (
-                        <div className="bg-white neo-border p-6 neo-shadow-sm rotate-[-2deg]">
+                        <div className="bg-white neo-border p-6 neo-shadow-sm">
                             <p className="font-black text-red-600 text-2xl mb-2 font-tiny5 tracking-wide">
                                 ERROR!
                             </p>
@@ -58,7 +58,7 @@ export function StravaCallbackPage() {
                             </p>
                         </div>
                     ) : (
-                        <div className="bg-white neo-border p-8 neo-shadow-sm rotate-[-1deg] flex flex-col items-center">
+                        <div className="bg-white neo-border p-8 neo-shadow-sm flex flex-col items-center">
                             <Spinner />
                             <p className="mt-6 font-black text-xl font-tiny5 tracking-widest animate-pulse">
                                 ESTABLISHING CONNECTION...

@@ -19,6 +19,7 @@ const getGameProfileFunction = httpsCallable(functions, 'getGameProfile')
 const getUserActivitiesFunction = httpsCallable(functions, 'getUserActivities')
 const fetchStravaActivitiesFunction = httpsCallable(functions, 'fetchStravaActivities')
 const exchangeCodeForTokenFunction = httpsCallable(functions, 'exchangeCodeForToken')
+const addDebugXPFunction = httpsCallable(functions, 'addDebugXP')
 
 // User Profile
 export async function getUserProfile(useCache = true): Promise<UserProfile> {
@@ -91,6 +92,7 @@ export async function syncStravaActivities(page = 1, perPage = 3): Promise<Strav
         // Invalidate caches after sync
         invalidateActivitiesCache()
         invalidateGameProfileCache()
+        invalidateUserProfileCache()
 
         return activities
     } catch (error) {
@@ -105,4 +107,18 @@ export async function exchangeStravaCode(code: string): Promise<void> {
 
     // Invalidate cache after connecting Strava
     invalidateUserProfileCache()
+}
+
+// Debug Methods
+export async function addDebugXP(xpToAdd: number): Promise<void> {
+    try {
+        await addDebugXPFunction({ xpToAdd })
+
+        // Invalidate cache so the UI fetches fresh data
+        invalidateGameProfileCache()
+        invalidateUserProfileCache()
+    } catch (error) {
+        console.error('Error adding debug XP:', error)
+        throw error instanceof Error ? error : new Error(String(error))
+    }
 }

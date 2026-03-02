@@ -34,7 +34,7 @@ export function AuthPage() {
                     <h1 className="text-6xl font-black font-tiny5 mb-2 tracking-wider drop-shadow-[4px_4px_0_rgba(0,0,0,1)]">
                         ENDU
                     </h1>
-                    <p className="text-xl font-bold bg-white neo-border inline-block px-4 py-1 rotate-[-2deg] shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] mt-2">
+                    <p className="text-xl font-bold bg-white neo-border inline-block px-4 py-1 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] mt-2">
                         Your Fitness RPG Adventure
                     </p>
                 </div>
@@ -80,7 +80,7 @@ export function AuthPage() {
                     </div>
 
                     {error && (
-                        <div className="mb-6 p-4 bg-red-100 neo-border font-bold text-red-700 neo-shadow-sm rotate-2">
+                        <div className="mb-6 p-4 bg-red-100 neo-border font-bold text-red-700 neo-shadow-sm">
                             ⚠️ {error}
                         </div>
                     )}
@@ -94,7 +94,7 @@ export function AuthPage() {
                     </button>
                 </form>
 
-                <div className="mt-8 text-center bg-white neo-border inline-block px-4 py-2 rotate-1 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] mx-auto w-full">
+                <div className="mt-8 text-center bg-white neo-border inline-block px-4 py-2 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] mx-auto w-full">
                     <img
                         src="/images/api_logo_cptblWith_strava_horiz_black.png"
                         alt="Compatible with Strava"

@@ -31,7 +31,7 @@ export function ActivityTile({ activity }: ActivityTileProps) {
                         </div>
                     </div>
 
-                    <div className="inline-flex bg-[var(--color-pastel-green)] text-black px-3 py-1.5 neo-border shadow-[2px_2px_0_rgba(0,0,0,1)] text-sm font-black rotate-[-1deg]">
+                    <div className="inline-flex bg-[var(--color-pastel-green)] text-black px-3 py-1.5 neo-border shadow-[2px_2px_0_rgba(0,0,0,1)] text-sm font-black">
                         +{activity.xpEarned || 0} XP
                     </div>
                 </div>

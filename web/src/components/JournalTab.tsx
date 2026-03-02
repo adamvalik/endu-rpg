@@ -102,14 +102,14 @@ export function JournalTab({ onSyncComplete }: JournalTabProps) {
             <div className="flex justify-between items-center mb-4">
                 <button
                     onClick={handleRefresh}
-                    className="btn-secondary text-base py-2 font-black rotate-[-1deg] shadow-[2px_2px_0px_rgba(0,0,0,1)]"
+                    className="btn-secondary text-base py-2 font-black shadow-[2px_2px_0px_rgba(0,0,0,1)]"
                     disabled={syncing}
                 >
                     REFRESH
                 </button>
                 <button
                     onClick={handleSync}
-                    className="btn-primary bg-[var(--color-pastel-blue)] text-black text-base py-2 font-black rotate-1 shadow-[2px_2px_0px_rgba(0,0,0,1)]"
+                    className="btn-primary bg-[var(--color-pastel-blue)] text-black text-base py-2 font-black shadow-[2px_2px_0px_rgba(0,0,0,1)]"
                     disabled={syncing}
                 >
                     {syncing ? 'SYNCING...' : 'SYNC STRAVA'}
