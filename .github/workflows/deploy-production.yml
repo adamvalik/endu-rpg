@@ -33,9 +33,9 @@ jobs:
         run: pnpm build:functions
 
       - name: Authenticate to Firebase
-        run: echo '${{ secrets.FIREBASE_SERVICE_ACCOUNT_PRODUCTION }}' > $HOME/sa-key.json
-
-      - name: Deploy hosting and functions
-        run: firebase deploy --project endu-production
+        run: |
+          echo '${{ secrets.FIREBASE_SERVICE_ACCOUNT_PRODUCTION }}' > /tmp/sa-key.json
+          export GOOGLE_APPLICATION_CREDENTIALS=/tmp/sa-key.json
+          firebase deploy --project endu-production
         env:
-          GOOGLE_APPLICATION_CREDENTIALS: ${{ env.HOME }}/sa-key.json
+          GOOGLE_APPLICATION_CREDENTIALS: /tmp/sa-key.json
