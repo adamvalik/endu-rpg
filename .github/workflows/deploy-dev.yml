@@ -23,6 +23,9 @@ jobs:
 
       - run: pnpm install --frozen-lockfile
 
+      - name: Install Firebase CLI
+        run: pnpm add -g firebase-tools
+
       - name: Build functions
         run: pnpm build:functions
 
