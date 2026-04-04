@@ -32,15 +32,10 @@ jobs:
       - name: Build functions
         run: pnpm build:functions
 
-      - name: Deploy to Firebase (production)
-        uses: FirebaseExtended/action-hosting-deploy@v0
-        with:
-          repoToken: ${{ secrets.GITHUB_TOKEN }}
-          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_PRODUCTION }}
-          channelId: live
-          projectId: endu-production
+      - name: Authenticate to Firebase
+        run: echo '${{ secrets.FIREBASE_SERVICE_ACCOUNT_PRODUCTION }}' > $HOME/sa-key.json
 
-      - name: Deploy functions
-        run: pnpm exec firebase deploy --only functions --project endu-production
+      - name: Deploy hosting and functions
+        run: firebase deploy --project endu-production
         env:
-          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+          GOOGLE_APPLICATION_CREDENTIALS: ${{ env.HOME }}/sa-key.json
