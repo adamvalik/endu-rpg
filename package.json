@@ -13,6 +13,8 @@
     "deploy:all": "pnpm build:web && firebase deploy",
     "deploy:dev": "firebase use dev && pnpm deploy:all",
     "deploy:prod": "firebase use prod && pnpm deploy:all",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
     "lint": "pnpm -r lint",
     "prepare": "husky"
   },
