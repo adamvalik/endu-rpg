@@ -166,9 +166,6 @@ importers:
 
   packages/functions:
     dependencies:
-      '@endu/shared':
-        specifier: workspace:*
-        version: link:../shared
       axios:
         specifier: ^1.13.1
         version: 1.14.0
