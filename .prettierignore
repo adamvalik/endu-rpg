@@ -1,0 +1,7 @@
+node_modules
+.next
+out
+dist
+packages/functions/lib
+pnpm-lock.yaml
+firebase-data
