@@ -24,10 +24,9 @@ export function handleError(
     throw error;
   }
 
-  // Wrap other errors in a new HttpsError
-  throw new HttpsError(
-    'internal',
-    defaultErrorMessage,
-    axios.isAxiosError(error) ? error.response?.data : (error as Error).message,
-  );
+  // Wrap other errors in a new HttpsError, preserving the original message
+  const originalMessage = error instanceof Error ? error.message : String(error);
+  const detail = axios.isAxiosError(error) ? JSON.stringify(error.response?.data) : originalMessage;
+
+  throw new HttpsError('internal', `${defaultErrorMessage} ${detail}`);
 }

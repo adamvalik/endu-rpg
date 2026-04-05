@@ -28,6 +28,25 @@ jobs:
 
       - name: Build web
         run: pnpm build:web
+        env:
+          NEXT_PUBLIC_FIREBASE_API_KEY: ${{ secrets.NEXT_PUBLIC_FIREBASE_API_KEY }}
+          NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN: ${{ secrets.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN }}
+          NEXT_PUBLIC_FIREBASE_PROJECT_ID: ${{ secrets.NEXT_PUBLIC_FIREBASE_PROJECT_ID }}
+          NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET: ${{ secrets.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET }}
+          NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID: ${{ secrets.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID }}
+          NEXT_PUBLIC_FIREBASE_APP_ID: ${{ secrets.NEXT_PUBLIC_FIREBASE_APP_ID }}
+          NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID: ${{ secrets.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID }}
+          NEXT_PUBLIC_STRAVA_CLIENT_ID: ${{ secrets.NEXT_PUBLIC_STRAVA_CLIENT_ID }}
+          NEXT_PUBLIC_APP_URL: ${{ secrets.NEXT_PUBLIC_APP_URL }}
+          NEXT_PUBLIC_USE_EMULATORS: 'false'
+
+      - name: Set functions env
+        run: |
+          cat <<EOF > packages/functions/.env.endu-production
+          CLIENT_ID=${{ secrets.STRAVA_CLIENT_ID }}
+          CLIENT_SECRET=${{ secrets.STRAVA_CLIENT_SECRET }}
+          STRAVA_VERIFY_TOKEN=${{ secrets.STRAVA_VERIFY_TOKEN }}
+          EOF
 
       - name: Build functions
         run: pnpm build:functions
