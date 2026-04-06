@@ -1,0 +1,12 @@
+{
+  "indexes": [
+    {
+      "collectionGroup": "stravaActivities",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "userId", "order": "ASCENDING" },
+        { "fieldPath": "start_date", "order": "DESCENDING" }
+      ]
+    }
+  ]
+}
