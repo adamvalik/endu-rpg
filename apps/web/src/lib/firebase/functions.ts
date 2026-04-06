@@ -52,3 +52,9 @@ export const getUserActivities = (data: { page: number; perPage: number }) =>
 
 export const getGameProfile = () =>
   httpsCallable<void, GameProfileResponse>(getFunctions(), 'getGameProfile')().then((r) => r.data);
+
+export const addDebugXP = (data: { xpToAdd: number }) =>
+  httpsCallable<typeof data, { status: string; newTotalXP: number; newLevel: number }>(
+    getFunctions(),
+    'addDebugXP',
+  )(data).then((r) => r.data);

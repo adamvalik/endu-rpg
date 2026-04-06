@@ -1,6 +1,6 @@
 'use client';
 
-import { useInfiniteQuery } from '@tanstack/react-query';
+import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
 
 import { useAuth } from '@/hooks/use-auth';
 import { queryKeys } from '@/lib/api/query-keys';
@@ -19,6 +19,16 @@ export function useActivities() {
       if (lastPage.activities.length < PAGE_SIZE) return undefined;
       return lastPageParam + 1;
     },
+    enabled: isAuthenticated,
+  });
+}
+
+export function useRecentActivities(count: number = 3) {
+  const { isAuthenticated } = useAuth();
+
+  return useQuery({
+    queryKey: [...queryKeys.activities, 'recent', count],
+    queryFn: () => getUserActivities({ page: 1, perPage: count }),
     enabled: isAuthenticated,
   });
 }

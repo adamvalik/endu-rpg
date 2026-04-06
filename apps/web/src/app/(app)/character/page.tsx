@@ -3,7 +3,7 @@
 import type { CharacterTier } from '@endu/shared/types';
 
 import { StatsGrid } from '@/components/character/stats-grid';
-import { StreakIndicator } from '@/components/character/streak-indicator';
+import { StreakDisplay, StreakIndicator } from '@/components/character/streak-indicator';
 import { TierBadge } from '@/components/character/tier-badge';
 import { XPBar } from '@/components/character/xp-bar';
 import { Badge } from '@/components/ui/badge';
@@ -93,26 +93,20 @@ export default function CharacterPage() {
           </Card>
 
           {/* Streak */}
-          {game.streakCount > 0 && (
-            <Card>
-              <CardHeader>
-                <CardTitle>Streak</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="flex items-center gap-4">
-                  <div className="text-4xl font-bold">{game.streakCount}</div>
-                  <div>
-                    <p className="font-medium">consecutive days</p>
-                    <p className="text-muted-foreground text-sm">
-                      {game.streakActive
-                        ? 'Streak active — +20% XP bonus!'
-                        : `${3 - game.streakCount} more days to activate bonus`}
-                    </p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          )}
+          <Card>
+            <CardHeader>
+              <CardTitle>Streak</CardTitle>
+            </CardHeader>
+            <CardContent>
+              {game.streakCount > 0 ? (
+                <StreakDisplay count={game.streakCount} active={game.streakActive} />
+              ) : (
+                <p className="text-muted-foreground text-sm">
+                  Complete an activity to start your streak
+                </p>
+              )}
+            </CardContent>
+          </Card>
         </>
       )}
 
