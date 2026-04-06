@@ -1,5 +1,5 @@
 // Export authentication functions
-export { signUpOrLogIn } from './user_management/auth';
+export { signUpOrLogIn, onUserDelete } from './user_management/auth';
 
 // Export Strava functions
 export {

@@ -93,33 +93,6 @@ export const signUpOrLogIn = onCall(async (request: CallableRequest<SignUpOrLogI
 });
 
 /**
- * Handles Firebase Auth user creation events
- * This is triggered automatically when a user is created via Firebase Auth
- */
-export const onUserCreate = functionsV1.auth.user().onCreate(async (user) => {
-  logger.info(`User created via Auth: ${user.uid}`);
-
-  // Check if profile already exists (might have been created by signUpOrSignIn)
-  const userDoc = await db.collection(FIRESTORE_COLLECTIONS.USERS).doc(user.uid).get();
-
-  if (!userDoc.exists) {
-    // Create user profile in Firestore
-    const userProfile = {
-      uid: user.uid,
-      email: user.email!,
-      displayName: user.displayName || null,
-      stravaConnected: false,
-      createdAt: Timestamp.now(),
-      updatedAt: Timestamp.now(),
-    };
-
-    await db.collection(FIRESTORE_COLLECTIONS.USERS).doc(user.uid).set(userProfile);
-
-    logger.info(`User profile created in Firestore: ${user.uid}`);
-  }
-});
-
-/**
  * Handles Firebase Auth user deletion events
  * Clean up user data when a user is deleted
  */
