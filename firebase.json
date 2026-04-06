@@ -29,6 +29,9 @@
       "predeploy": ["pnpm --filter @endu/functions build"]
     }
   ],
+  "firestore": {
+    "indexes": "firestore.indexes.json"
+  },
   "emulators": {
     "auth": {
       "port": 9099,

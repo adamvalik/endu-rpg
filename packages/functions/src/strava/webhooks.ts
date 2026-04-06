@@ -138,6 +138,16 @@ async function handleActivityCreate(userId: string, activityId: number) {
   logger.info(`Processing new activity ${activityId} for user ${userId}`);
 
   try {
+    // Idempotency check: skip if activity already exists (Strava may send duplicate events)
+    const activityRef = db
+      .collection(FIRESTORE_COLLECTIONS.STRAVA_ACTIVITIES)
+      .doc(`${userId}_${activityId}`);
+    const existing = await activityRef.get();
+    if (existing.exists) {
+      logger.info(`Activity ${activityId} already exists, skipping duplicate create event`);
+      return;
+    }
+
     await fetchStravaActivity(userId, activityId);
     logger.info(`✅ Successfully stored activity ${activityId}`);
   } catch (error) {
