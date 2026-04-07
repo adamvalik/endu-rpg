@@ -17,3 +17,6 @@ export { stravaWebhook } from './strava/webhooks';
 
 // Export game functions
 export { getGameProfile, addDebugXP } from './game/game';
+
+// Export email functions
+export { sendTestActivityEmail } from './email/email';

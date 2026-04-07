@@ -1,17 +1,18 @@
 'use client';
 
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { Bug, Minus, Plus, RotateCcw, X } from 'lucide-react';
+import { Bug, Mail, Minus, Plus, RotateCcw } from 'lucide-react';
 import { useState } from 'react';
 import { toast } from 'sonner';
 
 import { Button } from '@/components/ui/button';
+import { Checkbox } from '@/components/ui/checkbox';
 import { Input } from '@/components/ui/input';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { Separator } from '@/components/ui/separator';
 import { useGameProfile } from '@/hooks/use-game-profile';
 import { queryKeys } from '@/lib/api/query-keys';
-import { addDebugXP } from '@/lib/firebase/functions';
+import { addDebugXP, sendTestActivityEmail } from '@/lib/firebase/functions';
 
 function useDebugXP() {
   const queryClient = useQueryClient();
@@ -27,12 +28,24 @@ function useDebugXP() {
   });
 }
 
+function useTestEmail() {
+  return useMutation({
+    mutationFn: (data: { activityId: number; leveledUp?: boolean; oldLevel?: number }) =>
+      sendTestActivityEmail(data),
+    onSuccess: (data) => toast.success(data.message),
+    onError: () => toast.error('Failed to send test email'),
+  });
+}
+
 const QUICK_XP = [100, 500, 1000, 5000];
 
 export function DevToolbar() {
   const [customXP, setCustomXP] = useState('');
+  const [activityId, setActivityId] = useState('');
+  const [simulateLevelUp, setSimulateLevelUp] = useState(false);
   const { data: gameData } = useGameProfile();
   const debugXP = useDebugXP();
+  const testEmail = useTestEmail();
 
   const game = gameData?.game;
 
@@ -119,6 +132,45 @@ export function DevToolbar() {
                 <Minus className="h-3.5 w-3.5" />
               </Button>
             </div>
+          </div>
+
+          <Separator />
+
+          {/* Test Email */}
+          <div className="flex flex-col gap-1.5">
+            <span className="text-muted-foreground text-xs font-medium">Test Email</span>
+            <div className="flex gap-1.5">
+              <Input
+                type="number"
+                placeholder="Activity ID"
+                value={activityId}
+                onChange={(e) => setActivityId(e.target.value)}
+                className="h-8 text-sm"
+              />
+              <Button
+                variant="outline"
+                size="icon"
+                className="h-8 w-8 shrink-0"
+                onClick={() =>
+                  activityId &&
+                  testEmail.mutate({
+                    activityId: Number(activityId),
+                    leveledUp: simulateLevelUp,
+                    oldLevel: simulateLevelUp ? (game?.level ?? 1) - 1 : undefined,
+                  })
+                }
+                disabled={!activityId || testEmail.isPending}
+              >
+                <Mail className="h-3.5 w-3.5" />
+              </Button>
+            </div>
+            <label className="flex items-center gap-2">
+              <Checkbox
+                checked={simulateLevelUp}
+                onCheckedChange={(v) => setSimulateLevelUp(v === true)}
+              />
+              <span className="text-muted-foreground text-xs">Simulate level-up</span>
+            </label>
           </div>
 
           <Separator />

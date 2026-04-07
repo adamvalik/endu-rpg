@@ -21,3 +21,13 @@ export const getStravaCredentials = () => {
 
   return { clientId, clientSecret };
 };
+
+export const getResendApiKey = (): string => {
+  const apiKey = process.env.RESEND_API_KEY;
+
+  if (!apiKey) {
+    throw new Error('Resend API key not configured in environment');
+  }
+
+  return apiKey;
+};

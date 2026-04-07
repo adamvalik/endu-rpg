@@ -13,6 +13,7 @@ import {
   CharacterTier,
   GameProfile,
   GameProfileResponse,
+  GameProfileUpdateResult,
   StravaActivity,
   StreakCalculationResult,
   XPCalculationResult,
@@ -240,17 +241,18 @@ export async function updateGameProfile(
   userId: string,
   activity: StravaActivity,
   xpResult: XPCalculationResult,
-): Promise<void> {
+): Promise<GameProfileUpdateResult> {
   const userRef = db.collection(FIRESTORE_COLLECTIONS.USERS).doc(userId);
   const userDoc = await userRef.get();
 
   if (!userDoc.exists) {
     logger.error(`User ${userId} not found`);
-    return;
+    return { newTotalXP: 0, level: 1, oldLevel: 1, tier: 'Novice', leveledUp: false };
   }
 
   const userData = userDoc.data();
   const currentGame = userData?.game as GameProfile | undefined;
+  const oldLevel = currentGame?.level || 1;
 
   // Calculate new total XP
   const newTotalXP = (currentGame?.totalXP || 0) + xpResult.totalXP;
@@ -266,6 +268,8 @@ export async function updateGameProfile(
     activityDate,
   );
 
+  const tier = getCharacterTier(level);
+
   // Update game profile
   const updatedGame: GameProfile = {
     totalXP: newTotalXP,
@@ -275,7 +279,7 @@ export async function updateGameProfile(
     streakCount,
     streakActive,
     lastActivityDate: Timestamp.fromDate(activityDate),
-    tier: getCharacterTier(level),
+    tier,
   };
 
   await userRef.update({
@@ -288,6 +292,14 @@ export async function updateGameProfile(
       `+${xpResult.totalXP} XP (Total: ${newTotalXP}), ` +
       `Level ${level}, Streak: ${streakCount} days`,
   );
+
+  return {
+    newTotalXP,
+    level,
+    oldLevel,
+    tier,
+    leveledUp: level > oldLevel,
+  };
 }
 
 /**

@@ -35,3 +35,11 @@ export interface GameProfileResponse {
   status: string;
   game: GameProfile;
 }
+
+export interface GameProfileUpdateResult {
+  newTotalXP: number;
+  level: number;
+  oldLevel: number;
+  tier: CharacterTier;
+  leveledUp: boolean;
+}

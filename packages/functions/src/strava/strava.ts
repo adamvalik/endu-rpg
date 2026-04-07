@@ -5,11 +5,13 @@ import { HttpsError, onCall } from 'firebase-functions/v2/https';
 
 import { db } from '../admin';
 import { FIRESTORE_COLLECTIONS, getStravaCredentials, STRAVA_CONFIG } from '../config';
+import { sendActivityXPEmail } from '../email/email';
 import { calculateXP, updateGameProfile } from '../game/game';
 import { handleError } from '../handleError';
 import {
   ExchangeCodeData,
   ExchangeCodeResponse,
+  GameProfileUpdateResult,
   GetActivitiesData,
   GetActivitiesResponse,
   GetActivityByIdData,
@@ -21,6 +23,7 @@ import {
   StravaTokens,
   SuccessResponse,
   UserStats,
+  XPCalculationResult,
 } from '../types';
 
 /**
@@ -164,6 +167,10 @@ export async function processAndStoreActivity(
     .collection(FIRESTORE_COLLECTIONS.STRAVA_ACTIVITIES)
     .doc(`${userId}_${activity.id}`);
 
+  // Capture results from inside the transaction for email notification
+  let xpResult: XPCalculationResult | null = null;
+  let gameResult: GameProfileUpdateResult | null = null;
+
   // Use a transaction to prevent race conditions from duplicate webhook events
   const isNew = await db.runTransaction(async (transaction) => {
     const existingActivity = await transaction.get(activityRef);
@@ -174,8 +181,8 @@ export async function processAndStoreActivity(
     }
 
     // Process game logic (XP, quests, streaks)
-    const xpResult = await calculateXP(userId, activity);
-    await updateGameProfile(userId, activity, xpResult);
+    xpResult = await calculateXP(userId, activity);
+    gameResult = await updateGameProfile(userId, activity, xpResult);
 
     // Store activity in Firestore with XP earned
     const storedActivity: StoredActivity = {
@@ -195,9 +202,49 @@ export async function processAndStoreActivity(
   if (isNew) {
     // Update user's cumulative statistics (outside transaction — separate document)
     await updateUserStats(userId, activity, true);
+
+    // Send email notification (fire-and-forget, don't block on failure)
+    if (xpResult && gameResult) {
+      sendActivityEmail(userId, activity, xpResult, gameResult).catch((error) => {
+        logger.warn('Failed to send activity XP email:', error);
+      });
+    }
   }
 
   return isNew;
+}
+
+/**
+ * Sends email notification about XP earned from a new activity
+ */
+async function sendActivityEmail(
+  userId: string,
+  activity: StravaActivity,
+  xpResult: XPCalculationResult,
+  gameResult: GameProfileUpdateResult,
+): Promise<void> {
+  const userDoc = await db.collection(FIRESTORE_COLLECTIONS.USERS).doc(userId).get();
+  const userData = userDoc.data();
+
+  if (!userData?.email) {
+    logger.warn(`No email found for user ${userId}, skipping notification`);
+    return;
+  }
+
+  await sendActivityXPEmail({
+    to: userData.email,
+    displayName: userData.displayName || userData.stravaFirstname || null,
+    activityName: activity.name,
+    activityType: activity.type,
+    xpEarned: xpResult.totalXP,
+    baseXP: xpResult.baseXP,
+    streakBonus: xpResult.streakBonus,
+    newTotalXP: gameResult.newTotalXP,
+    level: gameResult.level,
+    leveledUp: gameResult.leveledUp,
+    oldLevel: gameResult.oldLevel,
+    tier: gameResult.tier,
+  });
 }
 
 /**

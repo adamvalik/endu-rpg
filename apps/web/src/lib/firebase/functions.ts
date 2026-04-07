@@ -58,3 +58,13 @@ export const addDebugXP = (data: { xpToAdd: number }) =>
     getFunctions(),
     'addDebugXP',
   )(data).then((r) => r.data);
+
+export const sendTestActivityEmail = (data: {
+  activityId: number;
+  leveledUp?: boolean;
+  oldLevel?: number;
+}) =>
+  httpsCallable<typeof data, { status: string; message: string }>(
+    getFunctions(),
+    'sendTestActivityEmail',
+  )(data).then((r) => r.data);
