@@ -305,14 +305,18 @@ export const exchangeCodeForToken = onCall(async (request): Promise<ExchangeCode
       // Store tokens
       transaction.set(tokenRef, stravaTokens);
 
-      // Update user profile with Strava info
-      transaction.update(userRef, {
-        stravaId: tokenData.athlete.id,
-        stravaConnected: true,
-        stravaFirstname: tokenData.athlete.firstname,
-        stravaLastname: tokenData.athlete.lastname,
-        updatedAt: Timestamp.now(),
-      });
+      // Update user profile with Strava info (merge in case doc doesn't exist yet)
+      transaction.set(
+        userRef,
+        {
+          stravaId: tokenData.athlete.id,
+          stravaConnected: true,
+          stravaFirstname: tokenData.athlete.firstname,
+          stravaLastname: tokenData.athlete.lastname,
+          updatedAt: Timestamp.now(),
+        },
+        { merge: true },
+      );
     });
 
     logger.info(`Strava tokens stored for user: ${userId}`);
