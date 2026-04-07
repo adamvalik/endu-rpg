@@ -7,6 +7,15 @@ import { z } from 'zod/v4';
 
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Separator } from '@/components/ui/separator';
@@ -19,12 +28,15 @@ const profileSchema = z.object({
 
 type ProfileValues = z.infer<typeof profileSchema>;
 
+const CONFIRM_TEXT = 'DELETE';
+
 export default function SettingsPage() {
   const { data: profileData } = useUserProfile();
   const updateProfile = useUpdateProfile();
   const disconnectStrava = useDisconnectStrava();
   const deleteAccount = useDeleteAccount();
-  const [confirmDelete, setConfirmDelete] = useState(false);
+  const [deleteOpen, setDeleteOpen] = useState(false);
+  const [confirmInput, setConfirmInput] = useState('');
 
   const profile = profileData?.profile;
 
@@ -42,6 +54,12 @@ export default function SettingsPage() {
       reset({ displayName: profile.displayName });
     }
   }, [profile?.displayName, reset]);
+
+  const handleDelete = () => {
+    deleteAccount.mutate(undefined, {
+      onSuccess: () => setDeleteOpen(false),
+    });
+  };
 
   return (
     <div className="flex flex-col gap-6">
@@ -106,26 +124,50 @@ export default function SettingsPage() {
           <CardDescription>Permanently delete your account and all data</CardDescription>
         </CardHeader>
         <CardContent>
-          {confirmDelete ? (
-            <div className="flex items-center gap-3">
-              <p className="text-sm">Are you sure?</p>
-              <Button
-                variant="destructive"
-                size="sm"
-                onClick={() => deleteAccount.mutate()}
-                disabled={deleteAccount.isPending}
-              >
-                {deleteAccount.isPending ? 'Deleting...' : 'Yes, delete'}
-              </Button>
-              <Button variant="outline" size="sm" onClick={() => setConfirmDelete(false)}>
-                Cancel
-              </Button>
-            </div>
-          ) : (
-            <Button variant="destructive" onClick={() => setConfirmDelete(true)}>
-              Delete Account
-            </Button>
-          )}
+          <Dialog
+            open={deleteOpen}
+            onOpenChange={(open) => {
+              setDeleteOpen(open);
+              if (!open) setConfirmInput('');
+            }}
+          >
+            <DialogTrigger asChild>
+              <Button variant="destructive">Delete Account</Button>
+            </DialogTrigger>
+            <DialogContent>
+              <DialogHeader>
+                <DialogTitle>Delete your account?</DialogTitle>
+                <DialogDescription>
+                  This action is permanent and cannot be undone. All your data, activities, and
+                  progress will be lost.
+                </DialogDescription>
+              </DialogHeader>
+              <div className="flex flex-col gap-2">
+                <Label htmlFor="confirm-delete">
+                  Type <span className="font-mono font-bold">{CONFIRM_TEXT}</span> to confirm
+                </Label>
+                <Input
+                  id="confirm-delete"
+                  value={confirmInput}
+                  onChange={(e) => setConfirmInput(e.target.value)}
+                  placeholder={CONFIRM_TEXT}
+                  autoComplete="off"
+                />
+              </div>
+              <DialogFooter>
+                <Button variant="outline" onClick={() => setDeleteOpen(false)}>
+                  Cancel
+                </Button>
+                <Button
+                  variant="destructive"
+                  onClick={handleDelete}
+                  disabled={confirmInput !== CONFIRM_TEXT || deleteAccount.isPending}
+                >
+                  {deleteAccount.isPending ? 'Deleting...' : 'Delete Account'}
+                </Button>
+              </DialogFooter>
+            </DialogContent>
+          </Dialog>
         </CardContent>
       </Card>
     </div>

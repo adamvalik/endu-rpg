@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { useState } from 'react';
 
+import { ThemeToggle } from '@/components/layout/theme-toggle';
 import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
@@ -64,7 +65,8 @@ export function Navbar() {
           </nav>
         </div>
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-1">
+          <ThemeToggle />
           {/* Desktop user menu */}
           <DropdownMenu>
             <DropdownMenuTrigger asChild className="hidden md:flex">

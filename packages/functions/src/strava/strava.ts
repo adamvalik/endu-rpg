@@ -164,33 +164,40 @@ export async function processAndStoreActivity(
     .collection(FIRESTORE_COLLECTIONS.STRAVA_ACTIVITIES)
     .doc(`${userId}_${activity.id}`);
 
-  const existingActivity = await activityRef.get();
+  // Use a transaction to prevent race conditions from duplicate webhook events
+  const isNew = await db.runTransaction(async (transaction) => {
+    const existingActivity = await transaction.get(activityRef);
 
-  if (existingActivity.exists) {
-    logger.info(`Activity ${activity.id} already exists for user ${userId}, skipping storage`);
-    return false;
+    if (existingActivity.exists) {
+      logger.info(`Activity ${activity.id} already exists for user ${userId}, skipping storage`);
+      return false;
+    }
+
+    // Process game logic (XP, quests, streaks)
+    const xpResult = await calculateXP(userId, activity);
+    await updateGameProfile(userId, activity, xpResult);
+
+    // Store activity in Firestore with XP earned
+    const storedActivity: StoredActivity = {
+      ...activity,
+      xpEarned: xpResult.totalXP,
+      userId,
+      fetchedAt: Timestamp.now(),
+      updatedAt: Timestamp.now(),
+    };
+
+    transaction.set(activityRef, storedActivity);
+    logger.info(`Stored activity ${activity.id} for user ${userId} with ${xpResult.totalXP} XP`);
+
+    return true;
+  });
+
+  if (isNew) {
+    // Update user's cumulative statistics (outside transaction — separate document)
+    await updateUserStats(userId, activity, true);
   }
 
-  // Process game logic (XP, quests, streaks)
-  const xpResult = await calculateXP(userId, activity);
-  await updateGameProfile(userId, activity, xpResult);
-
-  // Store activity in Firestore with XP earned
-  const storedActivity: StoredActivity = {
-    ...activity,
-    xpEarned: xpResult.totalXP,
-    userId,
-    fetchedAt: Timestamp.now(),
-    updatedAt: Timestamp.now(),
-  };
-
-  await activityRef.set(storedActivity);
-  logger.info(`Stored activity ${activity.id} for user ${userId} with ${xpResult.totalXP} XP`);
-
-  // Update user's cumulative statistics
-  await updateUserStats(userId, activity, true);
-
-  return true;
+  return isNew;
 }
 
 /**
@@ -298,14 +305,18 @@ export const exchangeCodeForToken = onCall(async (request): Promise<ExchangeCode
       // Store tokens
       transaction.set(tokenRef, stravaTokens);
 
-      // Update user profile with Strava info
-      transaction.update(userRef, {
-        stravaId: tokenData.athlete.id,
-        stravaConnected: true,
-        stravaFirstname: tokenData.athlete.firstname,
-        stravaLastname: tokenData.athlete.lastname,
-        updatedAt: Timestamp.now(),
-      });
+      // Update user profile with Strava info (merge in case doc doesn't exist yet)
+      transaction.set(
+        userRef,
+        {
+          stravaId: tokenData.athlete.id,
+          stravaConnected: true,
+          stravaFirstname: tokenData.athlete.firstname,
+          stravaLastname: tokenData.athlete.lastname,
+          updatedAt: Timestamp.now(),
+        },
+        { merge: true },
+      );
     });
 
     logger.info(`Strava tokens stored for user: ${userId}`);
