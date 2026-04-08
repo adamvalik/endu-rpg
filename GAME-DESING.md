@@ -4,38 +4,43 @@
 
 Endu RPG transforms real-world fitness into an RPG adventure. Every run, ride, swim, and workout earns experience, advances your character, and progresses a story. The goal is to make exercise intrinsically rewarding through RPG mechanics — not just tracking numbers, but building a character, completing quests, and earning loot.
 
+The game is designed to be **idle by nature**. Players don't need to grind or dedicate extra time — the game layers on top of the physical activity they already do. Log a run, check your progress, enjoy the dopamine. The experience should hook early with quick wins and frequent rewards, then sustain long-term through deeper progression systems that unfold gradually. Because the core activity (exercise) is self-sustaining for active people, the game doesn't need to manufacture engagement — it amplifies motivation that already exists.
+
 The design draws heavily from classic RPG loops: **identity** (character class), **goals** (quests and achievements), **surprise** (loot drops), **progression** (levels, tiers, attributes), and **community** (guilds and leaderboards).
 
 ---
 
 ## 1. Character System
 
-### 1.1 Character Classes
+### 1.1 Character Classes & Evolution
 
-Five classes define a player's identity and passive bonuses. Players start as a **Novice** and choose a class at Level 10 (see 1.2 Class Evolution).
+Every player starts as a **Novice** with no class bonus. Classes are earned through progression, not chosen at onboarding. This gives new players time to establish their activity patterns before committing to an identity.
 
-| Class           | Focus               | Passive Bonus                                 |
-| --------------- | ------------------- | --------------------------------------------- |
-| **Strider**     | Running             | +15% XP from running activities               |
-| **Voyager**     | Cycling             | +15% XP from cycling activities               |
-| **Mountaineer** | Hiking / Elevation  | +15% XP from walking + double elevation bonus |
-| **Aquanaut**    | Swimming            | +15% XP from swimming activities              |
-| **Titan**       | Strength / Workouts | +15% XP from workout and strength activities  |
+#### 1.1.1 Class Evolution Path
+
+| Evolution         | Trigger  | What Happens                                          |
+| ----------------- | -------- | ----------------------------------------------------- |
+| **Novice**        | Start    | No class, no bonus — the player is finding their path |
+| **1st Evolution** | Level 10 | Choose a Base Class — unlocks class passive bonus     |
+| **2nd Evolution** | Level 30 | Choose a Specialization within the class              |
+
+#### 1.1.2 Base Classes
+
+| Class           | Focus               | Passive Bonus                               |
+| --------------- | ------------------- | ------------------------------------------- |
+| **Strider**     | Running             | +XP from running activities                 |
+| **Voyager**     | Cycling             | +XP from cycling activities                 |
+| **Mountaineer** | Hiking / Elevation  | +XP from walking + elevated elevation bonus |
+| **Aquanaut**    | Swimming            | +XP from swimming activities                |
+| **Titan**       | Strength / Workouts | +XP from workout and strength activities    |
 
 - Auto-suggested based on activity history at Level 10, or manually chosen
-- Can be changed once per month (to avoid lock-in regret)
+- This choice is permanent
 - Each class has a distinct avatar/icon used across the app
 
-### 1.2 Class Evolution
+#### 1.1.3 Specializations
 
-Every player starts as a **Novice** with no class bonus. Classes are earned through progression, not chosen at onboarding.
-
-| Evolution         | Trigger  | What Happens                                                                  |
-| ----------------- | -------- | ----------------------------------------------------------------------------- |
-| **1st Evolution** | Level 10 | Choose a Base Class (Strider, Voyager, etc.) — unlocks the +15% passive bonus |
-| **2nd Evolution** | Level 30 | Choose a Specialization within the class                                      |
-
-**Specializations (examples):**
+At Level 30, players choose a Specialization within their class, granting an additional XP bonus for a specific sub-type of their activity.
 
 | Base Class      | Specialization A                                    | Specialization B                        |
 | --------------- | --------------------------------------------------- | --------------------------------------- |
@@ -45,29 +50,40 @@ Every player starts as a **Novice** with no class bonus. Classes are earned thro
 | **Aquanaut**    | Open Water (bonus for distance swims)               | Poolmaster (bonus for swim frequency)   |
 | **Titan**       | Powerlifter (bonus for strength sessions)           | Crossfitter (bonus for varied workouts) |
 
-- Specialization grants an additional +10% XP bonus for the sub-type
 - Evolution moments are major celebration events with unique visuals
+- Each specialization has a distinct avatar/icon
 
-### 1.3 Tiers
+#### 1.1.4 Future Design Space: 3rd Evolution & Secondary Class
 
-Tiers represent major character milestones. Each tier-up is a celebration moment with unique visuals.
+- **3rd Evolution (Mastery):** A prestige-tier identity at Level 50+ that further refines the specialization, potentially with titles generated from the player's actual stats and records
+- **Secondary Class:** High-level players could unlock a secondary class passive at a reduced rate by meeting activity thresholds in another discipline, rewarding versatility without undermining primary identity
 
-| Tier         | Level Range | Fantasy Flavor                                |
-| ------------ | ----------- | --------------------------------------------- |
-| **Wanderer** | 1–4         | A traveler setting out on their first journey |
-| **Scout**    | 5–9         | Learning the ways of the wild                 |
-| **Ranger**   | 10–19       | A seasoned explorer of trails and roads       |
-| **Warrior**  | 20–29       | Proven through sweat and endurance            |
-| **Champion** | 30–39       | Known throughout the realm for their feats    |
-| **Hero**     | 40–49       | Inspires others to take up the path           |
-| **Legend**   | 50–64       | Their name echoes across the land             |
-| **Mythic**   | 65+         | Transcended mortal limits                     |
+### 1.2 Tiers
 
-Each tier-up unlocks a visual badge, a new title, and access to tier-specific quests.
+Tiers represent major character milestones. Each tier-up is a celebration moment with unique visuals. Tiers provide at-a-glance recognition of a player's progression level across the app.
 
-### 1.4 Attributes
+| Tier         | Level Range | Fantasy Flavor                                | Color    |
+| ------------ | ----------- | --------------------------------------------- | -------- |
+| **Wanderer** | 1–4         | A traveler setting out on their first journey | Grey     |
+| **Scout**    | 5–9         | Learning the ways of the wild                 | Green    |
+| **Ranger**   | 10–19       | A seasoned explorer of trails and roads       | Blue     |
+| **Warrior**  | 20–29       | Proven through sweat and endurance            | Purple   |
+| **Champion** | 30–39       | Known throughout the realm for their feats    | Gold     |
+| **Hero**     | 40–49       | Inspires others to take up the path           | Orange   |
+| **Legend**   | 50–64       | Their name echoes across the land             | Crimson  |
+| **Mythic**   | 65+         | Transcended mortal limits                     | Animated |
 
-Four core stats that grow based on _how_ you exercise, creating a unique build per player.
+#### 1.2.1 Visual Treatment
+
+- **Profile page:** Full tier name displayed (e.g., "Champion"), tier color applied to profile border/frame
+- **Leaderboards & social contexts:** Compact tier badge with color — communicates approximate level at a glance without showing the exact number, making different players visually distinguishable
+- **Tier-up moment:** Celebration modal with the new tier name, badge, and color transition
+
+Each tier-up unlocks a visual badge, a new title, and access to tier-specific quests. Quest difficulty and requirements scale with tier to ensure challenges remain appropriate and motivating at every progression stage.
+
+### 1.3 Attributes
+
+Four core stats that grow automatically based on _how_ you exercise, creating a unique build per player. Attributes are never manually allocated — they are a direct reflection of your training.
 
 | Attribute     | Grows From                                    | What It Represents             |
 | ------------- | --------------------------------------------- | ------------------------------ |
@@ -78,56 +94,35 @@ Four core stats that grow based on _how_ you exercise, creating a unique build p
 
 - Each attribute has its own level (1–100) with a separate XP pool
 - Displayed as a radar/spider chart on the character page
-- Attribute milestones (e.g., Endurance 25) unlock passive bonuses or cosmetic rewards
 - Creates visual "character builds" unique to each player
 
-#### Stat Points
+#### 1.3.1 Future Design Space: Attribute Milestones
 
-In addition to automatic growth, players earn **Stat Points** on each level-up (2 points per level). These can be manually allocated to any attribute, allowing players to customize their build beyond what their activity mix naturally produces.
+Reaching attribute level thresholds (e.g., 10, 25, 50) unlocks rewards. Rewards are varied to avoid over-relying on XP bonuses:
 
-- Stat points are spent on the character page via a simple +/- interface
-- Unspent points are banked (no expiration)
-- Creates meaningful level-up decisions
+- **Cosmetic rewards:** Unique titles, avatar accessories, border effects tied to the attribute
+- **Gold rewards:** One-time gold payouts or small passive gold-find bonuses
+- **Gameplay unlocks:** Access to specific quests, boss challenges, or zones requiring a minimum attribute level
+- **Quality-of-life perks:** Extra grace days, streak protections, rest day bonuses
+- **XP bonuses:** Used sparingly — at most one per attribute tree
 
-### 1.5 Skill Trees
-
-Each attribute has an associated skill tree with passive perks unlocked by reaching attribute milestones and spending stat points.
-
-**Examples:**
-
-| Tree          | Perk (Tier 1)                 | Perk (Tier 2)                            | Perk (Tier 3)                  |
-| ------------- | ----------------------------- | ---------------------------------------- | ------------------------------ |
-| **Endurance** | +5% XP for activities >30 min | Grace day capacity +1                    | +10% XP for activities >60 min |
-| **Speed**     | +5% XP when above avg pace    | Streak multiplier kicks in 1 day earlier | +10% XP for sprint activities  |
-| **Strength**  | +1 XP per meter elevation     | +10% elevation XP                        | Double boss challenge rewards  |
-| **Vitality**  | +1 grace day max              | Rest day XP doubled                      | Streak never decays below 3    |
-
-- Each tree has 3 tiers, unlocked at attribute levels 10, 25, and 50
-- Perks are passive — no activation needed
-- Adds long-term build planning and replayability
+Specific milestone rewards to be defined during balancing. The goal is that each attribute feels like its own mini-progression with meaningful payoffs, without stacking XP multipliers.
 
 ---
 
-## 2. Economy & Currencies
+## 2. Progression Systems Overview
 
-### 2.1 XP (Experience)
+The game tracks several progression values. Each serves a distinct role in the player experience. Specific earning rates and spending details are defined in their respective sections.
 
-Used for leveling up. Infinite — never spent, only accumulated.
+| System         | Type           | Purpose                                                                                                 |
+| -------------- | -------------- | ------------------------------------------------------------------------------------------------------- |
+| **XP**         | Accumulated    | Drives leveling and tier advancement — never spent, only earned                                         |
+| **Gold**       | Earned & spent | Spent in the Item Shop on consumables and cosmetics                                                     |
+| **Attributes** | Automatic      | Four stats (Endurance, Speed, Strength, Vitality) that grow from activity patterns — not player-managed |
 
-### 2.2 Gold
+### 2.1 Future Design Space: Premium Currency
 
-Earned currency spent in the Item Shop.
-
-**Earning Gold:**
-
-| Source                  | Amount                                 |
-| ----------------------- | -------------------------------------- |
-| Per activity completed  | 10–50 Gold (scales with distance/time) |
-| Daily quest completion  | +25 Gold                               |
-| Weekly quest completion | +100 Gold                              |
-| Achievement unlocked    | +50–500 Gold (scales with rarity)      |
-| Boss defeated           | +200 Gold                              |
-| Bonus drop (chest)      | 20–100 Gold (random)                   |
+- **Premium Currency:** A real-money currency for cosmetic-only purchases. Must never affect XP gain, attribute growth, or any gameplay advantage — strictly visual customization (skins, borders, effects). The core progression experience remains fully free.
 
 ---
 
@@ -137,7 +132,7 @@ Earned currency spent in the Item Shop.
 
 XP is the core currency of progression. Every activity earns XP based on type, distance/time, and bonuses.
 
-#### Base XP Rates
+#### 3.1.1 Base XP Rates
 
 **Distance-based activities:**
 
@@ -165,43 +160,29 @@ XP is the core currency of progression. Every activity earns XP based on type, d
 | Daily login | +50 XP         | First activity of the day        |
 | Class bonus | +15%           | Activity matches character class |
 
-#### XP Caps & Anti-Cheat
+#### 3.1.2 Anti-Cheat
 
-| Rule                   | Value   | Purpose                       |
-| ---------------------- | ------- | ----------------------------- |
-| Max single-activity XP | 5,000   | Prevents outlier exploitation |
-| Max running speed      | 25 km/h | Anti-cheat                    |
-| Max cycling speed      | 80 km/h | Anti-cheat                    |
-| Max swimming speed     | 8 km/h  | Anti-cheat                    |
-| Max walking speed      | 12 km/h | Anti-cheat                    |
-| Max XC ski speed       | 35 km/h | Anti-cheat                    |
+Maximum speed thresholds per activity type. Activities exceeding these speeds are flagged and earn 0 XP.
 
-| Activity type mismatch | Flag | E-bike logged as run, etc. |
+| Rule               | Value   |
+| ------------------ | ------- |
+| Max running speed  | 25 km/h |
+| Max cycling speed  | 80 km/h |
+| Max swimming speed | 8 km/h  |
+| Max walking speed  | 12 km/h |
+| Max XC ski speed   | 35 km/h |
 
-Suspicious activities earn 0 XP with a logged warning.
+- Flagged activities are logged with a warning for review
+- Speed is calculated as average speed over the activity — short GPS spikes are tolerated
 
-#### Diminishing Returns
+#### 3.1.3 Future Design Space: Well Rested Bonus
 
-To balance casual vs. hardcore players, XP gain tapers after a daily threshold:
+If a player logs no activity for 2+ consecutive days, their next completed activity triggers a one-time **Well Rested Bonus**:
 
-| Daily XP Earned | Rate             |
-| --------------- | ---------------- |
-| First 2,000 XP  | 100% (full rate) |
-| 2,001–4,000 XP  | 50%              |
-| 4,001+ XP       | 25%              |
-
-- Resets at midnight (user-local time)
-- Encourages consistent daily activity over marathon grinding sessions
-- The single-activity cap (5,000 XP) still applies independently
-
-#### Rested XP (Catch-Up Mechanic)
-
-If a player logs no activity for 2+ consecutive days, they accumulate **Rested XP**:
-
-- Gain rate: 500 Rested XP per inactive day (max 2,000 stored)
-- Effect: Next activity earns 2x XP until the Rested XP pool is depleted
-- Prevents casual players from falling hopelessly behind hardcore daily runners
-- Does not stack with XP Boost consumables (higher multiplier wins)
+- Small flat XP bonus on the first activity back
+- Accompanied by a "Well Rested! You gained a small XP bonus" warm acknowledgment message (toast notification)
+- Does not accumulate — the bonus is the same whether the break was 2 days or 2 weeks
+- Purpose is emotional (reduce return anxiety) rather than mechanical (catch-up progression)
 
 ### 3.2 Leveling
 
@@ -215,48 +196,47 @@ If a player logs no activity for 2+ consecutive days, they accumulate **Rested X
 | 25    | 70,000            | ~6 months                  |
 | 50    | 265,000           | ~2 years                   |
 
-Level-ups trigger a celebration modal with:
+- Approximate times will be recalculated during balancing once XP rates are finalized
 
-- New level number with animation
+#### 3.2.1 Level-Up Rewards
+
+Each level-up triggers:
+
+- Celebration modal with new level number and animation
 - Tier-up announcement (if applicable)
-- XP breakdown of the triggering activity
+- A reward chest containing Gold and/or random items (amounts scale with level — details in balancing)
 
 ### 3.3 Streak System
 
 Streaks reward consistency without punishing life.
 
-**Core rules:**
+#### 3.3.1 Core Rules
 
 - Activity on consecutive days increments the streak
 - Same-day activities maintain (don't increment) the streak
-- Missing a day consumes a **grace day** if available; otherwise streak decays by 3 (floor of 0)
+- Missing a day consumes a **grace day** if available; otherwise streak decays (decay amount TBD in balancing)
 
-**Grace days:**
+#### 3.3.2 Grace Days
 
-- Earn 1 grace day per 7 consecutive active days
-- Max 3 grace days stored at once
+- Grace days are the primary streak protection mechanic — earned through consistency, they absorb missed days before the streak breaks
+- Earned through consecutive active days (rate TBD in balancing)
+- Maximum stored grace days capped (cap TBD in balancing)
 - Grace days are consumed automatically on missed days
+- Generous enough to cover rest days and minor disruptions, but not long absences — the streak should feel earned
 
-**Streak multiplier (tiered):**
+#### 3.3.3 Late Sync / Offline Activities
 
-| Streak Length | XP Multiplier |
-| ------------- | ------------- |
-| 3–6 days      | 1.1x (+10%)   |
-| 7–13 days     | 1.2x (+20%)   |
-| 14–29 days    | 1.3x (+30%)   |
-| 30+ days      | 1.5x (+50%)   |
+Streak calculation is based on the **activity date from the source data** (e.g., GPS timestamp from Strava), not the date the activity was synced or uploaded. This ensures:
 
-**Streak milestones (one-time rewards):**
+- Athletes training without internet (mountain, backcountry, open water) are not penalized
+- When activities sync late, the streak is retroactively recalculated, so streak is calculated on sync
+- Grace days that were auto-consumed during the offline period are restored if the gap is filled by late-syncing activities
+- Any streak decay that occurred is reversed if retroactive data fills the missed days
 
-| Milestone | Reward                                   |
-| --------- | ---------------------------------------- |
-| 7 days    | +200 XP + "Week Warrior" badge           |
-| 14 days   | +500 XP + "Fortnight Fighter" badge      |
-| 30 days   | +1,000 XP + "Iron Will" badge            |
-| 60 days   | +2,000 XP + "Unbreakable" badge          |
-| 100 days  | +5,000 XP + "Legendary Discipline" badge |
+#### 3.3.4 Streak Rewards
 
-**Tracked fields:** `streakCount`, `streakActive`, `streakGraceDays`, `longestStreak`
+- Active streaks grant a scaling bonus (type and values TBD in balancing — could be XP multiplier, Gold find, loot chance, or a combination)
+- Streak milestones (7 days, 30 days, 100 days, etc.) are handled in the Achievements system (Section 4) with corresponding badges
 
 ---
 
