@@ -515,6 +515,8 @@ This section defines the persistent shape of a player's game state. It reflects 
 
 ### 11.1 GameProfile
 
+`GameProfile` is stored as a nested field on the root user document (`users/{uid}.game`). Account-level fields (uid, email, Strava connection, `createdAt`, `updatedAt`) live on the user document itself and are outside the scope of this section.
+
 ```typescript
 interface GameProfile {
   // Core progression (Section 3)
@@ -527,13 +529,12 @@ interface GameProfile {
   // Economy (Section 2)
   gold: number;
 
-  // Identity (Section 1.1)
+  // Identity (Section 1.1) — choices are permanent once made
   characterClass: CharacterClass | null; // null = Novice (pre-1st evolution)
   specialization: Specialization | null; // null until 2nd evolution at Level 30
 
-  // Streak (Section 3.3)
+  // Streak (Section 3.3) — the scaling bonus is derived from streakCount; no separate "active" flag
   streakCount: number;
-  streakActive: boolean;
   streakGraceDays: number;
   longestStreak: number;
   lastActivityDate?: Timestamp; // source activity date, not sync date
@@ -547,6 +548,7 @@ interface GameProfile {
   };
 
   // Personal records (tracked for achievement triggers — Section 4.2.1)
+  // Key is a stable PR identifier, e.g. "fastest_5k", "longest_run", "most_elevation_single"
   personalRecords: Record<
     string,
     {
@@ -556,7 +558,7 @@ interface GameProfile {
     }
   >;
 
-  // Inventory — Consumables (Section 5.2.1 / 5.3.1)
+  // Inventory — consumable stacks (Section 5.2.1 / 5.3.1)
   inventory: {
     streakShields: number;
     xpBoosts: number;
@@ -564,6 +566,16 @@ interface GameProfile {
     luckyCharms: number;
     enduranceElixirs: number;
     trailblazerMaps: number;
+  };
+
+  // Primed consumables — manually activated, applied on the next qualifying activity (Section 5.3.1)
+  // Streak Shields are not listed here; they auto-consume from the inventory stack when needed.
+  activeConsumables: {
+    xpBoost: boolean;
+    goldBoost: boolean;
+    luckyCharm: boolean;
+    enduranceElixir: boolean;
+    trailblazerMap: boolean;
   };
 
   // Visual Customization (Section 8)
@@ -576,6 +588,9 @@ interface GameProfile {
   };
   unlockedCosmetics: string[]; // cosmetic item IDs
 
+  // Public profile showcase (Section 7.2.1) — achievement IDs the player chose to feature
+  showcasedAchievements: string[];
+
   // Pet System (Section 9)
   activePetId: string | null;
   incubatingEgg: {
@@ -583,12 +598,8 @@ interface GameProfile {
     distanceProgress: number;
   } | null;
 
-  // Rest & Recovery (Section 6)
-  restDays: Weekday[]; // 0–2 days chosen by player
-
-  // Timestamps
-  createdAt: Timestamp;
-  updatedAt: Timestamp;
+  // Rest & Recovery (Section 6) — 0–2 days chosen by player, default: []
+  restDays: Weekday[];
 }
 ```
 
@@ -614,18 +625,20 @@ type Weekday = 0 | 1 | 2 | 3 | 4 | 5 | 6;
 
 ### 11.3 Firestore Collections
 
-| Collection                 | Purpose                                                       |
-| -------------------------- | ------------------------------------------------------------- |
-| `users/{uid}`              | Root user document containing `GameProfile`                   |
-| `users/{uid}/quests`       | Active and recently completed quests (daily, weekly, monthly) |
-| `users/{uid}/achievements` | Earned achievements with unlock timestamps                    |
-| `users/{uid}/pets`         | Owned pets (species, XP, stage, rarity)                       |
-| `shopItems`                | Item Shop catalog — consumables and cosmetics (admin-managed) |
-| `questTemplates`           | Quest template pool (personal + community) for generation    |
-| `achievementDefinitions`   | Achievement definitions with thresholds and rewards           |
-| `petSpecies`               | Pet species catalog (buffs, rarity, evolution visuals)        |
-| `communityQuests`          | Currently active community quests shared across all players   |
-| `leaderboards/global`      | Precomputed global leaderboard snapshot (Section 7.1)         |
+| Collection                 | Purpose                                                              |
+| -------------------------- | -------------------------------------------------------------------- |
+| `users/{uid}`              | Root user document (account fields + nested `GameProfile`)           |
+| `users/{uid}/quests`       | Active and recently completed quests (daily, weekly, monthly)        |
+| `users/{uid}/achievements` | Earned achievements with unlock timestamps                           |
+| `users/{uid}/pets`         | Owned pets (species, XP, stage, rarity)                              |
+| `stravaTokens/{uid}`       | Per-user Strava OAuth tokens (access, refresh, expiry)               |
+| `stravaActivities`         | Raw Strava activities scoped by user, used for XP and streak replay  |
+| `shopItems`                | Item Shop catalog — consumables and cosmetics (admin-managed)        |
+| `questTemplates`           | Quest template pool (personal + community) for generation            |
+| `achievementDefinitions`   | Achievement definitions with thresholds and rewards                  |
+| `petSpecies`               | Pet species catalog (buffs, rarity, evolution visuals)               |
+| `communityQuests`          | Currently active community quests shared across all players          |
+| `leaderboards/global`      | Precomputed global leaderboard snapshot (Section 7.1)                |
 
 ---
 
