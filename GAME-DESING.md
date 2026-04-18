@@ -242,383 +242,255 @@ Streak calculation is based on the **activity date from the source data** (e.g.,
 
 ## 4. Quests & Achievements
 
-### 4.1 Daily Quests
+### 4.1 Quests
 
-2–3 quests generated each day at midnight (user-local time), randomly selected from a template pool.
+Quests provide structured short and mid-term goals that refresh on a regular cadence. They are generated from a template pool and assigned automatically. All quests are presented with RPG-themed names and flavor text to reinforce the adventure narrative.
 
-**Example templates:**
+#### 4.1.1 Quest Cadence
 
-| Quest            | Condition                | Reward  |
-| ---------------- | ------------------------ | ------- |
-| "First Steps"    | Complete any activity    | +25 XP  |
-| "Morning Run"    | Run at least 3 km        | +75 XP  |
-| "Climb Higher"   | Gain 100m+ elevation     | +60 XP  |
-| "Endurance Test" | Activity lasting 45+ min | +80 XP  |
-| "Double Down"    | Complete 2 activities    | +100 XP |
+| Type        | Generated     | Count | Scope                          | Expiry  |
+| ----------- | ------------- | ----- | ------------------------------ | ------- |
+| **Daily**   | Midnight      | 2–3   | Completable in a single day    | Daily   |
+| **Weekly**  | Monday        | 2–3   | Cumulative progress over week  | Weekly  |
+| **Monthly** | First of month| 1     | Sustained effort over weeks    | Monthly |
 
-### 4.2 Weekly Quests
+#### 4.1.2 Quest Types
 
-2–3 quests generated each Monday, tracking cumulative progress across the week.
+Quests are divided into two tracks:
 
-**Example templates:**
+**Community Quests:** The same quest assigned to all players simultaneously. Designed to be activity-agnostic and fair across all classes (e.g., time-based, activity count, elevation). Creates shared social context — players can complete these together, compare progress, and discuss them. Community quests appear on leaderboards and social features.
 
-| Quest           | Condition                           | Reward  |
-| --------------- | ----------------------------------- | ------- |
-| "Road Warrior"  | Run 20 km total                     | +300 XP |
-| "Active Week"   | Complete 4 activities               | +200 XP |
-| "Mountain Goat" | Gain 500m total elevation           | +250 XP |
-| "Variety Pack"  | Complete 3 different activity types | +350 XP |
-| "Century Ride"  | Cycle 100 km total                  | +400 XP |
+**Personal Quests:** Tailored to the individual player's class, tier, and activity history. RPG-themed with narrative flavor. These drive individual progression and class identity.
 
-### 4.3 Monthly Challenges
+Both tracks follow the daily/weekly/monthly cadence. A player might see 2 personal daily quests and 1 community daily quest, for example. Exact split TBD in balancing.
 
-1 challenge generated on the first of each month. Larger-scale goals with premium rewards.
+#### 4.1.3 Personal Quest Assignment Logic
 
-**Example templates:**
+- **Novice players (pre-class):** Generic quests applicable to any activity type
+- **Classed players:** Quests favor the player's class activity, with occasional variety quests mixed in
+- Quest difficulty scales with the player's tier
+- Rewards: XP and/or Gold (amounts TBD in balancing)
 
-| Challenge        | Condition                      | Reward               |
-| ---------------- | ------------------------------ | -------------------- |
-| "The Centurion"  | Run 100 km total               | +1,000 XP + 200 Gold |
-| "Peak Season"    | Gain 2,000m total elevation    | +800 XP + 150 Gold   |
-| "Iron Month"     | Complete 20 activities         | +1,200 XP + 250 Gold |
-| "Explorer"       | Log 5 different activity types | +600 XP + 100 Gold   |
-| "Endurance King" | Log 10 activities over 60 min  | +1,500 XP + 300 Gold |
+#### 4.1.4 Quest Template Design (to be expanded)
 
-### 4.4 Achievements
+- Templates combine an RPG-flavored title, a short narrative description, and a mechanical condition
+- Example: *"Flee the Shadow Wolf"* — "The beast is on your trail. Only speed will save you." — Run 5 km
+- Template pool, class-specific variants, and creative quests to be designed in a dedicated quest design pass
 
-Permanent badges earned by reaching milestones. Checked after every activity.
+### 4.2 Achievements
 
-**Categories:**
+Permanent badges earned by reaching milestones. Checked automatically after every activity. Achievements come in two types:
 
-**Distance milestones:**
+#### 4.2.1 Single-Effort Achievements
 
-- Run 100 km, 500 km, 1,000 km, 5,000 km
-- Cycle 500 km, 2,000 km, 10,000 km
-- Swim 10 km, 50 km, 100 km
+One-time feats accomplished in a single activity:
 
-**Elevation:**
+- Run a marathon (42.2 km)
+- Swim 5 km in a single session
+- Gain 1,000m elevation in a single activity
+- Set a new personal record
 
-- "Hilltop" — 1,000m total elevation
-- "Summit Seeker" — 10,000m total elevation
-- "Everest" — 8,849m in cumulative elevation
-- "To the Moon" — 100,000m total elevation
+#### 4.2.2 Cumulative Achievements
 
-**Consistency:**
+Long-term milestones tracked across all activities:
 
-- "Getting Started" — 7-day streak
-- "Committed" — 30-day streak
-- "Ironclad" — 100-day streak
-- "Year of Legends" — 365-day streak
+- Distance: Run 1,000 km total, Cycle 5,000 km total, etc.
+- Elevation: Gain 10,000m total, 100,000m total, etc.
+- Consistency: 7-day streak, 30-day streak, 100-day streak, etc.
+- Activity count: 10, 50, 100, 500 total activities
+- Variety: Log 3, 6 different activity types
 
-**Activity count:**
+#### 4.2.3 Achievement Rewards
 
-- 10, 50, 100, 500, 1,000 total activities
+- Permanent badge visible on the character page
+- One-time XP and/or Gold bonus (scaling with difficulty — TBD in balancing)
+- Some achievements unlock exclusive cosmetic items
+- Collection progress visible on a dedicated achievements page
 
-**Variety:**
-
-- "Jack of All Trades" — 3 different activity types
-- "Renaissance Athlete" — 6 different activity types
-
-**Personal bests:**
-
-- "Speed Demon" — set a new fastest 5 km
-- "Distance King" — set a new longest single activity
-- "Altitude Record" — set a new single-activity elevation record
-
-Each achievement grants a one-time XP bonus (scaling with difficulty) and a permanent badge visible on the character page.
+Specific achievements, thresholds, and rewards to be defined in balancing.
 
 ---
 
-## 5. Loot & Inventory
+## 5. Loot, Shop & Inventory
 
 ### 5.1 Bonus Drops
 
-After each activity, there is a 10–20% chance of a bonus drop. Drops are revealed with a chest-opening animation.
+After each activity, there is a chance of a bonus drop. Drops are revealed with a chest-opening animation, creating a moment of surprise.
 
-| Drop                 | Effect                   | Rarity         |
-| -------------------- | ------------------------ | -------------- |
-| **XP Shard** (small) | +50 bonus XP             | Common (60%)   |
-| **XP Shard** (large) | +200 bonus XP            | Uncommon (25%) |
-| **Streak Shield**    | Prevents 1 streak decay  | Rare (10%)     |
-| **XP Boost**         | 1.5x XP on next activity | Rare (5%)      |
+#### 5.1.1 Drop Types
 
-### 5.2 Inventory
+- **XP Shards:** Small bonus XP
+- **Gold Pouches:** Bonus Gold
+- **Consumable Items:** Random consumable item (see 5.3)
+- **Cosmetic Items:** Rare visual gear drops
+- **Pet Eggs:** Very rare — see Pet System
 
-Simple consumable inventory displayed on the character page.
+- Drop chance, rarity tiers, and loot tables TBD in balancing
+- Maximum drop rolls per day may be capped to prevent farming (limit to first activity per day)
+- Drop chance can be influenced by consumables or pet buffs
 
-```
-inventory: {
-  streakShields: number     // max 5 stored
-  xpBoosts: number          // max 3 stored, 1.5x next activity
-}
-```
+### 5.2 Item Shop
 
-- Streak shields are auto-consumed when a streak would decay
-- XP boosts are manually activated before an activity (or auto-applied to next)
+A static shop where players spend Gold. All items are always available.
 
----
+#### 5.2.1 Consumables
 
-## 6. Item Shop
+Temporary buff items purchased with Gold. Each type serves a distinct gameplay purpose:
 
-The Item Shop is the primary Gold sink. Players spend Gold earned from activities, quests, and drops.
+| Type                | Effect                                                              | Category        |
+| ------------------- | ------------------------------------------------------------------- | --------------- |
+| **Streak Shield**   | Prevents one streak reset on a missed day (auto-consumed)           | Streak protection |
+| **XP Boost**        | Multiplied XP on next activity                                      | XP enhancement  |
+| **Gold Boost**      | Multiplied Gold earned on next activity                             | Gold enhancement |
+| **Lucky Charm**     | Increased bonus drop chance on next activity                        | Loot enhancement |
+| **Endurance Elixir**| Bonus XP for activities over a duration threshold (e.g., >60 min)   | Attribute-adjacent |
+| **Trailblazer Map** | Bonus XP for elevation gain on next activity                        | Attribute-adjacent |
 
-### 6.1 Consumables (Functional)
+- These are the functional categories — RPG-flavored names are final
+- Some consumables are also obtainable through drops, providing alternative acquisition
+- Prices and exact effects TBD in balancing
 
-Temporary buffs purchased with Gold:
+#### 5.2.2 Cosmetics
 
-| Item                 | Cost     | Effect                                               |
-| -------------------- | -------- | ---------------------------------------------------- |
-| **Energy Bar**       | 50 Gold  | +20% XP for next activity                            |
-| **Trail Mix**        | 30 Gold  | +10% Gold from next activity                         |
-| **Lucky Charm**      | 80 Gold  | Bonus drop chance doubled for next activity          |
-| **Endurance Elixir** | 100 Gold | No diminishing returns for 24 hours                  |
-| **Streak Armor**     | 150 Gold | Prevents 1 streak decay (same as Streak Shield drop) |
+Visual gear with no gameplay effect:
 
-- Max 5 of each consumable in inventory
-- Some consumables also drop from chests (provides alternative acquisition)
+- Equipment slots: Helmet, Armor, Boots, Weapon, Accessory
+- All cosmetics always available in the shop — no rotation
+- Additional acquisition sources: achievement rewards, seasonal events, boss defeats, rare drops
+- Exclusive cosmetics tied to achievements or events are never sold in the shop
+- Prices TBD in balancing
 
-### 6.2 Cosmetics (Visual)
+#### 5.2.3 Future Design Space
 
-Gear that changes the avatar's appearance but not stats:
+- **Premium Currency:** Real-money currency for cosmetic-only purchases — never affects gameplay
+- **Shop Rotation:** Featured or discounted items on a weekly cycle to drive engagement
 
-| Category        | Examples                                   | Price Range    |
-| --------------- | ------------------------------------------ | -------------- |
-| **Helmets**     | Iron Helm, Dragon Crown, Frost Hood        | 200–1,000 Gold |
-| **Armor**       | Leather Vest, Plate Mail, Shadow Cloak     | 300–1,500 Gold |
-| **Boots**       | Trail Runners, Iron Greaves, Cloud Walkers | 200–800 Gold   |
-| **Weapons**     | Staff, Sword, Bow (cosmetic only)          | 500–2,000 Gold |
-| **Accessories** | Capes, Auras, Shoulder Pets                | 100–500 Gold   |
+### 5.3 Inventory
 
-- New cosmetics rotate into the shop weekly (FOMO mechanic)
-- Some cosmetics are exclusive to seasonal events or achievements
-- Crucial for future monetization (premium currency option)
+Displayed on the character page. Holds all player-owned items with limited capacity.
 
----
+#### 5.3.1 Consumables
 
-## 7. Rest & Recovery
+- Each consumable type has a max stack limit (TBD in balancing)
+- Items can be activated manually before an activity
+- Streak Shields auto-consume when needed
+- Inventory limit encourages spending rather than hoarding
 
-### 7.1 Rest Day Mechanic
+#### 5.3.2 Cosmetics
 
-Players can designate 1–2 rest days per week in settings (default: none).
-
-- On a designated rest day, if no activity is logged, award **+25 Recovery XP**
-- This reframes rest as part of the game, not a failure state
-- Rest days don't consume grace days and don't trigger streak decay
-- Checked via a daily scheduled function
+- All owned cosmetic gear organized by equipment slot
+- Equip/unequip to customize avatar appearance
+- Indicates acquisition source (shop, achievement, event, drop)
+- No limit on cosmetic storage — collections should feel rewarding to grow
 
 ---
 
-## 8. Personal Records
+## 6. Rest & Recovery
 
-### 8.1 Tracked Records
+Players can designate rest days in their settings to align the game with healthy training habits.
 
-Automatically tracked per player:
-
-| Record                           | Metric   |
-| -------------------------------- | -------- |
-| Fastest 5 km                     | Time     |
-| Fastest 10 km                    | Time     |
-| Longest single run               | Distance |
-| Longest single ride              | Distance |
-| Most elevation (single activity) | Meters   |
-| Longest streak                   | Days     |
-| Most XP (single activity)        | XP       |
-
-### 8.2 PR Notifications
-
-When a personal record is broken:
-
-- Special "New Record!" modal (distinct from level-up)
-- Record details: old value vs new value
-- Stored in `personalRecords` map on user document
+- Players choose 1–2 fixed rest days per week (e.g., Sunday) — default: none
+- On a designated rest day, if no activity is logged, the streak is maintained — no grace day consumed, no decay
+- Rest days reframe recovery as part of the game, not a failure state
+- If the player does log an activity on a rest day, it counts as a normal active day with full rewards
 
 ---
 
-## 9. Exploration Map
+## 7. Social Features
 
-### 9.1 Zone System
+### 7.1 Leaderboards
 
-A virtual world map where cumulative distance unlocks new zones. Each zone has its own visual theme.
+A global leaderboard ranked by total XP. All players compete on the same board.
 
-| Zone                  | Distance Threshold | Theme                          |
-| --------------------- | ------------------ | ------------------------------ |
-| **The Village**       | 0 km               | Starting area, tutorial quests |
-| **The Meadows**       | 100 km             | Rolling green hills            |
-| **The Forest**        | 300 km             | Dense woodland trails          |
-| **The Mountains**     | 750 km             | Rocky peaks and passes         |
-| **The Desert**        | 1,500 km           | Vast open expanse              |
-| **The Coast**         | 3,000 km           | Ocean cliffs and beaches       |
-| **The Frozen North**  | 5,000 km           | Ice and snow                   |
-| **The Dragon's Peak** | 10,000 km          | Final legendary zone           |
+- Shows top players and the current player's own rank
+- Tapping a player opens their public profile
 
-### 9.2 Zone Bosses
+#### 7.1.1 Future Design Space
 
-Each zone has a boss challenge — a specific activity goal that "defeats" the zone boss.
+- Filterable by: time period (weekly, monthly, all-time), class, tier
+- Additional boards ranked by other metrics (distance, streak, level)
+- Friends leaderboard
 
-| Zone              | Boss           | Challenge                                       |
-| ----------------- | -------------- | ----------------------------------------------- |
-| The Meadows       | Hill Giant     | Run 5 km with 100m+ elevation                   |
-| The Forest        | Shadow Wolf    | Complete 3 activities in one day                |
-| The Mountains     | Mountain Troll | Run 10 km with 200m+ elevation                  |
-| The Desert        | Sand Wyrm      | Cycle 50 km in a single ride                    |
-| The Coast         | Sea Serpent    | Swim 2 km in a single session                   |
-| The Frozen North  | Ice Drake      | Complete 5 activities in one week during winter |
-| The Dragon's Peak | Elder Dragon   | Run a half marathon (21.1 km)                   |
+### 7.2 Public Profiles
 
-Defeating a boss grants a unique title, a large XP reward, and a permanent badge.
+Each player has a public profile visible to other players through the leaderboard. Profiles showcase the player's character identity and progression at a glance.
 
----
+#### 7.2.1 Profile Contents
 
-## 10. Seasonal Events
+- Player name and tier badge with tier color border
+- Character class and specialization (or "Novice" if pre-class)
+- Level
+- Avatar with equipped cosmetic gear
+- Attributes radar chart
+- Achievement showcase (selected highlights or total count)
+- Current streak length
 
-### 10.1 Event Structure
+- Profiles are read-only
+- Players cannot hide their profile from the leaderboard
 
-4 seasonal events per year, each lasting ~2 months:
-
-| Season | Event            | Months  | Theme                                                   |
-| ------ | ---------------- | ------- | ------------------------------------------------------- |
-| Winter | **Frost Trials** | Dec–Jan | Cold-weather activity bonuses, snowsport challenges     |
-| Spring | **Awakening**    | Mar–Apr | "Shake off the rust" progressive goals, outdoor variety |
-| Summer | **Sun Chase**    | Jun–Jul | Distance-focused competitive challenges                 |
-| Autumn | **Harvest Run**  | Sep–Oct | Elevation and trail challenges, gathering theme         |
-
-### 10.2 Event Features
-
-- Exclusive quest chain (5–7 quests) with narrative flavor text
-- Seasonal achievements (only earnable during the event)
-- Seasonal cosmetic badge/title as final reward
-- Bonus XP multiplier for thematic activities (e.g., +10% for skiing during Frost Trials)
-- Configured server-side via Firestore `events` collection — no app deploy needed
-
-### 10.3 Mini-Events (FOMO)
-
-Shorter, more frequent events that create urgency:
-
-| Event Type            | Duration | Effect                                |
-| --------------------- | -------- | ------------------------------------- |
-| **Double XP Weekend** | 2 days   | All XP gains doubled                  |
-| **Gold Rush**         | 24 hours | Gold drops tripled                    |
-| **Loot Frenzy**       | 48 hours | Bonus drop chance increased to 40%    |
-| **Class Day**         | 24 hours | Specific class gets +30% XP (rotates) |
-
-- Announced 24 hours in advance via push notification
-- 1–2 mini-events per month between seasonal events
-- Creates "play now" urgency without requiring long-term commitment
+#### 7.2.2 Future Design Space: Friend System
+Add friends, friends leaderboard, compare profiles side by side
 
 ---
 
-## 11. Social Features
+## 8. Visual Customization
 
-### 11.1 Leaderboards
+Players build a unique avatar identity by equipping cosmetic gear across five equipment slots. The avatar is visible on the character page, leaderboard, and public profile.
 
-Weekly and monthly leaderboards with automatic reset:
-
-| Board     | Metric                | Reset                |
-| --------- | --------------------- | -------------------- |
-| XP Earned | XP gained in period   | Weekly + Monthly     |
-| Distance  | Total km in period    | Weekly + Monthly     |
-| Streak    | Current streak length | Real-time            |
-| Level     | Character level       | Real-time (all-time) |
-
-- Filter by: class, tier, friends (future), global
-- Show top 10 + player's own rank
-- Computed by a scheduled Cloud Function
-
-### 11.2 Guilds (Future)
-
-- Create or join a guild (5–20 members)
-- Guild quests: shared cumulative goals ("Run 500 km as a guild this month")
-- Guild level and XP progression
-- Guild leaderboard
-
-**Guild Boss Raids:**
-
-- Co-op challenges where the guild must collectively hit a target (e.g., "Run 500 km to defeat the Dragon")
-- Boss raids rotate monthly with escalating difficulty
-- Rewards: Gold, exclusive guild cosmetics, guild XP
-
-**Guild Identity:**
-
-- Custom guild banner / emblem (created from preset components)
-- Guild tag displayed next to player name on leaderboards
-- Guild chat for coordination
-
-### 11.3 Prestige System (Endgame)
-
-For players who reach Mythic tier (Level 65+):
-
-- **Prestige** resets level to 1 but grants:
-  - Permanent prestige star (visible to others)
-  - +5% permanent XP bonus per prestige level
-  - Exclusive prestige badge
-- Prestige count is displayed prominently on the character page
-- Creates infinite replayability for veterans
-
----
-
-## 12. Personalization
-
-### 12.1 Visual Customization
-
-Players can mix and match unlocked gear to create a unique avatar identity visible on leaderboards, guild pages, and the character page.
-
-**Equipment slots:**
+### 8.1 Equipment Slots
 
 - Helmet
 - Armor / Chest
 - Boots
-- Weapon (cosmetic)
+- Weapon (cosmetic only)
 - Accessory (cape, aura, etc.)
 
-**Acquisition sources:**
+### 8.2 Customization Rules
 
-- Item Shop (Gold)
-- Achievement rewards (exclusive items)
-- Seasonal event rewards (limited-time items)
-- Boss defeat rewards
-- Bonus drops (rare)
-
-- "Outfit" presets: save and switch between favorite combinations
-- Preview mode before purchase
-
-### 12.2 Pet System
-
-A companion system inspired by virtual pets (Tamagotchi / Pokemon GO).
-
-**Acquiring a Pet:**
-
-1. Rare drop: "Mystery Egg" (5% chance from bonus drops)
-2. Incubation: Walk/run a required distance to hatch (e.g., 10 km)
-3. What hatches is random — different species with different passive buffs
-
-**Pet Species (examples):**
-
-| Pet               | Passive Buff                       | Rarity    |
-| ----------------- | ---------------------------------- | --------- |
-| **Trail Fox**     | +5% Gold Find                      | Common    |
-| **Mountain Hawk** | +5% Elevation XP                   | Common    |
-| **Shadow Wolf**   | +5% XP from night activities       | Uncommon  |
-| **Fire Drake**    | +10% XP during events              | Rare      |
-| **Phoenix**       | Streak Shield once per week (auto) | Legendary |
-
-**Pet Care:**
-
-- Hunger bar depletes by 1 level each day with no logged activity
-- Feeding = logging any activity (resets hunger to full)
-- If hunger reaches 0, the pet "sleeps" — passive buff deactivated until next activity
-- Creates a daily engagement pull beyond streaks
-
-**Pet Progression:**
-
-- Pets gain their own XP from your activities
-- At certain milestones, pets evolve visually (3 stages)
-- Max 3 pets owned, 1 active at a time
+- Gear is purely cosmetic — no gameplay stats
+- Players can equip/unequip freely from owned items
+- Default appearance for each slot when nothing is equipped
+- Class and specialization determine the base avatar silhouette; cosmetics layer on top
+- Tier color border (see Section 1.2) frames the avatar
 
 ---
 
-## 13. Weekly Recap
+## 9. Pet System
 
-### 13.1 Summary Content
+A companion system inspired by virtual pets and creature collection. Pets are rare, collectible companions that provide passive buffs and evolve visually over time.
+
+### 9.1 Acquiring a Pet
+
+1. **Egg Drop:** Mystery Eggs are a rare bonus drop after activities
+2. **Incubation:** Walk/run a required distance to hatch the egg (distance TBD in balancing)
+3. **Hatching:** The species that hatches is random, with rarity tiers affecting probability
+
+### 9.2 Pet Traits
+
+- Each pet species has a unique passive buff (e.g., Gold find, elevation XP, streak protection)
+- Pets come in rarity tiers: Common, Uncommon, Rare, Legendary
+- Rarer pets have stronger or more unique buffs
+- Specific species, buffs, and rarity rates TBD in balancing
+
+### 9.3 Pet Progression
+
+- Pets gain XP passively from the player's activities
+- At milestones, pets evolve visually through 3 stages
+- Evolution is purely cosmetic progression — the buff stays the same, the pet just looks cooler
+- A fully evolved Legendary pet is a major status symbol on the public profile
+
+### 9.4 Pet Management
+
+- Maximum 3 pets owned, 1 active at a time
+- Active pet's buff applies to all activities
+- Active pet is displayed on the character page and public profile
+- Inactive pets retain their XP and evolution stage
+
+---
+
+## 10. Future Design Space: Weekly Recap
+
+### 10.1 Summary Content
 
 Generated weekly (Sunday evening) via scheduled function. Delivered in-app and optionally via email (Resend).
 
@@ -637,44 +509,44 @@ Generated weekly (Sunday evening) via scheduled function. Delivered in-app and o
 
 ---
 
-## 14. Data Model
+## 11. Data Model
 
-### GameProfile (updated)
+This section defines the persistent shape of a player's game state. It reflects only systems specified in sections 1–10; future design space features are intentionally excluded until promoted to core design.
+
+### 11.1 GameProfile
 
 ```typescript
 interface GameProfile {
-  // Core progression
+  // Core progression (Section 3)
   totalXP: number;
   level: number;
   currentLevelXP: number;
   nextLevelXP: number;
   tier: CharacterTier;
 
-  // Economy
+  // Economy (Section 2)
   gold: number;
 
-  // Identity
-  characterClass: CharacterClass | null; // null = Novice (pre-evolution)
-  specialization: string | null; // null until 2nd evolution
+  // Identity (Section 1.1)
+  characterClass: CharacterClass | null; // null = Novice (pre-1st evolution)
+  specialization: Specialization | null; // null until 2nd evolution at Level 30
 
-  // Streak
+  // Streak (Section 3.3)
   streakCount: number;
   streakActive: boolean;
   streakGraceDays: number;
   longestStreak: number;
-  lastActivityDate?: Timestamp;
+  lastActivityDate?: Timestamp; // source activity date, not sync date
 
-  // Attributes
+  // Attributes (Section 1.3) — automatic, never manually allocated
   attributes: {
-    endurance: number;
-    speed: number;
-    strength: number;
-    vitality: number;
+    endurance: { level: number; xp: number };
+    speed: { level: number; xp: number };
+    strength: { level: number; xp: number };
+    vitality: { level: number; xp: number };
   };
-  unspentStatPoints: number;
-  unlockedPerks: string[]; // skill tree perk IDs
 
-  // Personal records
+  // Personal records (tracked for achievement triggers — Section 4.2.1)
   personalRecords: Record<
     string,
     {
@@ -684,16 +556,17 @@ interface GameProfile {
     }
   >;
 
-  // Inventory
+  // Inventory — Consumables (Section 5.2.1 / 5.3.1)
   inventory: {
     streakShields: number;
     xpBoosts: number;
-    energyBars: number;
+    goldBoosts: number;
     luckyCharms: number;
     enduranceElixirs: number;
+    trailblazerMaps: number;
   };
 
-  // Cosmetics & Customization
+  // Visual Customization (Section 8)
   equippedGear: {
     helmet: string | null;
     armor: string | null;
@@ -703,61 +576,285 @@ interface GameProfile {
   };
   unlockedCosmetics: string[]; // cosmetic item IDs
 
-  // Pet
-  activePet: string | null; // pet ID
-  pets: Record<
-    string,
-    {
-      species: string;
-      xp: number;
-      stage: number; // 1–3 evolution stage
-      hunger: number; // 0–100
-    }
-  >;
-  incubatingEgg: { distanceRequired: number; distanceWalked: number } | null;
+  // Pet System (Section 9)
+  activePetId: string | null;
+  incubatingEgg: {
+    distanceRequired: number;
+    distanceProgress: number;
+  } | null;
 
-  // Rested XP
-  restedXP: number; // accumulated catch-up XP pool
+  // Rest & Recovery (Section 6)
+  restDays: Weekday[]; // 0–2 days chosen by player
 
-  // Exploration
-  currentZone: string;
-  defeatedBosses: string[];
-
-  // Endgame
-  prestigeCount: number;
-
-  // Daily tracking (for diminishing returns)
-  dailyXPEarned: number;
-  dailyXPDate: string; // ISO date, resets at midnight
+  // Timestamps
+  createdAt: Timestamp;
+  updatedAt: Timestamp;
 }
 ```
 
-### New Firestore Collections
+### 11.2 Subtypes
 
-| Collection                 | Purpose                                            |
-| -------------------------- | -------------------------------------------------- |
-| `users/{uid}/achievements` | Earned achievements per user                       |
-| `users/{uid}/quests`       | Active and completed quests                        |
-| `users/{uid}/pets`         | Pet details (species, XP, hunger, stage)           |
-| `users/{uid}/cosmetics`    | Owned cosmetic items and gear                      |
-| `events`                   | Seasonal event definitions (admin-managed)         |
-| `miniEvents`               | Short-duration event definitions (Double XP, etc.) |
-| `shopItems`                | Item Shop catalog (consumables + cosmetics)        |
-| `guilds`                   | Guild documents with membership (future)           |
-| `guilds/{gid}/raids`       | Active and past guild boss raids                   |
-| `leaderboards`             | Precomputed leaderboard snapshots                  |
+```typescript
+type CharacterTier =
+  | "wanderer" | "scout" | "ranger" | "warrior"
+  | "champion" | "hero"  | "legend" | "mythic";
+
+type CharacterClass =
+  | "strider" | "voyager" | "mountaineer" | "aquanaut" | "titan";
+
+type Specialization =
+  | "marathoner" | "sprinter"
+  | "roadRacer"  | "trailblazer"
+  | "summitChaser" | "trekker"
+  | "openWater" | "poolmaster"
+  | "powerlifter" | "crossfitter";
+
+type Weekday = 0 | 1 | 2 | 3 | 4 | 5 | 6;
+```
+
+### 11.3 Firestore Collections
+
+| Collection                 | Purpose                                                       |
+| -------------------------- | ------------------------------------------------------------- |
+| `users/{uid}`              | Root user document containing `GameProfile`                   |
+| `users/{uid}/quests`       | Active and recently completed quests (daily, weekly, monthly) |
+| `users/{uid}/achievements` | Earned achievements with unlock timestamps                    |
+| `users/{uid}/pets`         | Owned pets (species, XP, stage, rarity)                       |
+| `shopItems`                | Item Shop catalog — consumables and cosmetics (admin-managed) |
+| `questTemplates`           | Quest template pool (personal + community) for generation    |
+| `achievementDefinitions`   | Achievement definitions with thresholds and rewards           |
+| `petSpecies`               | Pet species catalog (buffs, rarity, evolution visuals)        |
+| `communityQuests`          | Currently active community quests shared across all players   |
+| `leaderboards/global`      | Precomputed global leaderboard snapshot (Section 7.1)         |
 
 ---
 
-## 15. Implementation Priority
+## 12. Implementation Priority
 
-| Phase       | Features                                                                                      | Goal                         |
-| ----------- | --------------------------------------------------------------------------------------------- | ---------------------------- |
-| **Phase 1** | Streak rework, tier expansion, XP rebalancing, anti-cheat extension, diminishing returns      | Fix the foundation           |
-| **Phase 2** | Achievement system, personal records                                                          | Goal structure               |
-| **Phase 3** | Class evolution system (Novice → Class → Spec), quest system (daily/weekly/monthly)           | Identity + daily engagement  |
-| **Phase 4** | Loot/drops, Gold economy, Item Shop (consumables), rest day mechanic, rested XP, weekly recap | Variable rewards + retention |
-| **Phase 5** | Attribute system, stat points, skill trees, exploration map                                   | Depth and uniqueness         |
-| **Phase 6** | Seasonal events, mini-events, leaderboards                                                    | Live ops + competition       |
-| **Phase 7** | Visual customization, Item Shop (cosmetics), pet system                                       | Personalization + daily pull |
-| **Phase 8** | Guilds, guild raids, guild identity, prestige                                                 | Social + endgame             |
+Phases are ordered to build the game from the core loop outward: establish the XP/level foundation first, then layer consistency, identity, goals, economy, depth, and finally social and personalization on top. Each phase delivers a coherent slice that is playable and testable on its own. Future design space items (Sections 1.1.4, 1.3.1, 3.1.3, 5.2.3, 7.1.1, 7.2.2, 10) are explicitly deferred — they slot in after Phase 8 as opportunistic expansions.
+
+### Phase 1 — Foundation (MVP)
+
+**Goal:** The core activity → XP → level loop works end-to-end. A player can connect Strava, see their activities converted to XP, level up, and view their character.
+
+- Strava sync integration (webhook + activity processing pipeline)
+- XP calculation engine: base rates (distance + time), elevation bonus, daily login bonus
+- Anti-cheat speed thresholds with flagging
+- Leveling formula (`100 * L^2 + 300 * L`)
+- Tier system with tier assignment based on level
+- Novice state for all new players (no class yet)
+- Character page: level, XP bar, tier badge with color, basic activity history
+- GameProfile data model (Firestore)
+
+**Testable outcome:** Player connects Strava → activities sync → XP is calculated → level increases → tier badge updates.
+
+### Phase 2 — Consistency
+
+**Goal:** Reward players for returning daily and protect against real life getting in the way.
+
+- Streak system: increment, grace day earning, grace day consumption, streak reset
+- Late sync / offline activity handling: retroactive streak recalculation based on activity dates
+- Rest day selection in settings (1–2 days per week, streak-protected)
+- Streak display on character page
+
+**Testable outcome:** Player maintains a streak across days, grace days absorb a missed day, rest days don't break the streak, late-synced activities restore a streak that appeared broken.
+
+### Phase 3 — Identity & Celebration
+
+**Goal:** Players commit to a character class, feel progression through celebration moments, and start earning Gold.
+
+- Class evolution at Level 10: auto-suggestion from activity history + manual choice
+- Class passive XP bonus applied to matching activities
+- Class-specific avatar/icon on character page
+- Level-up celebration modal with animation
+- Tier-up celebration modal with color transition and new badge
+- Level-up reward chest: Gold payout (introduces Gold currency)
+
+**Testable outcome:** Player reaches Level 10 → class selection screen → chooses a class → avatar changes → future activities show class bonus → level-ups feel rewarding.
+
+### Phase 4 — Goals
+
+**Goal:** Long-term milestones give players direction beyond leveling and a collection to chase.
+
+- Achievement system: definitions stored in Firestore, checked after every activity
+- Single-effort achievements (e.g., run a marathon, gain 1,000m elevation in one activity)
+- Cumulative achievements (e.g., run 1,000 km total, 30-day streak)
+- Personal record tracking (fastest 5K, longest run, etc.) as achievement triggers
+- Achievement badges displayed on character page
+- Achievements page showing earned and locked badges with progress indicators
+- One-time XP and Gold rewards on achievement unlock
+
+**Testable outcome:** Player completes an activity → achievement check runs → badge unlocks with reward → visible on character page and achievements page.
+
+### Phase 5 — Engagement Loop
+
+**Goal:** Give players a daily reason to open the app beyond checking stats.
+
+- Quest template system: template pool stored in Firestore
+- Personal quest assignment: filtered by class and tier, RPG-themed names and flavor text
+- Community quests: same quest for all players, activity-agnostic conditions
+- Daily / weekly / monthly cadence with automatic generation and expiry
+- Quest UI: active quests with progress bars, completion rewards
+- Quest rewards: XP and Gold payouts
+
+**Testable outcome:** Player opens app → sees today's quests → completes an activity → quest progress updates → quest completes with reward → next day brings new quests.
+
+### Phase 6 — Variable Rewards & Economy
+
+**Goal:** Introduce surprise mechanics, give Gold a purpose, and add player agency through consumables.
+
+- Bonus drop system: chance-based roll after each activity, chest-opening animation
+- Drop types: XP shards, Gold pouches, consumable items
+- Gold economy fully wired: earning (activities, quests, achievements, drops) and spending
+- Item Shop: consumables only (Streak Shield, XP Boost, Gold Boost, Lucky Charm, Endurance Elixir, Trailblazer Map)
+- Inventory system with stack limits per consumable type
+- Consumable activation flow: manual activation before activity, Streak Shield auto-consume
+- Shop UI on character page
+
+**Testable outcome:** Player completes activity → bonus drop rolls → chest animation reveals reward → player visits shop → buys a consumable with Gold → activates it → next activity applies the buff.
+
+### Phase 7 — Depth & Uniqueness
+
+**Goal:** Each player's character diverges based on how they actually train, adding a second dimension beyond level.
+
+- Attribute system: four independent XP pools (Endurance, Speed, Strength, Vitality)
+- Attribute XP calculation from activity characteristics (duration, pace, elevation, consistency)
+- Radar/spider chart on character page
+- Attribute levels (1–100) displayed per stat
+- Specialization at Level 30: choice within class, specialization-specific XP sub-bonus
+- Specialization avatars/icons
+
+**Testable outcome:** Player's activities feed different attributes → radar chart reflects their training style → player reaches Level 30 → specialization choice screen → sub-bonus applies to matching activities.
+
+### Phase 8 — Social & Personalization
+
+**Goal:** A character worth showing off and a community to show off to.
+
+- Global leaderboard: ranked by total XP, shows top players + own rank
+- Public profiles: viewable by tapping a leaderboard entry
+- Profile contents: tier badge, class, level, avatar, radar chart, achievement showcase, streak
+- Visual customization: 5 equipment slots, equip/unequip from owned cosmetics
+- Cosmetic items in Item Shop (purchased with Gold)
+- Cosmetic drops from bonus chests (rare)
+- Pet system: egg drops, incubation (distance-based), hatching (random species + rarity)
+- Pet progression: XP gain, 3-stage visual evolution
+- Pet management: max 3 owned, 1 active, passive buff applied
+- Pet display on character page and public profile
+
+**Testable outcome:** Player equips cosmetics → avatar updates on profile and leaderboard → other players can view the profile → player hatches a pet → pet evolves over time → pet buff applies to activities.
+
+### Future Phases (post-MVP)
+
+Features from the Future Design Space sections, prioritized by estimated impact:
+
+1. **Attribute milestones** (Section 1.3.1) — rewards at attribute thresholds
+2. **Well Rested Bonus** (Section 3.1.3) — small comeback XP bonus
+3. **Weekly Recap** (Section 10) — in-app and email summary
+4. **Leaderboard filters** (Section 7.1.1) — time period, class, tier filtering
+5. **Friend system** (Section 7.2.2) — add friends, compare profiles side by side
+6. **3rd Evolution / Mastery** (Section 1.1.4) — prestige-tier identity at Level 50+
+7. **Secondary Class** (Section 1.1.4) — unlock a second class passive
+8. **Seasonal & mini events** — time-limited quests, bonuses, exclusive cosmetics
+9. **Premium currency** (Section 5.2.3) — cosmetic-only monetization
+10. **Guilds** — guild creation, guild quests, guild raids, guild leaderboard
+
+---
+
+## 13. Next Steps
+
+Before implementation begins, the following work needs to be completed to turn this design document into a buildable specification.
+
+### 13.1 Balancing Pass
+
+Define all numeric values that were deferred during design. This should be done as a dedicated session with a spreadsheet model to simulate player progression at different activity levels (casual: 3x/week, regular: 5x/week, hardcore: 7x/week+).
+
+**XP & Progression:**
+
+- Validate base XP rates per activity type by modeling typical sessions (e.g., a 5K run, a 50km ride, a 1km swim, a 45min gym session) — ensure XP outputs feel proportionally fair across sport types
+- Set class bonus %, specialization bonus %, streak multiplier values, elevation rate — model the maximum possible multiplier stack to ensure it doesn't break progression
+- Validate the leveling formula against modeled XP rates — check that level-up frequency feels right at each tier (fast early, gradual later)
+
+**Economy:**
+
+- Model Gold income (per activity, per quest, per achievement, per drop) against Gold costs (shop items) — ensure a casual player can buy something meaningful within 2–4 weeks, and there's always something worth saving for
+- Set consumable prices, effects (multiplier values), and stack limits
+
+**Streak:**
+
+- Set grace day earn rate, max grace days, streak reward type and values
+
+**Quests & Achievements:**
+
+- XP and Gold reward amounts per quest cadence (daily small, weekly medium, monthly large)
+- Achievement reward scaling by difficulty tier
+
+**Loot & Drops:**
+
+- Base drop chance per activity, rarity distribution across tiers, daily drop cap
+
+**Attributes:**
+
+- Define how activity characteristics map to attribute XP gains — what qualifies as "long duration," "high pace," etc. relative to the player's own history
+
+**Pets:**
+
+- Egg drop rate, incubation distances, evolution XP thresholds, buff values per rarity tier
+
+**Deliverable:** A balancing constants file (JSON or config) externalized from code for easy iteration without redeployment.
+
+### 13.2 Content Design
+
+Create the actual content that populates the game systems.
+
+- **Quest template pool:** 20–30 personal quest templates per class + 10–15 community quest templates, each with RPG-flavored title, narrative description, and mechanical condition, scaled per tier
+- **Achievement catalog:** Full list of all achievements (single-effort + cumulative), organized by category, with thresholds, badge names, and reward tiers
+- **Shop item catalog:** All consumable items with names, descriptions, prices, effects; all cosmetic items with names, descriptions, prices, per equipment slot
+- **Pet species catalog:** Species names, rarity tiers, passive buffs, visual descriptions for each of the 3 evolution stages
+
+**Deliverable:** Content spreadsheet or structured data files ready to be loaded into Firestore collections (`questTemplates`, `achievementDefinitions`, `shopItems`, `petSpecies`).
+
+### 13.3 Visual & UX Design
+
+Design the key screens and celebration moments that make the game feel alive.
+
+**Core screens:**
+
+- Character page layout: level, XP bar, tier badge, class/specialization, avatar with cosmetic slots, radar chart, streak, inventory, active pet
+- Quest UI: active quests list with progress bars, completion animation, RPG flavor text
+- Achievement page: grid/list of badges, earned vs locked states, progress indicators
+- Shop UI: consumable and cosmetic tabs, item cards with prices, purchase confirmation
+- Leaderboard UI: ranked list with tier badges, tap-to-profile interaction
+- Public profile layout: read-only view with all profile contents
+
+**Celebration moments:**
+
+- Level-up modal: animation, reward chest reveal, tier-up variant
+- Class evolution screen: class selection at Level 10, specialization at Level 30, with descriptions and avatar previews
+- Chest-opening animation: bonus drop reveal sequence
+- Achievement unlock notification
+
+**Visual assets:**
+
+- Tier badge designs for all 8 tiers + color palette + Mythic animated treatment
+- Class and specialization avatars: base silhouettes for 5 classes, variants for 10 specializations
+- Pet visuals: species designs across 3 evolution stages per species
+- Cosmetic item designs per equipment slot
+- Notification / toast designs: quest completion, achievement unlock, streak warnings, Well Rested
+
+**Deliverable:** Wireframes or mockups for all key screens and moments, plus an asset list for illustrations and animations.
+
+### 13.4 Technical Architecture
+
+Plan the backend systems before writing code.
+
+- **Strava integration:** Webhook setup, activity sync pipeline, data mapping from Strava activity types to game activity types, rate limiting and error handling
+- **XP calculation service:** Activity → XP pipeline with bonus stacking logic, anti-cheat validation
+- **Streak engine:** Daily evaluation logic, grace day management, retroactive recalculation on late sync — define whether this runs on activity webhook, scheduled function, or both
+- **Quest generation service:** Template selection logic, class/tier filtering, community quest scheduling, progress tracking, expiry handling
+- **Achievement checker:** Post-activity evaluation, personal record comparison, cumulative stat tracking
+- **Leaderboard computation:** Scheduled function for global ranking, snapshot storage
+- **Drop/loot system:** Probability engine, rarity rolls, inventory management
+- **Data model validation:** Review GameProfile schema (Section 11) against all systems, ensure Firestore collection structure supports all required queries efficiently
+- **Constants externalization:** Design the config system so all balancing values are adjustable without code changes
+
+**Deliverable:** Technical design document covering service architecture, data flow diagrams, and Firestore query patterns.
