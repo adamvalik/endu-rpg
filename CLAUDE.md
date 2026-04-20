@@ -6,7 +6,7 @@ Fitness RPG that syncs with Strava — real-world activities earn XP, levels, an
 
 pnpm monorepo:
 
-- `apps/mobile` — Expo (React Native) mobile app
+- `apps/mobile` — Expo (React Native) mobile app (**POSTPONED**)
 - `apps/web` — Next.js 16 (App Router) web app, **static export** (`output: 'export'`)
 - `packages/functions` — Firebase Cloud Functions v2 (onCall)
 - `packages/shared` — Shared TypeScript types (`@endu/shared`)
@@ -54,6 +54,12 @@ Use `@tanstack/react-query` for all server state:
 ### Types
 
 - Import shared types from `@endu/shared/types` (subpath export) — never duplicate types that exist in the shared package
+
+### Balancing Config
+
+- Any tunable gameplay parameter (XP rates, level curve, tier thresholds, streak values, class bonuses, drop rates, anti-cheat limits, etc.) must live in `@endu/shared/config` (`packages/shared/config/game.config.ts`) — never hardcode these values in calculation code, UI, or tests
+- The backend mirror at `packages/functions/src/game/game.config.ts` must be kept in sync with the shared config (same duplication pattern used for types, because functions compiles with `rootDir: src`)
+- When adding a new gameplay parameter, add it to both files in the same commit
 
 ### Environment Variables
 

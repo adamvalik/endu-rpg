@@ -64,9 +64,10 @@ export function calculateLevel(totalXP: number): CalculatedLevel {
  * Determines character tier based on level
  */
 export function getCharacterTier(level: number): CharacterTier {
-  if (level >= 50) return 'Master';
-  if (level >= 25) return 'Expert';
-  if (level >= 10) return 'Apprentice';
+  const { Master, Expert, Apprentice } = GAME_CONFIG.TIER_THRESHOLDS;
+  if (level >= Master) return 'Master';
+  if (level >= Expert) return 'Expert';
+  if (level >= Apprentice) return 'Apprentice';
   return 'Novice';
 }
 

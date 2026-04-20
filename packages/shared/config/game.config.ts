@@ -1,6 +1,6 @@
-// Backend mirror of @endu/shared/config. Keep values in sync with
-// packages/shared/config/game.config.ts — that file is the canonical spec
-// consumed by web/mobile clients.
+// Canonical balancing config for Endu RPG.
+// Mirror any change in packages/functions/src/game/game.config.ts so
+// backend calculations and client displays stay aligned.
 
 export const GAME_CONFIG = {
   // Leveling formula: XP_required = A × L^2 + B × L
@@ -62,3 +62,5 @@ export const GAME_CONFIG = {
   SWIM_TYPES: ['Swim'],
   YOGA_TYPES: ['Yoga', 'Elliptical', 'StairStepper', 'RockClimbing'],
 };
+
+export type GameConfig = typeof GAME_CONFIG;
