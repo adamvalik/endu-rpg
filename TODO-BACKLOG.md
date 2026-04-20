@@ -67,17 +67,9 @@ Pick the first unchecked task in Ready and move it to In Progress.
 ### Done
 
 - [x] CORE-001 Externalize balancing constants into shared config
+- [x] CORE-002 Add Strava rate-limit deny coping mechanism
 
 ### In Progress (WIP 1)
-
-- [ ] CORE-002 Add Strava rate-limit deny coping mechanism
-  - Outcome: Sync pipeline gracefully handles API limit responses and retries safely.
-  - Acceptance criteria:
-    - [ ] Detect and classify rate-limit errors.
-    - [ ] Retry/backoff strategy implemented.
-    - [ ] User-facing status avoids silent failure.
-
-### Ready (ordered)
 
 - [ ] WEB-001 Add manual sync button (dev only)
   - Outcome: Developers can trigger sync from web app; button hidden in production.
@@ -85,6 +77,8 @@ Pick the first unchecked task in Ready and move it to In Progress.
     - [ ] Visible only in development environment.
     - [ ] Not rendered in production build.
     - [ ] Option available in settings or a dev-only panel.
+
+### Ready (ordered)
 
 - [ ] UX-001 Build onboarding flow for newcomers
   - Outcome: New user can understand value, connect Strava, and reach first meaningful action.
@@ -121,6 +115,17 @@ Pick the first unchecked task in Ready and move it to In Progress.
     - [ ] Hosting routes verified.
     - [ ] SSL and redirect rules verified.
 
+- [ ] OPS-002 Error alerting for Strava rate limits and critical errors
+  - Outcome: Any `StravaRateLimitError` (and other high-signal errors) in production triggers an immediate notification.
+  - Scope: GCP log-based metric + alert policy; no code changes. Structured error logs already in place.
+  - Acceptance criteria:
+    - [ ] Log-based metric created filtering on `StravaRateLimitError`.
+    - [ ] Alert policy fires on any occurrence (threshold > 0) and routes to email (or Slack).
+    - [ ] At least one additional critical-error filter added (e.g. token refresh failures).
+  - Dependencies: none (CORE-002 already emits the structured error).
+  - Note: Unblocks the dormancy gate on CORE-003 — we can't wait for rate limiting to appear if we're not watching.
+  - Estimate: S (<=1h)
+
 - [ ] GROWTH-001 Setup mailing service (provider + first flow)
   - Outcome: Basic email pipeline is available for transactional and waitlist use.
   - Acceptance criteria:
@@ -136,6 +141,19 @@ Pick the first unchecked task in Ready and move it to In Progress.
     - [ ] Contact script drafted.
 
 ## 4) Next (After Ready)
+
+### Deferred (Monitor-Gated)
+
+- [ ] CORE-003 Durable Strava webhook retry queue
+  - Outcome: Webhook events that fail due to Strava rate limits (or other transient errors) are retried out-of-band instead of being dropped.
+  - Scope: Persist failed webhook events to a Firestore pending queue and drain via a scheduled function; treat `update` events for unknown activities as create-and-fetch to self-heal past misses.
+  - Acceptance criteria:
+    - [ ] Dropped events are persisted with classification (scope, resetAt) and retry metadata.
+    - [ ] Scheduled drain processes pending events after the rate-limit window resets.
+    - [ ] `update` event for unknown activity backfills via fetch instead of early-return.
+  - Dependencies: depends on CORE-002 (rate-limit classification already in place).
+  - Note: DORMANT until we observe rate limiting in production logs. Monitor `StravaRateLimitError` occurrences — as long as the count stays at 0, this task stays deferred. Start it the first time a real user is affected.
+  - Estimate: M (1-2h)
 
 ### GDD Design Streams
 

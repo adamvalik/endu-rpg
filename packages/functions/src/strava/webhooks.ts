@@ -1,4 +1,4 @@
-import axios, { HttpStatusCode } from 'axios';
+import { HttpStatusCode } from 'axios';
 import * as logger from 'firebase-functions/logger';
 import { onRequest } from 'firebase-functions/v2/https';
 
@@ -6,6 +6,7 @@ import { db } from '../admin';
 import { FIRESTORE_COLLECTIONS, getStravaCredentials, STRAVA_CONFIG } from '../config';
 import { handleError } from '../handleError';
 import { StravaActivity, StravaWebhookEvent, StravaWebhookUpdates } from '../types';
+import { StravaRateLimitError, stravaRequest } from './http';
 import {
   fetchStravaActivity,
   getUserIdByStravaId,
@@ -151,6 +152,13 @@ async function handleActivityCreate(userId: string, activityId: number) {
     await fetchStravaActivity(userId, activityId);
     logger.info(`✅ Successfully stored activity ${activityId}`);
   } catch (error) {
+    if (error instanceof StravaRateLimitError) {
+      logger.error(
+        `Rate limit hit while fetching activity ${activityId}; dropping webhook event (Strava retries are not supported for async webhook path)`,
+        { snapshot: error.snapshot, userId, activityId },
+      );
+      return;
+    }
     logger.error(`Error handling activity create:`, error);
   }
 }
@@ -182,14 +190,13 @@ async function handleActivityUpdate(
 
     // Get fresh data from Strava
     const accessToken = await getValidStravaToken(userId);
-    const response = await axios.get<StravaActivity>(
-      `${STRAVA_CONFIG.API_BASE_URL}/activities/${activityId}`,
-      {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
+    const response = await stravaRequest<StravaActivity>({
+      method: 'GET',
+      url: `${STRAVA_CONFIG.API_BASE_URL}/activities/${activityId}`,
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
       },
-    );
+    });
 
     const updatedActivity = response.data;
     const oldActivity = existingActivity.data() as StravaActivity;
@@ -206,6 +213,14 @@ async function handleActivityUpdate(
 
     logger.info(`✅ Successfully updated activity ${activityId}`);
   } catch (error) {
+    if (error instanceof StravaRateLimitError) {
+      logger.error(`Rate limit hit while updating activity ${activityId}; dropping webhook event`, {
+        snapshot: error.snapshot,
+        userId,
+        activityId,
+      });
+      return;
+    }
     logger.error(`Error handling activity update:`, error);
   }
 }
@@ -252,7 +267,9 @@ export const createStravaWebhook = async (callbackUrl: string) => {
   const { clientId, clientSecret } = getStravaCredentials();
 
   try {
-    const response = await axios.post(STRAVA_CONFIG.PUSH_SUBSCRIPTION_URL, null, {
+    const response = await stravaRequest({
+      method: 'POST',
+      url: STRAVA_CONFIG.PUSH_SUBSCRIPTION_URL,
       params: {
         client_id: clientId,
         client_secret: clientSecret,
@@ -275,7 +292,9 @@ export const viewStravaWebhooks = async () => {
   const { clientId, clientSecret } = getStravaCredentials();
 
   try {
-    const response = await axios.get(STRAVA_CONFIG.PUSH_SUBSCRIPTION_URL, {
+    const response = await stravaRequest({
+      method: 'GET',
+      url: STRAVA_CONFIG.PUSH_SUBSCRIPTION_URL,
       params: {
         client_id: clientId,
         client_secret: clientSecret,
@@ -296,7 +315,9 @@ export const deleteStravaWebhook = async (subscriptionId: number) => {
   const { clientId, clientSecret } = getStravaCredentials();
 
   try {
-    await axios.delete(`${STRAVA_CONFIG.PUSH_SUBSCRIPTION_URL}/${subscriptionId}`, {
+    await stravaRequest({
+      method: 'DELETE',
+      url: `${STRAVA_CONFIG.PUSH_SUBSCRIPTION_URL}/${subscriptionId}`,
       params: {
         client_id: clientId,
         client_secret: clientSecret,

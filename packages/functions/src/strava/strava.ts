@@ -22,6 +22,7 @@ import {
   SuccessResponse,
   UserStats,
 } from '../types';
+import { stravaRequest } from './http';
 
 /**
  * Gets valid Strava access token for user, automatically refreshing if expired
@@ -56,7 +57,9 @@ export async function getValidStravaToken(userId: string): Promise<string> {
     };
 
     try {
-      const response = await axios.post<StravaRefreshTokenResponse>(STRAVA_CONFIG.TOKEN_URL, null, {
+      const response = await stravaRequest<StravaRefreshTokenResponse>({
+        method: 'POST',
+        url: STRAVA_CONFIG.TOKEN_URL,
         params,
       });
 
@@ -230,17 +233,16 @@ export async function fetchStravaActivity(
   const accessToken = await getValidStravaToken(userId);
 
   // Fetch activity from Strava API
-  const response = await axios.get<StravaActivity>(
-    `${STRAVA_CONFIG.API_BASE_URL}/activities/${activityId}`,
-    {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-      params: {
-        include_all_efforts: false,
-      },
+  const response = await stravaRequest<StravaActivity>({
+    method: 'GET',
+    url: `${STRAVA_CONFIG.API_BASE_URL}/activities/${activityId}`,
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
     },
-  );
+    params: {
+      include_all_efforts: false,
+    },
+  });
 
   const activity = response.data;
   logger.info(`Fetched activity ${activityId} for user ${userId}`);
@@ -283,7 +285,9 @@ export const exchangeCodeForToken = onCall(async (request): Promise<ExchangeCode
       grant_type: 'authorization_code',
     };
 
-    const response = await axios.post<StravaTokenExchangeResponse>(STRAVA_CONFIG.TOKEN_URL, null, {
+    const response = await stravaRequest<StravaTokenExchangeResponse>({
+      method: 'POST',
+      url: STRAVA_CONFIG.TOKEN_URL,
       params,
     });
 
@@ -355,7 +359,9 @@ export const disconnectStrava = onCall(async (request): Promise<SuccessResponse>
 
     // Revoke access with Strava API
     try {
-      await axios.post(STRAVA_CONFIG.DEAUTHORIZE_URL, null, {
+      await stravaRequest({
+        method: 'POST',
+        url: STRAVA_CONFIG.DEAUTHORIZE_URL,
         params: {
           access_token: accessToken,
         },
@@ -407,18 +413,17 @@ export const fetchStravaActivities = onCall(async (request): Promise<GetActiviti
     const accessToken = await getValidStravaToken(userId);
 
     // Make API request to Strava
-    const response = await axios.get<StravaActivity[]>(
-      `${STRAVA_CONFIG.API_BASE_URL}/athlete/activities`,
-      {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-        params: {
-          page,
-          per_page: perPage,
-        },
+    const response = await stravaRequest<StravaActivity[]>({
+      method: 'GET',
+      url: `${STRAVA_CONFIG.API_BASE_URL}/athlete/activities`,
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
       },
-    );
+      params: {
+        page,
+        per_page: perPage,
+      },
+    });
 
     const activities = response.data;
     logger.info(`Retrieved ${activities.length} activities for user: ${userId}`);
