@@ -1,15 +1,12 @@
 'use client';
 
 import type { StravaActivity } from '@endu/shared/types';
-import { RefreshCw } from 'lucide-react';
 import { useEffect, useRef } from 'react';
 
 import { ActivityCard } from '@/components/activities/activity-card';
-import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
 import { useActivities } from '@/hooks/use-activities';
-import { useSyncActivities } from '@/hooks/use-mutations';
 
 function ActivitySkeleton() {
   return (
@@ -36,7 +33,6 @@ function ActivitySkeleton() {
 
 export default function ActivitiesPage() {
   const { data, isLoading, hasNextPage, isFetchingNextPage, fetchNextPage } = useActivities();
-  const sync = useSyncActivities();
   const sentinelRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -60,13 +56,7 @@ export default function ActivitiesPage() {
 
   return (
     <div className="flex flex-col gap-6">
-      <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold">Activities</h1>
-        <Button variant="outline" size="sm" onClick={() => sync.mutate()} disabled={sync.isPending}>
-          <RefreshCw className={`mr-1.5 h-4 w-4 ${sync.isPending ? 'animate-spin' : ''}`} />
-          Sync
-        </Button>
-      </div>
+      <h1 className="text-2xl font-bold">Activities</h1>
 
       {isLoading ? (
         <div className="flex flex-col gap-3">

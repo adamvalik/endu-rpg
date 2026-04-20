@@ -1,7 +1,7 @@
 'use client';
 
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { Bug, Minus, Plus, RotateCcw, X } from 'lucide-react';
+import { Bug, Minus, Plus, RefreshCw, RotateCcw, X } from 'lucide-react';
 import { useState } from 'react';
 import { toast } from 'sonner';
 
@@ -10,6 +10,8 @@ import { Input } from '@/components/ui/input';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { Separator } from '@/components/ui/separator';
 import { useGameProfile } from '@/hooks/use-game-profile';
+import { useSyncActivities } from '@/hooks/use-mutations';
+import { useUserProfile } from '@/hooks/use-user-profile';
 import { queryKeys } from '@/lib/api/query-keys';
 import { addDebugXP } from '@/lib/firebase/functions';
 
@@ -32,9 +34,12 @@ const QUICK_XP = [100, 500, 1000, 5000];
 export function DevToolbar() {
   const [customXP, setCustomXP] = useState('');
   const { data: gameData } = useGameProfile();
+  const { data: profileData } = useUserProfile();
   const debugXP = useDebugXP();
+  const sync = useSyncActivities();
 
   const game = gameData?.game;
+  const stravaConnected = profileData?.profile?.stravaConnected;
 
   const applyXP = (amount: number) => {
     debugXP.mutate(amount);
@@ -122,6 +127,20 @@ export function DevToolbar() {
           </div>
 
           <Separator />
+
+          {/* Manual sync */}
+          {stravaConnected && (
+            <Button
+              variant="outline"
+              size="sm"
+              className="h-8 text-xs"
+              onClick={() => sync.mutate()}
+              disabled={sync.isPending}
+            >
+              <RefreshCw className={`mr-1.5 h-3.5 w-3.5 ${sync.isPending ? 'animate-spin' : ''}`} />
+              Sync Strava activities
+            </Button>
+          )}
 
           {/* Reset */}
           <Button

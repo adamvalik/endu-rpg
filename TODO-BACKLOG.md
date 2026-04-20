@@ -68,15 +68,11 @@ Pick the first unchecked task in Ready and move it to In Progress.
 
 - [x] CORE-001 Externalize balancing constants into shared config
 - [x] CORE-002 Add Strava rate-limit deny coping mechanism
+- [x] WEB-001 Move manual sync button to dev tools + settings backup
 
 ### In Progress (WIP 1)
 
-- [ ] WEB-001 Add manual sync button (dev only)
-  - Outcome: Developers can trigger sync from web app; button hidden in production.
-  - Acceptance criteria:
-    - [ ] Visible only in development environment.
-    - [ ] Not rendered in production build.
-    - [ ] Option available in settings or a dev-only panel.
+_(empty — pick the next Ready task)_
 
 ### Ready (ordered)
 

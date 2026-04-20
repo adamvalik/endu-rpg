@@ -1,6 +1,7 @@
 'use client';
 
 import { standardSchemaResolver } from '@hookform/resolvers/standard-schema';
+import { RefreshCw } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod/v4';
@@ -19,7 +20,12 @@ import {
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Separator } from '@/components/ui/separator';
-import { useDeleteAccount, useDisconnectStrava, useUpdateProfile } from '@/hooks/use-mutations';
+import {
+  useDeleteAccount,
+  useDisconnectStrava,
+  useSyncActivities,
+  useUpdateProfile,
+} from '@/hooks/use-mutations';
 import { useUserProfile } from '@/hooks/use-user-profile';
 
 const profileSchema = z.object({
@@ -34,6 +40,7 @@ export default function SettingsPage() {
   const { data: profileData } = useUserProfile();
   const updateProfile = useUpdateProfile();
   const disconnectStrava = useDisconnectStrava();
+  const syncActivities = useSyncActivities();
   const deleteAccount = useDeleteAccount();
   const [deleteOpen, setDeleteOpen] = useState(false);
   const [confirmInput, setConfirmInput] = useState('');
@@ -102,13 +109,34 @@ export default function SettingsPage() {
         </CardHeader>
         <CardContent>
           {profile?.stravaConnected ? (
-            <Button
-              variant="outline"
-              onClick={() => disconnectStrava.mutate()}
-              disabled={disconnectStrava.isPending}
-            >
-              {disconnectStrava.isPending ? 'Disconnecting...' : 'Disconnect Strava'}
-            </Button>
+            <div className="flex flex-col gap-4">
+              <div className="flex flex-col gap-1">
+                <div className="flex items-center gap-3">
+                  <Button
+                    variant="outline"
+                    onClick={() => syncActivities.mutate()}
+                    disabled={syncActivities.isPending}
+                  >
+                    <RefreshCw
+                      className={`mr-1.5 h-4 w-4 ${syncActivities.isPending ? 'animate-spin' : ''}`}
+                    />
+                    {syncActivities.isPending ? 'Syncing...' : 'Sync now'}
+                  </Button>
+                </div>
+                <p className="text-muted-foreground text-xs">
+                  Activities sync automatically from Strava. Use this only if something looks out of
+                  date.
+                </p>
+              </div>
+              <Button
+                variant="outline"
+                onClick={() => disconnectStrava.mutate()}
+                disabled={disconnectStrava.isPending}
+                className="self-start"
+              >
+                {disconnectStrava.isPending ? 'Disconnecting...' : 'Disconnect Strava'}
+              </Button>
+            </div>
           ) : (
             <Button asChild>
               <a href="/strava/connect">Connect Strava</a>

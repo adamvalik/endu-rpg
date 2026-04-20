@@ -1,7 +1,7 @@
 'use client';
 
 import type { StravaActivity } from '@endu/shared/types';
-import { ArrowRight, RefreshCw } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 
 import { ActivityCard } from '@/components/activities/activity-card';
@@ -14,7 +14,6 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
 import { useRecentActivities } from '@/hooks/use-activities';
 import { useGameProfile } from '@/hooks/use-game-profile';
-import { useSyncActivities } from '@/hooks/use-mutations';
 import { useUserProfile } from '@/hooks/use-user-profile';
 
 function DashboardSkeleton() {
@@ -51,7 +50,6 @@ export default function DashboardPage() {
   const { data: profileData, isLoading: profileLoading } = useUserProfile();
   const { data: gameData, isLoading: gameLoading } = useGameProfile();
   const { data: recentData, isLoading: recentLoading } = useRecentActivities(3);
-  const sync = useSyncActivities();
 
   const profile = profileData?.profile;
   const game = gameData?.game;
@@ -63,20 +61,7 @@ export default function DashboardPage() {
 
   return (
     <div className="flex flex-col gap-6">
-      <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold">Dashboard</h1>
-        {profile?.stravaConnected && (
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => sync.mutate()}
-            disabled={sync.isPending}
-          >
-            <RefreshCw className={`mr-1.5 h-4 w-4 ${sync.isPending ? 'animate-spin' : ''}`} />
-            Sync
-          </Button>
-        )}
-      </div>
+      <h1 className="text-2xl font-bold">Dashboard</h1>
 
       {/* Character summary */}
       {game && (
