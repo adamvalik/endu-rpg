@@ -1,7 +1,15 @@
 import { Timestamp } from 'firebase-admin/firestore';
 
 // Character progression types
-export type CharacterTier = 'Novice' | 'Apprentice' | 'Expert' | 'Master';
+export type CharacterTier =
+  | 'wanderer'
+  | 'scout'
+  | 'ranger'
+  | 'warrior'
+  | 'champion'
+  | 'hero'
+  | 'legend'
+  | 'mythic';
 
 export interface GameProfile {
   totalXP: number; // Total XP earned

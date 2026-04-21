@@ -64,11 +64,15 @@ export function calculateLevel(totalXP: number): CalculatedLevel {
  * Determines character tier based on level
  */
 export function getCharacterTier(level: number): CharacterTier {
-  const { Master, Expert, Apprentice } = GAME_CONFIG.TIER_THRESHOLDS;
-  if (level >= Master) return 'Master';
-  if (level >= Expert) return 'Expert';
-  if (level >= Apprentice) return 'Apprentice';
-  return 'Novice';
+  const t = GAME_CONFIG.TIER_THRESHOLDS;
+  if (level >= t.mythic) return 'mythic';
+  if (level >= t.legend) return 'legend';
+  if (level >= t.hero) return 'hero';
+  if (level >= t.champion) return 'champion';
+  if (level >= t.warrior) return 'warrior';
+  if (level >= t.ranger) return 'ranger';
+  if (level >= t.scout) return 'scout';
+  return 'wanderer';
 }
 
 // ============================================================================
@@ -100,14 +104,14 @@ export function updateStreak(
     // Same day - maintain current streak
     return {
       streakCount: currentStreakCount,
-      streakActive: currentStreakCount >= GAME_CONFIG.STREAK_THRESHOLD,
+      streakActive: currentStreakCount >= GAME_CONFIG.STREAK.THRESHOLD,
     };
   } else if (daysDiff === 1) {
     // Consecutive day - increment streak
     const newStreak = currentStreakCount + 1;
     return {
       streakCount: newStreak,
-      streakActive: newStreak >= GAME_CONFIG.STREAK_THRESHOLD,
+      streakActive: newStreak >= GAME_CONFIG.STREAK.THRESHOLD,
     };
   } else {
     // Streak broken
@@ -129,10 +133,22 @@ function isSuspiciousSpeed(activity: StravaActivity): boolean {
 
   // Calculate speed in km/h
   const speedKmH = activity.distance / 1000 / (activity.moving_time / 3600);
+  const limits = GAME_CONFIG.ANTI_CHEAT;
 
-  // Only check running activities
   if (GAME_CONFIG.RUNNING_TYPES.includes(activity.type)) {
-    return speedKmH > GAME_CONFIG.MAX_SPEED_KMH;
+    return speedKmH > limits.running;
+  }
+  if (GAME_CONFIG.CYCLING_TYPES.includes(activity.type)) {
+    return speedKmH > limits.cycling;
+  }
+  if (GAME_CONFIG.SWIM_TYPES.includes(activity.type)) {
+    return speedKmH > limits.swimming;
+  }
+  if (GAME_CONFIG.WALKING_TYPES.includes(activity.type)) {
+    return speedKmH > limits.walking;
+  }
+  if (GAME_CONFIG.XC_SKI_TYPES.includes(activity.type)) {
+    return speedKmH > limits.xcSki;
   }
 
   return false;
@@ -216,7 +232,7 @@ export async function calculateXP(
   // Apply streak bonus
   let streakBonus = 0;
   if (gameProfile?.streakActive) {
-    streakBonus = Math.floor(baseXP * (GAME_CONFIG.STREAK_BONUS_MULTIPLIER - 1));
+    streakBonus = Math.floor(baseXP * (GAME_CONFIG.BONUSES.STREAK_BONUS_MULTIPLIER - 1));
     logger.info(`Streak bonus applied: +${streakBonus} XP`);
   }
 
@@ -304,7 +320,7 @@ export async function initializeGameProfile(userId: string): Promise<void> {
     nextLevelXP: getXPRequiredForLevel(2),
     streakCount: 0,
     streakActive: false,
-    tier: 'Novice',
+    tier: 'wanderer',
   };
 
   await userRef.update({

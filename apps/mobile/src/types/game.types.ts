@@ -8,8 +8,6 @@ export interface GameProfile {
   streakCount: number;
   streakActive: boolean;
   lastActivityDate?: any;
-  dailyXPEarned: number;
-  dailyXPResetDate?: any;
   tier: CharacterTier;
 }
 

@@ -176,6 +176,16 @@ _(empty — pick the next Ready task)_
 
 Use this section for quick capture before grooming into Ready tasks.
 
+- [ ] CORE-004 Runtime-editable balancing config (Firestore-backed)
+  - Outcome: GAME_CONFIG values readable/editable at runtime from a Firestore doc so balancing can iterate without redeploy.
+  - Scope: Introduce a `config/balancing` Firestore doc seeded from the static config; add a typed loader used by XP/streak/quest logic with in-memory cache + invalidation; admin-only write path.
+  - Acceptance criteria:
+    - [ ] Functions read balancing values from Firestore with the static config as fallback.
+    - [ ] Changes to the Firestore doc take effect on next cold start (or via cache TTL).
+    - [ ] Admin UI (or script) to update the doc safely, with schema validation.
+  - Dependencies: Balancing pass (simulator) done — we know which values are live knobs vs constants.
+  - Estimate: M (1-2h)
+
 - [ ] Add item...
 
 ## 6) Weekly Ritual (30 min)

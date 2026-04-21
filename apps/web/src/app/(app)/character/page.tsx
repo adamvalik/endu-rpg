@@ -12,7 +12,16 @@ import { Separator } from '@/components/ui/separator';
 import { useGameProfile } from '@/hooks/use-game-profile';
 import { useUserProfile } from '@/hooks/use-user-profile';
 
-const TIERS: CharacterTier[] = ['Novice', 'Apprentice', 'Expert', 'Master'];
+const TIERS: CharacterTier[] = [
+  'wanderer',
+  'scout',
+  'ranger',
+  'warrior',
+  'champion',
+  'hero',
+  'legend',
+  'mythic',
+];
 
 export default function CharacterPage() {
   const { data: profileData, isLoading: profileLoading } = useUserProfile();
@@ -83,7 +92,7 @@ export default function CharacterPage() {
                             : 'outline'
                       }
                     >
-                      {tier}
+                      {tier.charAt(0).toUpperCase() + tier.slice(1)}
                     </Badge>
                     {i < TIERS.length - 1 && <Separator className="w-4" orientation="horizontal" />}
                   </div>

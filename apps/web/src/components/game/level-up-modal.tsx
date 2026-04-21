@@ -11,11 +11,15 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog';
 
-const TIER_LABELS: Record<CharacterTier, string> = {
-  Novice: 'You take your first steps on the path.',
-  Apprentice: 'Your dedication is paying off. Keep pushing.',
-  Expert: 'Few have reached this far. You are among the elite.',
-  Master: 'You have conquered the summit. Legendary.',
+const TIER_LABELS: Record<CharacterTier, { name: string; blurb: string }> = {
+  wanderer: { name: 'Wanderer', blurb: 'A traveler setting out on their first journey.' },
+  scout: { name: 'Scout', blurb: 'Learning the ways of the wild.' },
+  ranger: { name: 'Ranger', blurb: 'A seasoned explorer of trails and roads.' },
+  warrior: { name: 'Warrior', blurb: 'Proven through sweat and endurance.' },
+  champion: { name: 'Champion', blurb: 'Known throughout the realm for their feats.' },
+  hero: { name: 'Hero', blurb: 'Inspires others to take up the path.' },
+  legend: { name: 'Legend', blurb: 'Their name echoes across the land.' },
+  mythic: { name: 'Mythic', blurb: 'Transcended mortal limits.' },
 };
 
 interface LevelUpModalProps {
@@ -48,10 +52,10 @@ export function LevelUpModal({ game }: LevelUpModalProps) {
         <DialogHeader className="items-center">
           <div className="mb-2 text-5xl">{tierUp ? '⚔️' : '🎉'}</div>
           <DialogTitle className="text-2xl">
-            {tierUp ? `${tierUp} Unlocked!` : `Level ${levelUp}!`}
+            {tierUp ? `${TIER_LABELS[tierUp].name} Unlocked!` : `Level ${levelUp}!`}
           </DialogTitle>
           <DialogDescription className="text-base">
-            {tierUp ? TIER_LABELS[tierUp] : 'You leveled up! Keep going.'}
+            {tierUp ? TIER_LABELS[tierUp].blurb : 'You leveled up! Keep going.'}
           </DialogDescription>
         </DialogHeader>
         <div className="text-muted-foreground text-sm">

@@ -1,4 +1,12 @@
-export type CharacterTier = 'Novice' | 'Apprentice' | 'Expert' | 'Master';
+export type CharacterTier =
+  | 'wanderer'
+  | 'scout'
+  | 'ranger'
+  | 'warrior'
+  | 'champion'
+  | 'hero'
+  | 'legend'
+  | 'mythic';
 
 export interface GameProfile {
   totalXP: number;
@@ -8,8 +16,6 @@ export interface GameProfile {
   streakCount: number;
   streakActive: boolean;
   lastActivityDate?: any;
-  dailyXPEarned: number;
-  dailyXPResetDate?: any;
   tier: CharacterTier;
 }
 

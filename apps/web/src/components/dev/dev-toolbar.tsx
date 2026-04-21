@@ -1,7 +1,8 @@
 'use client';
 
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { Bug, Minus, Plus, RefreshCw, RotateCcw, X } from 'lucide-react';
+import { Bug, FlaskConical, Minus, Plus, RefreshCw, RotateCcw } from 'lucide-react';
+import Link from 'next/link';
 import { useState } from 'react';
 import { toast } from 'sonner';
 
@@ -141,6 +142,14 @@ export function DevToolbar() {
               Sync Strava activities
             </Button>
           )}
+
+          {/* Balancing simulator */}
+          <Button asChild variant="outline" size="sm" className="h-8 text-xs">
+            <Link href="/dev/simulator">
+              <FlaskConical className="mr-1.5 h-3.5 w-3.5" />
+              Balancing simulator
+            </Link>
+          </Button>
 
           {/* Reset */}
           <Button
