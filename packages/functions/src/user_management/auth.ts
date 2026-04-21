@@ -10,6 +10,20 @@ import { handleError } from '../handleError';
 import { SignUpOrLogInData, UserProfile } from '../types/user.types';
 
 /**
+ * Throws `unauthenticated` if the caller has no auth context,
+ * or `permission-denied` if the caller lacks the `admin: true` custom claim.
+ */
+export function assertAdmin(request: CallableRequest<unknown>): string {
+  if (!request.auth) {
+    throw new HttpsError('unauthenticated', 'User must be authenticated.');
+  }
+  if (request.auth.token.admin !== true) {
+    throw new HttpsError('permission-denied', 'Admin access required.');
+  }
+  return request.auth.uid;
+}
+
+/**
  * Creates or logs in a user with email and password
  * This function handles anonymous user conversion to authenticated users
  */

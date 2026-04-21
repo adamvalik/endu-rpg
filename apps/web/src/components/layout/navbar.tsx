@@ -1,7 +1,16 @@
 'use client';
 
 import { signOut } from 'firebase/auth';
-import { Activity, LayoutDashboard, LogOut, Menu, Settings, Swords, User } from 'lucide-react';
+import {
+  Activity,
+  LayoutDashboard,
+  LogOut,
+  Menu,
+  Settings,
+  Shield,
+  Swords,
+  User,
+} from 'lucide-react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { useState } from 'react';
@@ -30,7 +39,11 @@ const navLinks = [
 export function Navbar() {
   const pathname = usePathname();
   const router = useRouter();
-  const { user } = useAuth();
+  const { user, isAdmin } = useAuth();
+
+  const visibleLinks = isAdmin
+    ? [...navLinks, { href: '/admin', label: 'Admin', icon: Shield }]
+    : navLinks;
   const [sheetOpen, setSheetOpen] = useState(false);
 
   const handleSignOut = async () => {
@@ -48,7 +61,7 @@ export function Navbar() {
           </Link>
 
           <nav className="hidden items-center gap-1 md:flex">
-            {navLinks.map((link) => (
+            {visibleLinks.map((link) => (
               <Button
                 key={link.href}
                 variant="ghost"
@@ -102,7 +115,7 @@ export function Navbar() {
                 </SheetTitle>
               </SheetHeader>
               <nav className="mt-6 flex flex-col gap-1">
-                {navLinks.map((link) => (
+                {visibleLinks.map((link) => (
                   <Button
                     key={link.href}
                     variant={pathname === link.href ? 'secondary' : 'ghost'}

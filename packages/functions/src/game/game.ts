@@ -17,6 +17,7 @@ import {
   StreakCalculationResult,
   XPCalculationResult,
 } from '../types';
+import { assertAdmin } from '../user_management/auth';
 import { GAME_CONFIG } from './game.config';
 
 // ============================================================================
@@ -381,17 +382,12 @@ export const getGameProfile = onCall(async (request): Promise<GameProfileRespons
  */
 export const addDebugXP = onCall(
   async (request): Promise<{ status: string; newTotalXP: number; newLevel: number }> => {
-    // Optional check: only allow in development. For now just require auth.
-    if (!request.auth) {
-      throw new HttpsError('unauthenticated', 'User must be authenticated.');
-    }
+    const userId = assertAdmin(request);
 
     const { xpToAdd } = request.data as { xpToAdd: number };
     if (typeof xpToAdd !== 'number') {
       throw new HttpsError('invalid-argument', 'xpToAdd must be a number');
     }
-
-    const userId = request.auth.uid;
 
     try {
       const userRef = db.collection(FIRESTORE_COLLECTIONS.USERS).doc(userId);

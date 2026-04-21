@@ -17,3 +17,10 @@ export { stravaWebhook } from './strava/webhooks';
 
 // Export game functions
 export { getGameProfile, addDebugXP } from './game/game';
+
+// Export admin dashboard functions
+export {
+  getAdminOverview,
+  listAdminUsers,
+  getAdminActivityAnalytics,
+} from './admin_dashboard/admin';

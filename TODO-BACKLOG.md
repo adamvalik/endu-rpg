@@ -69,6 +69,7 @@ Pick the first unchecked task in Ready and move it to In Progress.
 - [x] CORE-001 Externalize balancing constants into shared config
 - [x] CORE-002 Add Strava rate-limit deny coping mechanism
 - [x] WEB-001 Move manual sync button to dev tools + settings backup
+- [x] GDD-001 Balancing pass system and target curves
 
 ### In Progress (WIP 1)
 
@@ -153,7 +154,6 @@ _(empty — pick the next Ready task)_
 
 ### GDD Design Streams
 
-- [ ] GDD-001 Balancing pass spreadsheet and target curves
 - [ ] GDD-002 Content design pass (quests, achievements, shop, pets)
 - [ ] GDD-003 Visual design pass (icons, badges, class/specialization characters)
 - [ ] GDD-004 Page redesign pass (layout refresh, rename Recent Activities to Today Activities decision)

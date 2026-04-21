@@ -1,6 +1,11 @@
 import type {
+  AdminActivityAnalyticsResponse,
+  AdminOverviewResponse,
   GameProfileResponse,
   GetActivitiesResponse,
+  GetAdminActivityAnalyticsData,
+  ListAdminUsersData,
+  ListAdminUsersResponse,
   ProfileResponse,
   SignUpOrLogInResponse,
   StravaAuthData,
@@ -57,4 +62,21 @@ export const addDebugXP = (data: { xpToAdd: number }) =>
   httpsCallable<typeof data, { status: string; newTotalXP: number; newLevel: number }>(
     getFunctions(),
     'addDebugXP',
+  )(data).then((r) => r.data);
+
+export const getAdminOverview = () =>
+  httpsCallable<void, AdminOverviewResponse>(getFunctions(), 'getAdminOverview')().then(
+    (r) => r.data,
+  );
+
+export const listAdminUsers = (data: ListAdminUsersData) =>
+  httpsCallable<ListAdminUsersData, ListAdminUsersResponse>(
+    getFunctions(),
+    'listAdminUsers',
+  )(data).then((r) => r.data);
+
+export const getAdminActivityAnalytics = (data: GetAdminActivityAnalyticsData) =>
+  httpsCallable<GetAdminActivityAnalyticsData, AdminActivityAnalyticsResponse>(
+    getFunctions(),
+    'getAdminActivityAnalytics',
   )(data).then((r) => r.data);

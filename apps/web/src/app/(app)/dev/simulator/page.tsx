@@ -275,8 +275,8 @@ export default function SimulatorPage() {
               <CardTitle className="text-sm">Level over 52 weeks — all archetypes</CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="h-80">
-                <ResponsiveContainer>
+              <div className="h-80 w-full">
+                <ResponsiveContainer width="100%" height="100%" minWidth={0}>
                   <LineChart data={combinedChartData as any[]}>
                     <CartesianGrid strokeDasharray="3 3" />
                     <XAxis
@@ -319,8 +319,8 @@ export default function SimulatorPage() {
                 <CardTitle className="text-sm">Total XP</CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="h-56">
-                  <ResponsiveContainer>
+                <div className="h-56 w-full">
+                  <ResponsiveContainer width="100%" height="100%" minWidth={0}>
                     <LineChart data={combinedChartData as any[]}>
                       <CartesianGrid strokeDasharray="3 3" />
                       <XAxis dataKey="week" />
@@ -359,8 +359,8 @@ export default function SimulatorPage() {
                 <CardTitle className="text-sm">Cumulative gold from level-ups</CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="h-56">
-                  <ResponsiveContainer>
+                <div className="h-56 w-full">
+                  <ResponsiveContainer width="100%" height="100%" minWidth={0}>
                     <LineChart data={combinedChartData as any[]}>
                       <CartesianGrid strokeDasharray="3 3" />
                       <XAxis dataKey="week" />
