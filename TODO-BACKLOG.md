@@ -69,7 +69,8 @@ Pick the first unchecked task in Ready and move it to In Progress.
 - [x] CORE-001 Externalize balancing constants into shared config
 - [x] CORE-002 Add Strava rate-limit deny coping mechanism
 - [x] WEB-001 Move manual sync button to dev tools + settings backup
-- [x] GDD-001 Balancing pass system and target curves
+- [x] GDD-001 Balancing pass system (simulator)
+- [x] ADMIN-000 Admin dashboard + cross-user data viewer
 
 ### In Progress (WIP 1)
 
