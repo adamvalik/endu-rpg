@@ -1,0 +1,918 @@
+[
+  {
+    "id": "community-daily-any-activity",
+    "cadence": "daily",
+    "track": "community",
+    "title": "Answer the Call",
+    "flavor": "The realm stirs. Log any activity today.",
+    "condition": { "metric": "activity_count", "value": 1 },
+    "reward": { "xp": 40, "gold": 10 }
+  },
+  {
+    "id": "community-daily-thirty-minutes",
+    "cadence": "daily",
+    "track": "community",
+    "title": "Half an Hour of Glory",
+    "flavor": "Thirty minutes of sweat. That's the whole of it.",
+    "condition": { "metric": "duration_min", "value": 30 },
+    "reward": { "xp": 50, "gold": 10 }
+  },
+  {
+    "id": "community-daily-hundred-elevation",
+    "cadence": "daily",
+    "track": "community",
+    "title": "Upward, Ever Upward",
+    "flavor": "Gain 100 meters of elevation today, by any means.",
+    "condition": { "metric": "elevation_m", "value": 100 },
+    "reward": { "xp": 60, "gold": 15 }
+  },
+  {
+    "id": "community-daily-five-km",
+    "cadence": "daily",
+    "track": "community",
+    "title": "Five Leagues",
+    "flavor": "Cover five kilometers under your own power.",
+    "condition": { "metric": "distance_km", "value": 5 },
+    "reward": { "xp": 50, "gold": 10 }
+  },
+  {
+    "id": "community-weekly-three-sessions",
+    "cadence": "weekly",
+    "track": "community",
+    "title": "The Steady Hand",
+    "flavor": "Three sessions this week. Rhythm is everything.",
+    "condition": { "metric": "activity_count", "value": 3 },
+    "reward": { "xp": 250, "gold": 40 }
+  },
+  {
+    "id": "community-weekly-five-sessions",
+    "cadence": "weekly",
+    "track": "community",
+    "title": "Five Flames",
+    "flavor": "Five days of movement. Tend your flame.",
+    "condition": { "metric": "activity_count", "value": 5 },
+    "reward": { "xp": 400, "gold": 70 }
+  },
+  {
+    "id": "community-weekly-three-hours",
+    "cadence": "weekly",
+    "track": "community",
+    "title": "Three Hours in the Saddle",
+    "flavor": "Spend three hours in motion this week.",
+    "condition": { "metric": "duration_min", "value": 180 },
+    "reward": { "xp": 300, "gold": 50 }
+  },
+  {
+    "id": "community-weekly-variety-two",
+    "cadence": "weekly",
+    "track": "community",
+    "title": "Two Paths",
+    "flavor": "Walk two different roads this week. Log two activity types.",
+    "condition": { "metric": "activity_variety", "value": 2 },
+    "reward": { "xp": 300, "gold": 50 }
+  },
+  {
+    "id": "community-weekly-thousand-elevation",
+    "cadence": "weekly",
+    "track": "community",
+    "title": "A Thousand Meters Skyward",
+    "flavor": "Gain 1000 meters of elevation this week.",
+    "condition": { "metric": "elevation_m", "value": 1000 },
+    "reward": { "xp": 350, "gold": 60 }
+  },
+  {
+    "id": "community-weekly-xp-thousand",
+    "cadence": "weekly",
+    "track": "community",
+    "title": "Earn Your Thousand",
+    "flavor": "Accumulate 1,000 XP in a single week.",
+    "condition": { "metric": "xp_earned", "value": 1000 },
+    "reward": { "xp": 300, "gold": 50 }
+  },
+  {
+    "id": "community-weekly-xp-twenty-five-hundred",
+    "cadence": "weekly",
+    "track": "community",
+    "minTier": "ranger",
+    "title": "The Champion's Share",
+    "flavor": "Ranger-tier and above: earn 2,500 XP this week.",
+    "condition": { "metric": "xp_earned", "value": 2500 },
+    "reward": { "xp": 500, "gold": 100 }
+  },
+  {
+    "id": "community-monthly-sessions",
+    "cadence": "monthly",
+    "track": "community",
+    "title": "Twenty Days of Sweat",
+    "flavor": "Twenty sessions logged this month. The realm notices.",
+    "condition": { "metric": "activity_count", "value": 20 },
+    "reward": { "xp": 1500, "gold": 250 }
+  },
+  {
+    "id": "community-monthly-variety-three",
+    "cadence": "monthly",
+    "track": "community",
+    "title": "Wanderer of Three Worlds",
+    "flavor": "Complete activities in three different disciplines this month.",
+    "condition": { "metric": "activity_variety", "value": 3 },
+    "reward": { "xp": 1500, "gold": 250 }
+  },
+  {
+    "id": "community-monthly-elevation-five-thousand",
+    "cadence": "monthly",
+    "track": "community",
+    "minTier": "warrior",
+    "title": "The Mountain's Tithe",
+    "flavor": "Warrior-tier and above: 5000 meters of vertical this month.",
+    "condition": { "metric": "elevation_m", "value": 5000 },
+    "reward": { "xp": 2000, "gold": 350 }
+  },
+  {
+    "id": "community-monthly-xp-ten-thousand",
+    "cadence": "monthly",
+    "track": "community",
+    "minTier": "warrior",
+    "title": "Legend in the Making",
+    "flavor": "Warrior-tier and above: earn 10,000 XP in a single month.",
+    "condition": { "metric": "xp_earned", "value": 10000 },
+    "reward": { "xp": 2500, "gold": 500 }
+  },
+
+  {
+    "id": "strider-daily-short-run",
+    "cadence": "daily",
+    "track": "personal",
+    "class": "strider",
+    "title": "The Dawn Patrol",
+    "flavor": "A short run to set the day in motion. Three kilometers.",
+    "condition": {
+      "metric": "distance_km",
+      "value": 3,
+      "activityTypes": ["Run", "VirtualRun", "TrailRun"]
+    },
+    "reward": { "xp": 50, "gold": 10 }
+  },
+  {
+    "id": "strider-daily-five-k",
+    "cadence": "daily",
+    "track": "personal",
+    "class": "strider",
+    "title": "Flee the Shadow Wolf",
+    "flavor": "The beast is on your trail. Only speed will save you. Run 5 km.",
+    "condition": {
+      "metric": "single_activity_distance_km",
+      "value": 5,
+      "activityTypes": ["Run", "VirtualRun", "TrailRun"]
+    },
+    "reward": { "xp": 70, "gold": 15 }
+  },
+  {
+    "id": "strider-daily-forty-five",
+    "cadence": "daily",
+    "track": "personal",
+    "class": "strider",
+    "title": "The Long Road",
+    "flavor": "Run for forty-five minutes without stopping. Time is the true distance.",
+    "condition": {
+      "metric": "single_activity_duration_min",
+      "value": 45,
+      "activityTypes": ["Run", "VirtualRun", "TrailRun"]
+    },
+    "reward": { "xp": 80, "gold": 15 }
+  },
+  {
+    "id": "strider-weekly-three-runs",
+    "cadence": "weekly",
+    "track": "personal",
+    "class": "strider",
+    "title": "Thrice the Stride",
+    "flavor": "Three runs this week. Anything less is rumor.",
+    "condition": {
+      "metric": "activity_count",
+      "value": 3,
+      "activityTypes": ["Run", "VirtualRun", "TrailRun"]
+    },
+    "reward": { "xp": 300, "gold": 50 }
+  },
+  {
+    "id": "strider-weekly-twenty-five-km",
+    "cadence": "weekly",
+    "track": "personal",
+    "class": "strider",
+    "title": "The Courier's Circuit",
+    "flavor": "A messenger's weekly route. 25 km on foot.",
+    "condition": {
+      "metric": "distance_km",
+      "value": 25,
+      "activityTypes": ["Run", "VirtualRun", "TrailRun"]
+    },
+    "reward": { "xp": 350, "gold": 60 }
+  },
+  {
+    "id": "strider-weekly-five-runs",
+    "cadence": "weekly",
+    "track": "personal",
+    "class": "strider",
+    "minTier": "ranger",
+    "title": "Five at the Gate",
+    "flavor": "Ranger-tier: five runs this week. The road knows your name.",
+    "condition": {
+      "metric": "activity_count",
+      "value": 5,
+      "activityTypes": ["Run", "VirtualRun", "TrailRun"]
+    },
+    "reward": { "xp": 500, "gold": 90 }
+  },
+  {
+    "id": "strider-weekly-ten-k-run",
+    "cadence": "weekly",
+    "track": "personal",
+    "class": "strider",
+    "minTier": "scout",
+    "title": "Outrun the Rain",
+    "flavor": "A single run of 10 km. The sky is turning.",
+    "condition": {
+      "metric": "single_activity_distance_km",
+      "value": 10,
+      "activityTypes": ["Run", "VirtualRun", "TrailRun"]
+    },
+    "reward": { "xp": 400, "gold": 70 }
+  },
+  {
+    "id": "strider-weekly-trail-elevation",
+    "cadence": "weekly",
+    "track": "personal",
+    "class": "strider",
+    "title": "The Ridgeline",
+    "flavor": "Gain 300 meters of elevation on runs this week.",
+    "condition": { "metric": "elevation_m", "value": 300, "activityTypes": ["Run", "TrailRun"] },
+    "reward": { "xp": 350, "gold": 60 }
+  },
+  {
+    "id": "strider-monthly-hundred-km",
+    "cadence": "monthly",
+    "track": "personal",
+    "class": "strider",
+    "title": "The Hundred-League March",
+    "flavor": "One hundred kilometers on foot in a single month.",
+    "condition": {
+      "metric": "distance_km",
+      "value": 100,
+      "activityTypes": ["Run", "VirtualRun", "TrailRun"]
+    },
+    "reward": { "xp": 1800, "gold": 300 }
+  },
+  {
+    "id": "strider-monthly-twelve-runs",
+    "cadence": "monthly",
+    "track": "personal",
+    "class": "strider",
+    "title": "Twelve Dawns",
+    "flavor": "Twelve runs in thirty days. The rhythm of a campaign.",
+    "condition": {
+      "metric": "activity_count",
+      "value": 12,
+      "activityTypes": ["Run", "VirtualRun", "TrailRun"]
+    },
+    "reward": { "xp": 1500, "gold": 250 }
+  },
+  {
+    "id": "strider-monthly-half-marathon",
+    "cadence": "monthly",
+    "track": "personal",
+    "class": "strider",
+    "minTier": "ranger",
+    "title": "The Hero's Distance",
+    "flavor": "A single run of 21.1 km. A distance measured in legends.",
+    "condition": {
+      "metric": "single_activity_distance_km",
+      "value": 21.1,
+      "activityTypes": ["Run", "VirtualRun", "TrailRun"]
+    },
+    "reward": { "xp": 2000, "gold": 350 }
+  },
+  {
+    "id": "strider-monthly-two-hundred-km",
+    "cadence": "monthly",
+    "track": "personal",
+    "class": "strider",
+    "minTier": "warrior",
+    "title": "The Marathoner's Moon",
+    "flavor": "Warrior-tier: 200 km of running in a single month.",
+    "condition": {
+      "metric": "distance_km",
+      "value": 200,
+      "activityTypes": ["Run", "VirtualRun", "TrailRun"]
+    },
+    "reward": { "xp": 3000, "gold": 600 }
+  },
+
+  {
+    "id": "voyager-daily-ten-km",
+    "cadence": "daily",
+    "track": "personal",
+    "class": "voyager",
+    "title": "The Morning Circuit",
+    "flavor": "Ten kilometers in the saddle. The day owes you nothing; take it.",
+    "condition": {
+      "metric": "distance_km",
+      "value": 10,
+      "activityTypes": ["Ride", "VirtualRide", "EBikeRide", "MountainBikeRide"]
+    },
+    "reward": { "xp": 50, "gold": 10 }
+  },
+  {
+    "id": "voyager-daily-thirty-min",
+    "cadence": "daily",
+    "track": "personal",
+    "class": "voyager",
+    "title": "Spin the Wheels",
+    "flavor": "Thirty minutes rolling. A courier's minimum.",
+    "condition": {
+      "metric": "single_activity_duration_min",
+      "value": 30,
+      "activityTypes": ["Ride", "VirtualRide", "EBikeRide", "MountainBikeRide"]
+    },
+    "reward": { "xp": 60, "gold": 10 }
+  },
+  {
+    "id": "voyager-daily-climb-two-hundred",
+    "cadence": "daily",
+    "track": "personal",
+    "class": "voyager",
+    "title": "The First Pass",
+    "flavor": "Climb 200 meters on the bike today.",
+    "condition": {
+      "metric": "elevation_m",
+      "value": 200,
+      "activityTypes": ["Ride", "MountainBikeRide"]
+    },
+    "reward": { "xp": 80, "gold": 15 }
+  },
+  {
+    "id": "voyager-weekly-three-rides",
+    "cadence": "weekly",
+    "track": "personal",
+    "class": "voyager",
+    "title": "Three Days on Wheels",
+    "flavor": "Three rides this week. Consistency over heroics.",
+    "condition": {
+      "metric": "activity_count",
+      "value": 3,
+      "activityTypes": ["Ride", "VirtualRide", "EBikeRide", "MountainBikeRide"]
+    },
+    "reward": { "xp": 300, "gold": 50 }
+  },
+  {
+    "id": "voyager-weekly-fifty-km",
+    "cadence": "weekly",
+    "track": "personal",
+    "class": "voyager",
+    "title": "The Fifty-Kilometer Loop",
+    "flavor": "Total 50 km on the bike this week. A respectable week.",
+    "condition": {
+      "metric": "distance_km",
+      "value": 50,
+      "activityTypes": ["Ride", "VirtualRide", "EBikeRide", "MountainBikeRide"]
+    },
+    "reward": { "xp": 350, "gold": 60 }
+  },
+  {
+    "id": "voyager-weekly-fifty-km-single",
+    "cadence": "weekly",
+    "track": "personal",
+    "class": "voyager",
+    "minTier": "scout",
+    "title": "The Long Haul",
+    "flavor": "A single ride of 50 km. Pack light, ride heavy.",
+    "condition": {
+      "metric": "single_activity_distance_km",
+      "value": 50,
+      "activityTypes": ["Ride", "VirtualRide", "EBikeRide", "MountainBikeRide"]
+    },
+    "reward": { "xp": 450, "gold": 80 }
+  },
+  {
+    "id": "voyager-weekly-two-hours",
+    "cadence": "weekly",
+    "track": "personal",
+    "class": "voyager",
+    "title": "Two Hours Against the Wind",
+    "flavor": "Two hours in the saddle across the week.",
+    "condition": {
+      "metric": "duration_min",
+      "value": 120,
+      "activityTypes": ["Ride", "VirtualRide", "EBikeRide", "MountainBikeRide"]
+    },
+    "reward": { "xp": 300, "gold": 50 }
+  },
+  {
+    "id": "voyager-weekly-elevation",
+    "cadence": "weekly",
+    "track": "personal",
+    "class": "voyager",
+    "minTier": "ranger",
+    "title": "The Col Collector",
+    "flavor": "Ranger-tier: 1000m of climbing on the bike this week.",
+    "condition": {
+      "metric": "elevation_m",
+      "value": 1000,
+      "activityTypes": ["Ride", "MountainBikeRide"]
+    },
+    "reward": { "xp": 500, "gold": 90 }
+  },
+  {
+    "id": "voyager-monthly-two-hundred-km",
+    "cadence": "monthly",
+    "track": "personal",
+    "class": "voyager",
+    "title": "Two Hundred in a Moon",
+    "flavor": "200 km in a month. The pros laugh — let them.",
+    "condition": {
+      "metric": "distance_km",
+      "value": 200,
+      "activityTypes": ["Ride", "VirtualRide", "EBikeRide", "MountainBikeRide"]
+    },
+    "reward": { "xp": 1500, "gold": 250 }
+  },
+  {
+    "id": "voyager-monthly-ten-rides",
+    "cadence": "monthly",
+    "track": "personal",
+    "class": "voyager",
+    "title": "The Monthly Peloton",
+    "flavor": "Ten rides in thirty days. A convoy of one.",
+    "condition": {
+      "metric": "activity_count",
+      "value": 10,
+      "activityTypes": ["Ride", "VirtualRide", "EBikeRide", "MountainBikeRide"]
+    },
+    "reward": { "xp": 1500, "gold": 250 }
+  },
+  {
+    "id": "voyager-monthly-century",
+    "cadence": "monthly",
+    "track": "personal",
+    "class": "voyager",
+    "minTier": "warrior",
+    "title": "The Century Ride",
+    "flavor": "Warrior-tier: a single ride of 100 km. A rite of passage.",
+    "condition": {
+      "metric": "single_activity_distance_km",
+      "value": 100,
+      "activityTypes": ["Ride", "VirtualRide", "EBikeRide", "MountainBikeRide"]
+    },
+    "reward": { "xp": 2500, "gold": 500 }
+  },
+  {
+    "id": "voyager-monthly-five-hundred-km",
+    "cadence": "monthly",
+    "track": "personal",
+    "class": "voyager",
+    "minTier": "champion",
+    "title": "The Grand Tour",
+    "flavor": "Champion-tier: 500 km in a single month. Tour blood.",
+    "condition": {
+      "metric": "distance_km",
+      "value": 500,
+      "activityTypes": ["Ride", "VirtualRide", "EBikeRide", "MountainBikeRide"]
+    },
+    "reward": { "xp": 4000, "gold": 800 }
+  },
+
+  {
+    "id": "mountaineer-daily-hike",
+    "cadence": "daily",
+    "track": "personal",
+    "class": "mountaineer",
+    "title": "The Foothills",
+    "flavor": "A walk or hike of 3 km. The mountain begins at your door.",
+    "condition": { "metric": "distance_km", "value": 3, "activityTypes": ["Walk", "Hike"] },
+    "reward": { "xp": 50, "gold": 10 }
+  },
+  {
+    "id": "mountaineer-daily-elevation-150",
+    "cadence": "daily",
+    "track": "personal",
+    "class": "mountaineer",
+    "title": "Step by Step",
+    "flavor": "Gain 150 meters of elevation today. On any path.",
+    "condition": { "metric": "elevation_m", "value": 150 },
+    "reward": { "xp": 70, "gold": 15 }
+  },
+  {
+    "id": "mountaineer-daily-one-hour-walk",
+    "cadence": "daily",
+    "track": "personal",
+    "class": "mountaineer",
+    "title": "One Hour on the Path",
+    "flavor": "An hour of walking or hiking. Slow is a kind of speed.",
+    "condition": {
+      "metric": "single_activity_duration_min",
+      "value": 60,
+      "activityTypes": ["Walk", "Hike"]
+    },
+    "reward": { "xp": 70, "gold": 15 }
+  },
+  {
+    "id": "mountaineer-weekly-three-hikes",
+    "cadence": "weekly",
+    "track": "personal",
+    "class": "mountaineer",
+    "title": "Three Trails",
+    "flavor": "Three hikes or walks this week. Learn the ground.",
+    "condition": { "metric": "activity_count", "value": 3, "activityTypes": ["Walk", "Hike"] },
+    "reward": { "xp": 300, "gold": 50 }
+  },
+  {
+    "id": "mountaineer-weekly-fifteen-km",
+    "cadence": "weekly",
+    "track": "personal",
+    "class": "mountaineer",
+    "title": "The Long Perambulation",
+    "flavor": "Fifteen kilometers on foot across the week, off the roads.",
+    "condition": { "metric": "distance_km", "value": 15, "activityTypes": ["Walk", "Hike"] },
+    "reward": { "xp": 300, "gold": 50 }
+  },
+  {
+    "id": "mountaineer-weekly-seven-hundred-elevation",
+    "cadence": "weekly",
+    "track": "personal",
+    "class": "mountaineer",
+    "title": "Seven Hundred Skyward",
+    "flavor": "Gain 700 meters of elevation this week. By any path.",
+    "condition": { "metric": "elevation_m", "value": 700 },
+    "reward": { "xp": 350, "gold": 60 }
+  },
+  {
+    "id": "mountaineer-weekly-single-hike-long",
+    "cadence": "weekly",
+    "track": "personal",
+    "class": "mountaineer",
+    "minTier": "scout",
+    "title": "A Day on the Mountain",
+    "flavor": "A single walk or hike of 10 km. Bring water, bring patience.",
+    "condition": {
+      "metric": "single_activity_distance_km",
+      "value": 10,
+      "activityTypes": ["Walk", "Hike"]
+    },
+    "reward": { "xp": 400, "gold": 70 }
+  },
+  {
+    "id": "mountaineer-weekly-vertical-day",
+    "cadence": "weekly",
+    "track": "personal",
+    "class": "mountaineer",
+    "minTier": "ranger",
+    "title": "The Vertical Day",
+    "flavor": "Ranger-tier: a single activity with 500 m of elevation gain.",
+    "condition": { "metric": "single_activity_elevation_m", "value": 500 },
+    "reward": { "xp": 500, "gold": 90 }
+  },
+  {
+    "id": "mountaineer-monthly-fifty-km",
+    "cadence": "monthly",
+    "track": "personal",
+    "class": "mountaineer",
+    "title": "The Long Pilgrimage",
+    "flavor": "Fifty kilometers on foot this month. Walk and hike combined.",
+    "condition": { "metric": "distance_km", "value": 50, "activityTypes": ["Walk", "Hike"] },
+    "reward": { "xp": 1500, "gold": 250 }
+  },
+  {
+    "id": "mountaineer-monthly-three-thousand-elevation",
+    "cadence": "monthly",
+    "track": "personal",
+    "class": "mountaineer",
+    "title": "Three Thousand Meters",
+    "flavor": "Gain 3000 meters of elevation this month. The mountain permits it.",
+    "condition": { "metric": "elevation_m", "value": 3000 },
+    "reward": { "xp": 2000, "gold": 350 }
+  },
+  {
+    "id": "mountaineer-monthly-summit",
+    "cadence": "monthly",
+    "track": "personal",
+    "class": "mountaineer",
+    "minTier": "warrior",
+    "title": "The Summit Attempt",
+    "flavor": "Warrior-tier: a single activity with 1000 m of elevation gain.",
+    "condition": { "metric": "single_activity_elevation_m", "value": 1000 },
+    "reward": { "xp": 2500, "gold": 500 }
+  },
+  {
+    "id": "mountaineer-monthly-fifteen-hikes",
+    "cadence": "monthly",
+    "track": "personal",
+    "class": "mountaineer",
+    "minTier": "champion",
+    "title": "Fifteen Paths",
+    "flavor": "Champion-tier: fifteen walks or hikes this month. The trails know your boots.",
+    "condition": { "metric": "activity_count", "value": 15, "activityTypes": ["Walk", "Hike"] },
+    "reward": { "xp": 3000, "gold": 600 }
+  },
+
+  {
+    "id": "aquanaut-daily-dip",
+    "cadence": "daily",
+    "track": "personal",
+    "class": "aquanaut",
+    "title": "The Daily Dip",
+    "flavor": "Five hundred meters in the water. The tide is yours.",
+    "condition": {
+      "metric": "single_activity_distance_km",
+      "value": 0.5,
+      "activityTypes": ["Swim"]
+    },
+    "reward": { "xp": 60, "gold": 10 }
+  },
+  {
+    "id": "aquanaut-daily-twenty-min",
+    "cadence": "daily",
+    "track": "personal",
+    "class": "aquanaut",
+    "title": "Twenty Minutes Below",
+    "flavor": "Twenty minutes in the water. Breathe.",
+    "condition": {
+      "metric": "single_activity_duration_min",
+      "value": 20,
+      "activityTypes": ["Swim"]
+    },
+    "reward": { "xp": 60, "gold": 10 }
+  },
+  {
+    "id": "aquanaut-daily-one-km",
+    "cadence": "daily",
+    "track": "personal",
+    "class": "aquanaut",
+    "minTier": "scout",
+    "title": "A Kilometer in Blue",
+    "flavor": "A single swim of 1 km. The pool knows your rhythm.",
+    "condition": { "metric": "single_activity_distance_km", "value": 1, "activityTypes": ["Swim"] },
+    "reward": { "xp": 100, "gold": 20 }
+  },
+  {
+    "id": "aquanaut-weekly-two-swims",
+    "cadence": "weekly",
+    "track": "personal",
+    "class": "aquanaut",
+    "title": "Twice Below the Waves",
+    "flavor": "Two swims this week. Water rewards the return.",
+    "condition": { "metric": "activity_count", "value": 2, "activityTypes": ["Swim"] },
+    "reward": { "xp": 300, "gold": 50 }
+  },
+  {
+    "id": "aquanaut-weekly-three-swims",
+    "cadence": "weekly",
+    "track": "personal",
+    "class": "aquanaut",
+    "minTier": "scout",
+    "title": "Thrice the Stroke",
+    "flavor": "Three swims this week. The water remembers.",
+    "condition": { "metric": "activity_count", "value": 3, "activityTypes": ["Swim"] },
+    "reward": { "xp": 400, "gold": 70 }
+  },
+  {
+    "id": "aquanaut-weekly-two-km",
+    "cadence": "weekly",
+    "track": "personal",
+    "class": "aquanaut",
+    "title": "Two Kilometers in Blue",
+    "flavor": "Total 2 km swimming this week.",
+    "condition": { "metric": "distance_km", "value": 2, "activityTypes": ["Swim"] },
+    "reward": { "xp": 350, "gold": 60 }
+  },
+  {
+    "id": "aquanaut-weekly-ninety-min",
+    "cadence": "weekly",
+    "track": "personal",
+    "class": "aquanaut",
+    "title": "Ninety Minutes Submerged",
+    "flavor": "Ninety minutes of swimming this week.",
+    "condition": { "metric": "duration_min", "value": 90, "activityTypes": ["Swim"] },
+    "reward": { "xp": 400, "gold": 70 }
+  },
+  {
+    "id": "aquanaut-weekly-two-k-swim",
+    "cadence": "weekly",
+    "track": "personal",
+    "class": "aquanaut",
+    "minTier": "ranger",
+    "title": "The Long Crossing",
+    "flavor": "Ranger-tier: a single swim of 2 km. Trust your stroke.",
+    "condition": { "metric": "single_activity_distance_km", "value": 2, "activityTypes": ["Swim"] },
+    "reward": { "xp": 600, "gold": 110 }
+  },
+  {
+    "id": "aquanaut-monthly-eight-swims",
+    "cadence": "monthly",
+    "track": "personal",
+    "class": "aquanaut",
+    "title": "Eight Tides",
+    "flavor": "Eight swims in thirty days. Water is routine now.",
+    "condition": { "metric": "activity_count", "value": 8, "activityTypes": ["Swim"] },
+    "reward": { "xp": 1500, "gold": 250 }
+  },
+  {
+    "id": "aquanaut-monthly-ten-km",
+    "cadence": "monthly",
+    "track": "personal",
+    "class": "aquanaut",
+    "title": "The Ten-Kilometer Month",
+    "flavor": "Ten kilometers swum this month. Fish envy you.",
+    "condition": { "metric": "distance_km", "value": 10, "activityTypes": ["Swim"] },
+    "reward": { "xp": 2000, "gold": 350 }
+  },
+  {
+    "id": "aquanaut-monthly-five-k",
+    "cadence": "monthly",
+    "track": "personal",
+    "class": "aquanaut",
+    "minTier": "warrior",
+    "title": "Open Water",
+    "flavor": "Warrior-tier: a single swim of 5 km. The horizon calls.",
+    "condition": { "metric": "single_activity_distance_km", "value": 5, "activityTypes": ["Swim"] },
+    "reward": { "xp": 3000, "gold": 600 }
+  },
+  {
+    "id": "aquanaut-monthly-twenty-km",
+    "cadence": "monthly",
+    "track": "personal",
+    "class": "aquanaut",
+    "minTier": "champion",
+    "title": "Twenty Kilometers of Blue",
+    "flavor": "Champion-tier: 20 km of swimming in a single month.",
+    "condition": { "metric": "distance_km", "value": 20, "activityTypes": ["Swim"] },
+    "reward": { "xp": 4000, "gold": 800 }
+  },
+
+  {
+    "id": "titan-daily-thirty",
+    "cadence": "daily",
+    "track": "personal",
+    "class": "titan",
+    "title": "Iron for Breakfast",
+    "flavor": "Thirty minutes in the workout hall. Iron bends to iron.",
+    "condition": {
+      "metric": "single_activity_duration_min",
+      "value": 30,
+      "activityTypes": ["Workout", "WeightTraining", "Crossfit"]
+    },
+    "reward": { "xp": 60, "gold": 10 }
+  },
+  {
+    "id": "titan-daily-forty-five",
+    "cadence": "daily",
+    "track": "personal",
+    "class": "titan",
+    "title": "The Long Set",
+    "flavor": "Forty-five minutes of strength work. Count nothing but the reps.",
+    "condition": {
+      "metric": "single_activity_duration_min",
+      "value": 45,
+      "activityTypes": ["Workout", "WeightTraining", "Crossfit"]
+    },
+    "reward": { "xp": 80, "gold": 15 }
+  },
+  {
+    "id": "titan-daily-any-session",
+    "cadence": "daily",
+    "track": "personal",
+    "class": "titan",
+    "title": "Show Up",
+    "flavor": "Log any workout today. The hardest rep is walking in.",
+    "condition": {
+      "metric": "activity_count",
+      "value": 1,
+      "activityTypes": ["Workout", "WeightTraining", "Crossfit"]
+    },
+    "reward": { "xp": 50, "gold": 10 }
+  },
+  {
+    "id": "titan-weekly-three-sessions",
+    "cadence": "weekly",
+    "track": "personal",
+    "class": "titan",
+    "title": "Three Sessions, Three Siegings",
+    "flavor": "Three strength sessions this week. Sieges are won in rotation.",
+    "condition": {
+      "metric": "activity_count",
+      "value": 3,
+      "activityTypes": ["Workout", "WeightTraining", "Crossfit"]
+    },
+    "reward": { "xp": 300, "gold": 50 }
+  },
+  {
+    "id": "titan-weekly-two-hours",
+    "cadence": "weekly",
+    "track": "personal",
+    "class": "titan",
+    "title": "Two Hours Under the Bar",
+    "flavor": "Two hours of workout time across the week.",
+    "condition": {
+      "metric": "duration_min",
+      "value": 120,
+      "activityTypes": ["Workout", "WeightTraining", "Crossfit"]
+    },
+    "reward": { "xp": 300, "gold": 50 }
+  },
+  {
+    "id": "titan-weekly-four-sessions",
+    "cadence": "weekly",
+    "track": "personal",
+    "class": "titan",
+    "minTier": "scout",
+    "title": "Four Days of Iron",
+    "flavor": "Four workouts this week. Recovery is part of the lift.",
+    "condition": {
+      "metric": "activity_count",
+      "value": 4,
+      "activityTypes": ["Workout", "WeightTraining", "Crossfit"]
+    },
+    "reward": { "xp": 400, "gold": 70 }
+  },
+  {
+    "id": "titan-weekly-hour-session",
+    "cadence": "weekly",
+    "track": "personal",
+    "class": "titan",
+    "title": "The Full Hour",
+    "flavor": "One workout of 60 minutes or more this week.",
+    "condition": {
+      "metric": "single_activity_duration_min",
+      "value": 60,
+      "activityTypes": ["Workout", "WeightTraining", "Crossfit"]
+    },
+    "reward": { "xp": 300, "gold": 50 }
+  },
+  {
+    "id": "titan-weekly-cross-train",
+    "cadence": "weekly",
+    "track": "personal",
+    "class": "titan",
+    "minTier": "ranger",
+    "title": "The Varied Armory",
+    "flavor": "Ranger-tier: log two different activity types this week. Strength fears stagnation.",
+    "condition": { "metric": "activity_variety", "value": 2 },
+    "reward": { "xp": 400, "gold": 70 }
+  },
+  {
+    "id": "titan-monthly-twelve-sessions",
+    "cadence": "monthly",
+    "track": "personal",
+    "class": "titan",
+    "title": "Twelve Battles Fought",
+    "flavor": "Twelve workouts in thirty days. Iron does not forget.",
+    "condition": {
+      "metric": "activity_count",
+      "value": 12,
+      "activityTypes": ["Workout", "WeightTraining", "Crossfit"]
+    },
+    "reward": { "xp": 1500, "gold": 250 }
+  },
+  {
+    "id": "titan-monthly-ten-hours",
+    "cadence": "monthly",
+    "track": "personal",
+    "class": "titan",
+    "title": "Ten Hours of War",
+    "flavor": "Ten hours under load this month. Sleep earns the gain.",
+    "condition": {
+      "metric": "duration_min",
+      "value": 600,
+      "activityTypes": ["Workout", "WeightTraining", "Crossfit"]
+    },
+    "reward": { "xp": 1800, "gold": 300 }
+  },
+  {
+    "id": "titan-monthly-sixteen",
+    "cadence": "monthly",
+    "track": "personal",
+    "class": "titan",
+    "minTier": "warrior",
+    "title": "Sixteen Sieges",
+    "flavor": "Warrior-tier: sixteen workouts in a single month. Discipline is the victory.",
+    "condition": {
+      "metric": "activity_count",
+      "value": 16,
+      "activityTypes": ["Workout", "WeightTraining", "Crossfit"]
+    },
+    "reward": { "xp": 2500, "gold": 500 }
+  },
+  {
+    "id": "titan-monthly-twenty-hours",
+    "cadence": "monthly",
+    "track": "personal",
+    "class": "titan",
+    "minTier": "champion",
+    "title": "The Titan's Month",
+    "flavor": "Champion-tier: twenty hours of workouts in a single month. Only stone outlasts you.",
+    "condition": {
+      "metric": "duration_min",
+      "value": 1200,
+      "activityTypes": ["Workout", "WeightTraining", "Crossfit"]
+    },
+    "reward": { "xp": 4000, "gold": 800 }
+  }
+]

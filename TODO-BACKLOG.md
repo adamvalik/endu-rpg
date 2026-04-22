@@ -113,17 +113,6 @@ _(empty — pick the next Ready task)_
     - [ ] Hosting routes verified.
     - [ ] SSL and redirect rules verified.
 
-- [ ] OPS-002 Error alerting for Strava rate limits and critical errors
-  - Outcome: Any `StravaRateLimitError` (and other high-signal errors) in production triggers an immediate notification.
-  - Scope: GCP log-based metric + alert policy; no code changes. Structured error logs already in place.
-  - Acceptance criteria:
-    - [ ] Log-based metric created filtering on `StravaRateLimitError`.
-    - [ ] Alert policy fires on any occurrence (threshold > 0) and routes to email (or Slack).
-    - [ ] At least one additional critical-error filter added (e.g. token refresh failures).
-  - Dependencies: none (CORE-002 already emits the structured error).
-  - Note: Unblocks the dormancy gate on CORE-003 — we can't wait for rate limiting to appear if we're not watching.
-  - Estimate: S (<=1h)
-
 - [ ] GROWTH-001 Setup mailing service (provider + first flow)
   - Outcome: Basic email pipeline is available for transactional and waitlist use.
   - Acceptance criteria:
@@ -141,6 +130,17 @@ _(empty — pick the next Ready task)_
 ## 4) Next (After Ready)
 
 ### Deferred (Monitor-Gated)
+
+- [ ] OPS-002 Error alerting for Strava rate limits and critical errors
+  - Outcome: Any `StravaRateLimitError` (and other high-signal errors) in production triggers an immediate notification.
+  - Scope: GCP log-based metric + alert policy; no code changes. Structured error logs already in place.
+  - Acceptance criteria:
+    - [ ] Log-based metric created filtering on `StravaRateLimitError`.
+    - [ ] Alert policy fires on any occurrence (threshold > 0) and routes to email (or Slack).
+    - [ ] At least one additional critical-error filter added (e.g. token refresh failures).
+  - Dependencies: none (CORE-002 already emits the structured error).
+  - Note: Postponed. Runbook with exact `gcloud` commands is ready at `docs/ops/alerting.md` — pick up when ready to configure the GCP side.
+  - Estimate: S (<=1h)
 
 - [ ] CORE-003 Durable Strava webhook retry queue
   - Outcome: Webhook events that fail due to Strava rate limits (or other transient errors) are retried out-of-band instead of being dropped.

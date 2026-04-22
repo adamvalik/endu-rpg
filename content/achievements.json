@@ -1,0 +1,619 @@
+[
+  {
+    "id": "run-single-5k",
+    "kind": "single_effort",
+    "category": "distance",
+    "name": "First Five",
+    "description": "Complete a run of 5 km.",
+    "metric": "single_activity_distance_km",
+    "value": 5,
+    "activityTypes": ["Run", "VirtualRun", "TrailRun"],
+    "rewardTier": "bronze"
+  },
+  {
+    "id": "run-single-10k",
+    "kind": "single_effort",
+    "category": "distance",
+    "name": "Ten Clean",
+    "description": "Complete a run of 10 km.",
+    "metric": "single_activity_distance_km",
+    "value": 10,
+    "activityTypes": ["Run", "VirtualRun", "TrailRun"],
+    "rewardTier": "bronze"
+  },
+  {
+    "id": "run-single-half-marathon",
+    "kind": "single_effort",
+    "category": "distance",
+    "name": "The Half",
+    "description": "Complete a run of 21.1 km.",
+    "metric": "single_activity_distance_km",
+    "value": 21.1,
+    "activityTypes": ["Run", "VirtualRun", "TrailRun"],
+    "rewardTier": "silver"
+  },
+  {
+    "id": "run-single-marathon",
+    "kind": "single_effort",
+    "category": "distance",
+    "name": "The Marathon",
+    "description": "Complete a run of 42.2 km in a single session.",
+    "metric": "single_activity_distance_km",
+    "value": 42.2,
+    "activityTypes": ["Run", "VirtualRun", "TrailRun"],
+    "rewardTier": "gold"
+  },
+  {
+    "id": "run-single-ultra",
+    "kind": "single_effort",
+    "category": "distance",
+    "name": "The Ultra",
+    "description": "Complete a run of 50 km in a single session.",
+    "metric": "single_activity_distance_km",
+    "value": 50,
+    "activityTypes": ["Run", "VirtualRun", "TrailRun"],
+    "rewardTier": "platinum"
+  },
+
+  {
+    "id": "ride-single-25km",
+    "kind": "single_effort",
+    "category": "distance",
+    "name": "Quarter Century",
+    "description": "Ride 25 km in a single outing.",
+    "metric": "single_activity_distance_km",
+    "value": 25,
+    "activityTypes": ["Ride", "VirtualRide", "EBikeRide", "MountainBikeRide"],
+    "rewardTier": "bronze"
+  },
+  {
+    "id": "ride-single-50km",
+    "kind": "single_effort",
+    "category": "distance",
+    "name": "The Fifty",
+    "description": "Ride 50 km in a single outing.",
+    "metric": "single_activity_distance_km",
+    "value": 50,
+    "activityTypes": ["Ride", "VirtualRide", "EBikeRide", "MountainBikeRide"],
+    "rewardTier": "silver"
+  },
+  {
+    "id": "ride-single-century",
+    "kind": "single_effort",
+    "category": "distance",
+    "name": "The Century",
+    "description": "Ride 100 km in a single outing.",
+    "metric": "single_activity_distance_km",
+    "value": 100,
+    "activityTypes": ["Ride", "VirtualRide", "EBikeRide", "MountainBikeRide"],
+    "rewardTier": "gold"
+  },
+  {
+    "id": "ride-single-double-century",
+    "kind": "single_effort",
+    "category": "distance",
+    "name": "Double Century",
+    "description": "Ride 200 km in a single outing.",
+    "metric": "single_activity_distance_km",
+    "value": 200,
+    "activityTypes": ["Ride", "VirtualRide", "EBikeRide", "MountainBikeRide"],
+    "rewardTier": "platinum"
+  },
+
+  {
+    "id": "swim-single-500m",
+    "kind": "single_effort",
+    "category": "distance",
+    "name": "Pool Length",
+    "description": "Swim 500 m in a single session.",
+    "metric": "single_activity_distance_km",
+    "value": 0.5,
+    "activityTypes": ["Swim"],
+    "rewardTier": "bronze"
+  },
+  {
+    "id": "swim-single-1k",
+    "kind": "single_effort",
+    "category": "distance",
+    "name": "A Kilometer in Blue",
+    "description": "Swim 1 km in a single session.",
+    "metric": "single_activity_distance_km",
+    "value": 1,
+    "activityTypes": ["Swim"],
+    "rewardTier": "silver"
+  },
+  {
+    "id": "swim-single-5k",
+    "kind": "single_effort",
+    "category": "distance",
+    "name": "Open Water",
+    "description": "Swim 5 km in a single session.",
+    "metric": "single_activity_distance_km",
+    "value": 5,
+    "activityTypes": ["Swim"],
+    "rewardTier": "gold"
+  },
+  {
+    "id": "swim-single-10k",
+    "kind": "single_effort",
+    "category": "distance",
+    "name": "Channel Crosser",
+    "description": "Swim 10 km in a single session.",
+    "metric": "single_activity_distance_km",
+    "value": 10,
+    "activityTypes": ["Swim"],
+    "rewardTier": "platinum"
+  },
+
+  {
+    "id": "hike-single-5k",
+    "kind": "single_effort",
+    "category": "distance",
+    "name": "Trail Day",
+    "description": "Walk or hike 5 km in a single outing.",
+    "metric": "single_activity_distance_km",
+    "value": 5,
+    "activityTypes": ["Walk", "Hike"],
+    "rewardTier": "bronze"
+  },
+  {
+    "id": "hike-single-15k",
+    "kind": "single_effort",
+    "category": "distance",
+    "name": "The Long Hike",
+    "description": "Walk or hike 15 km in a single outing.",
+    "metric": "single_activity_distance_km",
+    "value": 15,
+    "activityTypes": ["Walk", "Hike"],
+    "rewardTier": "silver"
+  },
+  {
+    "id": "hike-single-30k",
+    "kind": "single_effort",
+    "category": "distance",
+    "name": "Pilgrim's Way",
+    "description": "Walk or hike 30 km in a single outing.",
+    "metric": "single_activity_distance_km",
+    "value": 30,
+    "activityTypes": ["Walk", "Hike"],
+    "rewardTier": "gold"
+  },
+
+  {
+    "id": "elev-single-500",
+    "kind": "single_effort",
+    "category": "elevation",
+    "name": "The Climb",
+    "description": "Gain 500 m of elevation in a single activity.",
+    "metric": "single_activity_elevation_m",
+    "value": 500,
+    "rewardTier": "bronze"
+  },
+  {
+    "id": "elev-single-1000",
+    "kind": "single_effort",
+    "category": "elevation",
+    "name": "The Summit",
+    "description": "Gain 1000 m of elevation in a single activity.",
+    "metric": "single_activity_elevation_m",
+    "value": 1000,
+    "rewardTier": "silver"
+  },
+  {
+    "id": "elev-single-2000",
+    "kind": "single_effort",
+    "category": "elevation",
+    "name": "The Col",
+    "description": "Gain 2000 m of elevation in a single activity.",
+    "metric": "single_activity_elevation_m",
+    "value": 2000,
+    "rewardTier": "gold"
+  },
+  {
+    "id": "elev-single-3000",
+    "kind": "single_effort",
+    "category": "elevation",
+    "name": "Above the Clouds",
+    "description": "Gain 3000 m of elevation in a single activity.",
+    "metric": "single_activity_elevation_m",
+    "value": 3000,
+    "rewardTier": "platinum"
+  },
+
+  {
+    "id": "workout-single-90min",
+    "kind": "single_effort",
+    "category": "duration",
+    "name": "The Long Set",
+    "description": "Complete a workout of 90 minutes or more.",
+    "metric": "single_activity_duration_min",
+    "value": 90,
+    "activityTypes": ["Workout", "WeightTraining", "Crossfit"],
+    "rewardTier": "silver"
+  },
+  {
+    "id": "workout-single-3h",
+    "kind": "single_effort",
+    "category": "duration",
+    "name": "The Full Day",
+    "description": "Complete a workout of 3 hours or more.",
+    "metric": "single_activity_duration_min",
+    "value": 180,
+    "activityTypes": ["Workout", "WeightTraining", "Crossfit"],
+    "rewardTier": "gold"
+  },
+
+  {
+    "id": "run-total-100km",
+    "kind": "cumulative",
+    "category": "distance",
+    "name": "Hundred on Foot",
+    "description": "Run 100 km total.",
+    "metric": "total_distance_km",
+    "value": 100,
+    "activityTypes": ["Run", "VirtualRun", "TrailRun"],
+    "rewardTier": "bronze"
+  },
+  {
+    "id": "run-total-500km",
+    "kind": "cumulative",
+    "category": "distance",
+    "name": "Five Hundred on Foot",
+    "description": "Run 500 km total.",
+    "metric": "total_distance_km",
+    "value": 500,
+    "activityTypes": ["Run", "VirtualRun", "TrailRun"],
+    "rewardTier": "silver"
+  },
+  {
+    "id": "run-total-1000km",
+    "kind": "cumulative",
+    "category": "distance",
+    "name": "Thousand on Foot",
+    "description": "Run 1,000 km total.",
+    "metric": "total_distance_km",
+    "value": 1000,
+    "activityTypes": ["Run", "VirtualRun", "TrailRun"],
+    "rewardTier": "gold"
+  },
+  {
+    "id": "run-total-5000km",
+    "kind": "cumulative",
+    "category": "distance",
+    "name": "The Marathoner's Lifetime",
+    "description": "Run 5,000 km total.",
+    "metric": "total_distance_km",
+    "value": 5000,
+    "activityTypes": ["Run", "VirtualRun", "TrailRun"],
+    "rewardTier": "platinum"
+  },
+
+  {
+    "id": "ride-total-500km",
+    "kind": "cumulative",
+    "category": "distance",
+    "name": "Five Hundred Wheels",
+    "description": "Ride 500 km total.",
+    "metric": "total_distance_km",
+    "value": 500,
+    "activityTypes": ["Ride", "VirtualRide", "EBikeRide", "MountainBikeRide"],
+    "rewardTier": "bronze"
+  },
+  {
+    "id": "ride-total-2000km",
+    "kind": "cumulative",
+    "category": "distance",
+    "name": "Two Thousand on Wheels",
+    "description": "Ride 2,000 km total.",
+    "metric": "total_distance_km",
+    "value": 2000,
+    "activityTypes": ["Ride", "VirtualRide", "EBikeRide", "MountainBikeRide"],
+    "rewardTier": "silver"
+  },
+  {
+    "id": "ride-total-5000km",
+    "kind": "cumulative",
+    "category": "distance",
+    "name": "Five Thousand on Wheels",
+    "description": "Ride 5,000 km total.",
+    "metric": "total_distance_km",
+    "value": 5000,
+    "activityTypes": ["Ride", "VirtualRide", "EBikeRide", "MountainBikeRide"],
+    "rewardTier": "gold"
+  },
+  {
+    "id": "ride-total-20000km",
+    "kind": "cumulative",
+    "category": "distance",
+    "name": "Around the World",
+    "description": "Ride 20,000 km total — half the Earth's circumference.",
+    "metric": "total_distance_km",
+    "value": 20000,
+    "activityTypes": ["Ride", "VirtualRide", "EBikeRide", "MountainBikeRide"],
+    "rewardTier": "platinum"
+  },
+
+  {
+    "id": "hike-total-100km",
+    "kind": "cumulative",
+    "category": "distance",
+    "name": "Hundred on the Trail",
+    "description": "Walk or hike 100 km total.",
+    "metric": "total_distance_km",
+    "value": 100,
+    "activityTypes": ["Walk", "Hike"],
+    "rewardTier": "bronze"
+  },
+  {
+    "id": "hike-total-500km",
+    "kind": "cumulative",
+    "category": "distance",
+    "name": "Five Hundred on the Trail",
+    "description": "Walk or hike 500 km total.",
+    "metric": "total_distance_km",
+    "value": 500,
+    "activityTypes": ["Walk", "Hike"],
+    "rewardTier": "silver"
+  },
+  {
+    "id": "hike-total-2000km",
+    "kind": "cumulative",
+    "category": "distance",
+    "name": "Pilgrim's Lifetime",
+    "description": "Walk or hike 2,000 km total.",
+    "metric": "total_distance_km",
+    "value": 2000,
+    "activityTypes": ["Walk", "Hike"],
+    "rewardTier": "gold"
+  },
+
+  {
+    "id": "swim-total-25km",
+    "kind": "cumulative",
+    "category": "distance",
+    "name": "Twenty-Five Kilometers of Blue",
+    "description": "Swim 25 km total.",
+    "metric": "total_distance_km",
+    "value": 25,
+    "activityTypes": ["Swim"],
+    "rewardTier": "bronze"
+  },
+  {
+    "id": "swim-total-100km",
+    "kind": "cumulative",
+    "category": "distance",
+    "name": "A Hundred in Blue",
+    "description": "Swim 100 km total.",
+    "metric": "total_distance_km",
+    "value": 100,
+    "activityTypes": ["Swim"],
+    "rewardTier": "silver"
+  },
+  {
+    "id": "swim-total-500km",
+    "kind": "cumulative",
+    "category": "distance",
+    "name": "Five Hundred in Blue",
+    "description": "Swim 500 km total.",
+    "metric": "total_distance_km",
+    "value": 500,
+    "activityTypes": ["Swim"],
+    "rewardTier": "gold"
+  },
+
+  {
+    "id": "elev-total-1000",
+    "kind": "cumulative",
+    "category": "elevation",
+    "name": "First Thousand",
+    "description": "Gain 1,000 m of elevation total.",
+    "metric": "total_elevation_m",
+    "value": 1000,
+    "rewardTier": "bronze"
+  },
+  {
+    "id": "elev-total-10000",
+    "kind": "cumulative",
+    "category": "elevation",
+    "name": "Ten Thousand Meters",
+    "description": "Gain 10,000 m of elevation total — higher than Everest.",
+    "metric": "total_elevation_m",
+    "value": 10000,
+    "rewardTier": "silver"
+  },
+  {
+    "id": "elev-total-50000",
+    "kind": "cumulative",
+    "category": "elevation",
+    "name": "Fifty Thousand Skyward",
+    "description": "Gain 50,000 m of elevation total — five Everests.",
+    "metric": "total_elevation_m",
+    "value": 50000,
+    "rewardTier": "gold"
+  },
+  {
+    "id": "elev-total-100000",
+    "kind": "cumulative",
+    "category": "elevation",
+    "name": "The Vertical Mile",
+    "description": "Gain 100,000 m of elevation total.",
+    "metric": "total_elevation_m",
+    "value": 100000,
+    "rewardTier": "platinum"
+  },
+
+  {
+    "id": "count-total-10",
+    "kind": "cumulative",
+    "category": "activity_count",
+    "name": "First Ten",
+    "description": "Log 10 activities total.",
+    "metric": "total_activity_count",
+    "value": 10,
+    "rewardTier": "bronze"
+  },
+  {
+    "id": "count-total-50",
+    "kind": "cumulative",
+    "category": "activity_count",
+    "name": "Half a Hundred",
+    "description": "Log 50 activities total.",
+    "metric": "total_activity_count",
+    "value": 50,
+    "rewardTier": "silver"
+  },
+  {
+    "id": "count-total-100",
+    "kind": "cumulative",
+    "category": "activity_count",
+    "name": "Centurion",
+    "description": "Log 100 activities total.",
+    "metric": "total_activity_count",
+    "value": 100,
+    "rewardTier": "gold"
+  },
+  {
+    "id": "count-total-500",
+    "kind": "cumulative",
+    "category": "activity_count",
+    "name": "Five Hundred Strong",
+    "description": "Log 500 activities total.",
+    "metric": "total_activity_count",
+    "value": 500,
+    "rewardTier": "platinum"
+  },
+
+  {
+    "id": "duration-total-10h",
+    "kind": "cumulative",
+    "category": "duration",
+    "name": "Ten Hours in Motion",
+    "description": "Log 10 hours of activity total.",
+    "metric": "total_duration_min",
+    "value": 600,
+    "rewardTier": "bronze"
+  },
+  {
+    "id": "duration-total-100h",
+    "kind": "cumulative",
+    "category": "duration",
+    "name": "A Hundred Hours",
+    "description": "Log 100 hours of activity total.",
+    "metric": "total_duration_min",
+    "value": 6000,
+    "rewardTier": "silver"
+  },
+  {
+    "id": "duration-total-500h",
+    "kind": "cumulative",
+    "category": "duration",
+    "name": "Five Hundred Hours",
+    "description": "Log 500 hours of activity total.",
+    "metric": "total_duration_min",
+    "value": 30000,
+    "rewardTier": "gold"
+  },
+
+  {
+    "id": "streak-7",
+    "kind": "cumulative",
+    "category": "streak",
+    "name": "A Week Unbroken",
+    "description": "Hold a streak of 7 days.",
+    "metric": "longest_streak_days",
+    "value": 7,
+    "rewardTier": "bronze"
+  },
+  {
+    "id": "streak-30",
+    "kind": "cumulative",
+    "category": "streak",
+    "name": "A Month Unbroken",
+    "description": "Hold a streak of 30 days.",
+    "metric": "longest_streak_days",
+    "value": 30,
+    "rewardTier": "silver"
+  },
+  {
+    "id": "streak-100",
+    "kind": "cumulative",
+    "category": "streak",
+    "name": "A Hundred Days of Fire",
+    "description": "Hold a streak of 100 days.",
+    "metric": "longest_streak_days",
+    "value": 100,
+    "rewardTier": "gold"
+  },
+  {
+    "id": "streak-365",
+    "kind": "cumulative",
+    "category": "streak",
+    "name": "A Year Unbroken",
+    "description": "Hold a streak of 365 days.",
+    "metric": "longest_streak_days",
+    "value": 365,
+    "rewardTier": "platinum"
+  },
+
+  {
+    "id": "variety-3",
+    "kind": "cumulative",
+    "category": "variety",
+    "name": "The Versatile Athlete",
+    "description": "Log 3 different activity types.",
+    "metric": "activity_type_variety",
+    "value": 3,
+    "rewardTier": "bronze"
+  },
+  {
+    "id": "variety-6",
+    "kind": "cumulative",
+    "category": "variety",
+    "name": "The Decathlete",
+    "description": "Log 6 different activity types.",
+    "metric": "activity_type_variety",
+    "value": 6,
+    "rewardTier": "silver"
+  },
+
+  {
+    "id": "level-10",
+    "kind": "cumulative",
+    "category": "level",
+    "name": "Into the Ranger Tier",
+    "description": "Reach Level 10 and choose a class.",
+    "metric": "level_reached",
+    "value": 10,
+    "rewardTier": "bronze"
+  },
+  {
+    "id": "level-25",
+    "kind": "cumulative",
+    "category": "level",
+    "name": "Quarter of a Hundred",
+    "description": "Reach Level 25.",
+    "metric": "level_reached",
+    "value": 25,
+    "rewardTier": "silver"
+  },
+  {
+    "id": "level-50",
+    "kind": "cumulative",
+    "category": "level",
+    "name": "Legend Tier",
+    "description": "Reach Level 50 — your name echoes across the land.",
+    "metric": "level_reached",
+    "value": 50,
+    "rewardTier": "gold"
+  },
+  {
+    "id": "level-75",
+    "kind": "cumulative",
+    "category": "level",
+    "name": "Beyond Mortal Limits",
+    "description": "Reach Level 75.",
+    "metric": "level_reached",
+    "value": 75,
+    "rewardTier": "platinum"
+  }
+]

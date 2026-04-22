@@ -4,3 +4,4 @@ export * from './user.types';
 export * from './stats.types';
 export * from './game.types';
 export * from './admin.types';
+export * from './content.types';

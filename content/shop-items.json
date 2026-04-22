@@ -1,0 +1,50 @@
+[
+  {
+    "id": "streakShield",
+    "kind": "consumable",
+    "category": "streak_protection",
+    "name": "Streak Shield",
+    "description": "Auto-consumes to prevent one streak reset when you miss a day.",
+    "flavor": "A ward against the dark between days. Hold fast, and the flame stays lit."
+  },
+  {
+    "id": "xpBoost",
+    "kind": "consumable",
+    "category": "xp_enhancement",
+    "name": "Tome of Experience",
+    "description": "Multiplies XP earned on your next activity.",
+    "flavor": "Ink that bleeds into muscle. Every step counts for more."
+  },
+  {
+    "id": "goldBoost",
+    "kind": "consumable",
+    "category": "gold_enhancement",
+    "name": "Merchant's Seal",
+    "description": "Multiplies Gold earned on your next activity.",
+    "flavor": "Sealed in wax from a long-dead trader's hand. The coin knows its keeper."
+  },
+  {
+    "id": "luckyCharm",
+    "kind": "consumable",
+    "category": "loot_enhancement",
+    "name": "Lucky Charm",
+    "description": "Doubles the chance of a bonus drop on your next activity.",
+    "flavor": "A coin struck on the wrong side. Fortune favors those who carry it — briefly."
+  },
+  {
+    "id": "enduranceElixir",
+    "kind": "consumable",
+    "category": "duration_bonus",
+    "name": "Endurance Elixir",
+    "description": "Bonus XP if your next activity runs longer than 60 minutes.",
+    "flavor": "Three herbs and a secret. Go long, and the elixir goes with you."
+  },
+  {
+    "id": "trailblazerMap",
+    "kind": "consumable",
+    "category": "elevation_bonus",
+    "name": "Trailblazer's Map",
+    "description": "Bonus XP on elevation gain during your next activity.",
+    "flavor": "Scrawled in a different hand on every corner. The mountain marks you as it lets you pass."
+  }
+]

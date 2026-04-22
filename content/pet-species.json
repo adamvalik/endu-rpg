@@ -1,0 +1,182 @@
+[
+  {
+    "id": "trail-pup",
+    "name": "Trail Pup",
+    "rarity": "common",
+    "buff": { "type": "xp_bonus", "value": 0.02 },
+    "stageDescriptions": [
+      "A round-bellied puppy with muddy paws. Too eager to be useful, but it tries.",
+      "A leggy hound who's grown into its ears. Leads you onto paths you didn't know existed.",
+      "A grey-muzzled elder with knowing eyes. It has seen every trail and remembers most."
+    ],
+    "flavor": "A cast-off from a hunting lodge that took a liking to a stranger. Trail Pups imprint on the first person who keeps pace with them."
+  },
+  {
+    "id": "pond-frog",
+    "name": "Pond Frog",
+    "rarity": "common",
+    "buff": { "type": "xp_bonus", "value": 0.02 },
+    "stageDescriptions": [
+      "A tadpole in a glass jar. Little more than a shadow and a tail.",
+      "A sleek froglet, jade-green, forever leaping just out of reach.",
+      "A pond-elder the size of a lunch bowl, its throat a low drum at dusk."
+    ],
+    "flavor": "Pond Frogs appear where runoff collects. They travel in the pockets of walkers, demanding nothing but the occasional pause near still water."
+  },
+  {
+    "id": "field-mouse",
+    "name": "Field Mouse",
+    "rarity": "common",
+    "buff": { "type": "gold_bonus", "value": 0.03 },
+    "stageDescriptions": [
+      "A pink-nosed pup no bigger than a thumb, all whiskers and trust.",
+      "A quick russet mouse that knows every seam in your coat pocket.",
+      "A wizened brown-grey creature with a coin-scratched tail. A known accomplice."
+    ],
+    "flavor": "Field Mice thieve small bright things and leave them in their owners' bags. The city guard has opinions. The owner rarely does."
+  },
+  {
+    "id": "road-sparrow",
+    "name": "Road Sparrow",
+    "rarity": "common",
+    "buff": { "type": "xp_bonus", "value": 0.02 },
+    "stageDescriptions": [
+      "A downy chick with oversized wings. More fluff than bird.",
+      "A quick brown sparrow who flies ahead as a scout.",
+      "A weathered dusk-breasted sparrow who has flown every road you will ever take."
+    ],
+    "flavor": "Road Sparrows are the couriers' pets. They appear at roadside inns and pick their own keepers by landing on boots."
+  },
+  {
+    "id": "smoke-moth",
+    "name": "Smoke Moth",
+    "rarity": "common",
+    "buff": { "type": "drop_chance_bonus", "value": 0.02 },
+    "stageDescriptions": [
+      "A grey caterpillar with a faint silver trail, curled on a leaf.",
+      "A palm-sized chrysalis, ash-colored, vibrating at the edges.",
+      "A dusk-moth with wings that scatter pale smoke where they beat."
+    ],
+    "flavor": "Smoke Moths are drawn to bright finds. They circle treasure with a faint glow, always the first to notice a dropped coin."
+  },
+  {
+    "id": "forge-fox",
+    "name": "Forge Fox",
+    "rarity": "uncommon",
+    "buff": { "type": "gold_bonus", "value": 0.05 },
+    "stageDescriptions": [
+      "A soot-smudged kit with bright orange paws. Sneezes sparks.",
+      "A slim red fox with blackened fur at the tips, tail like a flame.",
+      "A broad-shouldered forge fox whose every step leaves a coin-shaped glow in the grass."
+    ],
+    "flavor": "Forge Foxes were the familiars of smiths before the forges went cold. They seek warm-handed travelers and the clink of metal."
+  },
+  {
+    "id": "ember-salamander",
+    "name": "Ember Salamander",
+    "rarity": "uncommon",
+    "buff": { "type": "xp_bonus", "value": 0.04 },
+    "stageDescriptions": [
+      "A palm-length salamander, orange with cool black eyes.",
+      "A banded ember-lizard whose skin warms the stone it lies on.",
+      "A crimson-backed elder whose shed skin glows for hours in the dark."
+    ],
+    "flavor": "Ember Salamanders live in volcanic springs and old bath-houses. They bond with athletes who train in heat."
+  },
+  {
+    "id": "cave-bat",
+    "name": "Cave Bat",
+    "rarity": "uncommon",
+    "buff": { "type": "drop_chance_bonus", "value": 0.04 },
+    "stageDescriptions": [
+      "A thumb-sized bat pup clinging upside-down to anything warm.",
+      "A leather-winged bat of middling size, echolocating softly in the dark.",
+      "A broad-winged cave-elder whose sonar catches what eyes miss."
+    ],
+    "flavor": "Cave Bats perch in the eaves of travelers' packs. They are silent except at night, when they announce hidden treasures with soft chirps."
+  },
+  {
+    "id": "summit-goat",
+    "name": "Summit Goat",
+    "rarity": "uncommon",
+    "buff": { "type": "elevation_xp_bonus", "value": 0.05 },
+    "stageDescriptions": [
+      "A kid goat, barely steady on its legs, but fearless about edges.",
+      "A short-horned goat with black stripes, climbing cliff faces effortlessly.",
+      "A silver-bearded mountain goat, horns curved like a crown, eyes pale as glacier ice."
+    ],
+    "flavor": "Summit Goats follow hikers to high places. They don't come when called — they lead, and the hiker follows if they're wise."
+  },
+  {
+    "id": "crystal-lynx",
+    "name": "Crystal Lynx",
+    "rarity": "rare",
+    "buff": { "type": "xp_bonus", "value": 0.07 },
+    "stageDescriptions": [
+      "A translucent lynx kitten whose fur catches the light at odd angles.",
+      "A long-limbed juvenile lynx, coat shimmering like frost on dark stone.",
+      "A full-grown lynx whose every pawprint leaves a brief crystalline shimmer."
+    ],
+    "flavor": "Crystal Lynxes emerge from frozen caves in the first thaw. They choose their keepers by sitting at a door and refusing to leave."
+  },
+  {
+    "id": "glacier-hare",
+    "name": "Glacier Hare",
+    "rarity": "rare",
+    "buff": { "type": "streak_grace_bonus", "value": 1 },
+    "stageDescriptions": [
+      "A small white leveret that trembles and darts at every shadow.",
+      "A long-eared mountain hare with pale blue-tipped fur, swift and patient.",
+      "A heavy-pawed glacier hare whose coat is a map of old storms."
+    ],
+    "flavor": "Glacier Hares are said to protect travelers from the worst of cold days. Those who carry one lose fewer days to the thaw."
+  },
+  {
+    "id": "storm-crow",
+    "name": "Storm Crow",
+    "rarity": "rare",
+    "buff": { "type": "drop_chance_bonus", "value": 0.07 },
+    "stageDescriptions": [
+      "A black-feathered chick with bright eyes and a loud, insistent voice.",
+      "A mid-sized corvid with a dark sheen of blue-black, watching everything.",
+      "A heavy storm-crow whose wingbeats crackle faintly before a downpour."
+    ],
+    "flavor": "Storm Crows trail travelers before bad weather and lead them to shelter. They hoard bright trinkets in their nests, which they share with their bonded keeper."
+  },
+  {
+    "id": "ridge-ram",
+    "name": "Ridge Ram",
+    "rarity": "rare",
+    "buff": { "type": "elevation_xp_bonus", "value": 0.08 },
+    "stageDescriptions": [
+      "A spring-born lamb, already too sure-footed for its own size.",
+      "A young ram with spiraling horns, dark-coated against the snow.",
+      "A weathered ridge-ram whose horns scrape the sky on the high passes."
+    ],
+    "flavor": "Ridge Rams are the herald animals of mountain clans. They don't follow — they accompany. A keeper who tires first is considered weak."
+  },
+  {
+    "id": "leviathan-calf",
+    "name": "Leviathan Calf",
+    "rarity": "legendary",
+    "buff": { "type": "class_xp_bonus", "value": 0.15, "class": "aquanaut" },
+    "stageDescriptions": [
+      "A palm-sized translucent whale-calf floating in a bottle of sea water.",
+      "A knee-length leviathan whose tail ripples the air around it.",
+      "A full leviathan whose eye is the size of a fist, and who has yet to be surprised by anything."
+    ],
+    "flavor": "Leviathans are ancient. This one is not. It was found in a shell on a beach after a three-day storm, and has not yet learned to fear anything, least of all its keeper."
+  },
+  {
+    "id": "phoenix-ember",
+    "name": "Phoenix Ember",
+    "rarity": "legendary",
+    "buff": { "type": "xp_bonus", "value": 0.1 },
+    "stageDescriptions": [
+      "A cupped coal that never cools, faintly shaped like a bird.",
+      "A fledgling phoenix the size of a cat, feathers edged in live fire.",
+      "A full phoenix whose wingbeats leave a trail of slow-falling embers."
+    ],
+    "flavor": "Phoenix Embers are said to hatch from coals that have been kept burning for seven consecutive years. No keeper admits to this, and yet there they are."
+  }
+]

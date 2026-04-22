@@ -8,6 +8,20 @@ export type CharacterTier =
   | 'legend'
   | 'mythic';
 
+export type CharacterClass = 'strider' | 'voyager' | 'mountaineer' | 'aquanaut' | 'titan';
+
+export type Specialization =
+  | 'marathoner'
+  | 'sprinter'
+  | 'roadRacer'
+  | 'trailblazer'
+  | 'summitChaser'
+  | 'trekker'
+  | 'openWater'
+  | 'poolmaster'
+  | 'powerlifter'
+  | 'crossfitter';
+
 export interface GameProfile {
   totalXP: number;
   level: number;
